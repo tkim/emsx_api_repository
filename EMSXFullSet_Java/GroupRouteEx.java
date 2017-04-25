@@ -32,7 +32,7 @@ import com.bloomberglp.blpapi.Service;
 import com.bloomberglp.blpapi.CorrelationID;
 
 
-public class GroupRoute {
+public class GroupRouteEx {
 	
 	private static final Name 	SESSION_STARTED 		= new Name("SessionStarted");
 	private static final Name 	SESSION_STARTUP_FAILURE = new Name("SessionStartupFailure");
@@ -52,9 +52,9 @@ public class GroupRoute {
     
     public static void main(String[] args) throws java.lang.Exception
     {
-        System.out.println("Bloomberg - EMSX API Example - GroupRoute\n");
+        System.out.println("Bloomberg - EMSX API Example - GroupRouteEx\n");
 
-        GroupRoute example = new GroupRoute();
+        GroupRouteEx example = new GroupRouteEx();
         example.run(args);
 
         while(!quit) {
@@ -63,7 +63,7 @@ public class GroupRoute {
         
     }
     
-    public GroupRoute()
+    public GroupRouteEx()
     {
     	
     	// Define the service required, in this case the EMSX beta service, 

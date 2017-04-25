@@ -32,7 +32,7 @@ using System;
 
 namespace com.bloomberg.emsx.samples
 {
-    public class GetBrokerStrategyInfoWithAssetClass
+    public class ManualFill
     {
 
         private static readonly Name SESSION_STARTED = new Name("SessionStarted");
@@ -41,7 +41,7 @@ namespace com.bloomberg.emsx.samples
         private static readonly Name SERVICE_OPEN_FAILURE = new Name("ServiceOpenFailure");
 
         private static readonly Name ERROR_INFO = new Name("ErrorInfo");
-        private static readonly Name GET_BROKER_STRATEGY_INFO_WITH_ASSET_CLASS = new Name("GetBrokerStrategyInfoWithAssetClass");
+        private static readonly Name MANUAL_FILL = new Name("ManulFill");
 
         private string d_service;
         private string d_host;
@@ -53,16 +53,16 @@ namespace com.bloomberg.emsx.samples
 
         public static void Main(String[] args)
         {
-            System.Console.WriteLine("Bloomberg - EMSX API Example - GetBrokerStrategyInfoWithAssetClass\n");
+            System.Console.WriteLine("Bloomberg - EMSX API Example - ManualFill\n");
 
-            GetBrokerStrategyInfoWithAssetClass example = new GetBrokerStrategyInfoWithAssetClass();
+            ManualFill example = new ManualFill();
             example.run(args);
 
             while (!quit) { };
 
         }
 
-        public GetBrokerStrategyInfoWithAssetClass()
+        public ManualFill()
         {
 
             // Define the service required, in this case the beta service, 
@@ -145,13 +145,34 @@ namespace com.bloomberg.emsx.samples
 
                     Service service = session.GetService(d_service);
 
-                    Request request = service.CreateRequest("GetBrokerStrategyInfoWithAssetClass");
+                    Request request = service.CreateRequest("ManualFill");
 
-                    //request.set("EMSX_REQUEST_SEQ", 1);
+                    //request.Set("EMSX_REQUEST_SEQ", 1);
 
-                    request.Set("EMSX_ASSET_CLASS", "EQTY"); //one of EQTY, OPT, FUT or MULTILEG_OPT
-                    request.Set("EMSX_BROKER", "BMTB");
-                    request.Set("EMSX_STRATEGY", "VWAP");
+                    Element routeToFill = request.GetElement("ROUTE_TO_FILL");
+
+                    routeToFill.SetElement("EMSX_SEQUENCE", 3852518);
+                    routeToFill.SetElement("EMSX_ROUTE_ID", 1);
+
+                    Element fills = request.GetElement("FILLS");
+
+                    fills.SetElement("EMSX_FILL_AMOUNT", 500);
+                    fills.SetElement("EMSX_FILL_PRICE", 127.5);
+                    fills.SetElement("EMSX_LAST_MARKET", "XLON");
+
+                    // Only needed for Indian exchanges
+                    //fills.SetElement("EMSX_INDIA_EXCHANGE","BGL");
+
+                    Element fillDateTime = fills.GetElement("EMSX_FILL_DATE_TIME");
+
+                    fillDateTime.SetChoice("Legacy");
+
+                    fillDateTime.SetElement("EMSX_FILL_DATE", 20171004);
+                    fillDateTime.SetElement("EMSX_FILL_TIME", 17054);
+                    fillDateTime.SetElement("EMSX_FILL_TIME_FORMAT", "SecondsFromMidnight");
+
+                    // If performing the fill on an order owned by another team member, provide owner's UUID
+                    //request.Set("EMSX_TRADER_UUID", 12109783);
 
                     System.Console.WriteLine("Request: " + request.ToString());
 
@@ -188,30 +209,17 @@ namespace com.bloomberg.emsx.samples
                 if (evt.Type == Event.EventType.RESPONSE && msg.CorrelationID == requestID)
                 {
                     System.Console.WriteLine("Message Type: " + msg.MessageType);
-
                     if (msg.MessageType.Equals(ERROR_INFO))
                     {
                         int errorCode = msg.GetElementAsInt32("ERROR_CODE");
                         String errorMessage = msg.GetElementAsString("ERROR_MESSAGE");
                         System.Console.WriteLine("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                     }
-                    else if (msg.MessageType.Equals(GET_BROKER_STRATEGY_INFO_WITH_ASSET_CLASS))
+                    else if (msg.MessageType.Equals(SELL_SIDE_ACK))
                     {
-                        Element strategies = msg.GetElement("EMSX_STRATEGY_INFO");
-
-                        int numValues = strategies.NumValues;
-
-                        for (int i = 0; i < numValues; i++)
-                        {
-
-                            Element e = strategies.GetValueAsElement(i);
-
-                            String fieldName = e.GetElementAsString("FieldName");
-                            String disable = e.GetElementAsString("Disable");
-                            String stringValue = e.GetElementAsString("StringValue");
-
-                            System.Console.WriteLine("EMSX_STRATEGY_INFO: " + fieldName + ", " + disable + ", " + stringValue);
-                        }
+                        int status = msg.GetElementAsInt32("STATUS");
+                        String message = msg.GetElementAsString("MESSAGE");
+                        System.Console.WriteLine("STATUS: " + status + "\tMESSAGE: " + message);
                     }
 
                     quit = true;

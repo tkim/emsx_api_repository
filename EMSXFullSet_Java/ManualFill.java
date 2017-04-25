@@ -52,7 +52,7 @@ public class ManualFill {
     
     public static void main(String[] args) throws java.lang.Exception
     {
-        System.out.println("Bloomberg - EMSX API Sell-Side Example - ManualFill;\n");
+        System.out.println("Bloomberg - EMSX API Sell-Side Example - ManualFill\n");
 
         ManualFill example = new ManualFill();
         example.run(args);
@@ -155,28 +155,30 @@ public class ManualFill {
 
                     //request.set("EMSX_REQUEST_SEQ", 1);
 
-                    request.set("EMSX_TRADER_UUID", 12109783);
-
                     Element routeToFill = request.getElement("ROUTE_TO_FILL");
                     
-                    routeToFill.setElement("EMSX_SEQUENCE", 1234567);
+                    routeToFill.setElement("EMSX_SEQUENCE", 3852518);
                     routeToFill.setElement("EMSX_ROUTE_ID", 1);
                     
                     Element fills = request.getElement("FILLS");
                     
-                    fills.setElement("EMSX_FILL_AMOUNT", 1000);
-                    fills.setElement("EMSX_FILL_PRICE", 123.4);
+                    fills.setElement("EMSX_FILL_AMOUNT", 500);
+                    fills.setElement("EMSX_FILL_PRICE", 127.5);
                     fills.setElement("EMSX_LAST_MARKET", "XLON");
                     
-                    fills.setElement("EMSX_INDIA_EXCHANGE","BGL");
+                    // Only needed for Indian exchanges
+                    //fills.setElement("EMSX_INDIA_EXCHANGE","BGL");
                     
                     Element fillDateTime = fills.getElement("EMSX_FILL_DATE_TIME");
                     
                     fillDateTime.setChoice("Legacy");
                     
-                    fillDateTime.setElement("EMSX_FILL_DATE",20172203);
+                    fillDateTime.setElement("EMSX_FILL_DATE",20171004);
                     fillDateTime.setElement("EMSX_FILL_TIME",17054);
                     fillDateTime.setElement("EMSX_FILL_TIME_FORMAT","SecondsFromMidnight");
+
+                    // If performing the fill on an order owned by another team member, provide owner's UUID
+                    //request.set("EMSX_TRADER_UUID", 12109783);
 
                     System.out.println("Request: " + request.toString());
 

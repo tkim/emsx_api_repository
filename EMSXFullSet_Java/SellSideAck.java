@@ -154,7 +154,8 @@ public class SellSideAck {
 
                     //request.set("EMSX_REQUEST_SEQ", 1); 
 
-                    request.set("EMSX_SEQUENCE", 1234567);
+                    // Append is used as any number of orders can be ack'ed in a single request
+                    request.append("EMSX_SEQUENCE", 3852548);
 
                     // If performing the ack on an order owned by another team member, provide owner's UUID
                     //request.set("EMSX_TRADER_UUID", 7654321);

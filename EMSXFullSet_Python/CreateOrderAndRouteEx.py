@@ -1,4 +1,4 @@
-# CreateOrderAndRoute.py
+# CreateOrderAndRouteEx.py
 
 import sys
 import blpapi
@@ -9,7 +9,7 @@ SESSION_STARTUP_FAILURE = blpapi.Name("SessionStartupFailure")
 SERVICE_OPENED          = blpapi.Name("ServiceOpened")
 SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
-CREATE_ORDER_AND_ROUTE  = blpapi.Name("CreateOrderAndRouteEx")
+CREATE_ORDER_AND_ROUTE_EX  = blpapi.Name("CreateOrderAndRouteEx")
 
 d_service="//blp/emapisvc_beta"
 d_host="localhost"
@@ -32,8 +32,9 @@ class SessionEventHandler():
             else:
                 self.processMiscEvents(event)
                 
-        except blpapi.Exception as e:
-            print "Exception:  %s" % e.description()
+        except:
+            print "Exception:  %s" % sys.exc_info()[0]
+            
         return False
 
 
@@ -71,9 +72,9 @@ class SessionEventHandler():
                 request.set("EMSX_TIF", "DAY")
                 request.set("EMSX_HAND_INSTRUCTION", "ANY")
                 request.set("EMSX_SIDE", "BUY")
-                request.set("EMSX_BROKER", "BB")
-                
-                # The fields below are optional
+                request.set("EMSX_BROKER", "BMTB")
+            
+                #The fields below are optional
                 #request.set("EMSX_ACCOUNT","TestAccount")
                 #request.set("EMSX_BOOKNAME","BookName")
                 #request.set("EMSX_BASKET_NAME", "HedgingBasket")
@@ -106,6 +107,54 @@ class SessionEventHandler():
                 #request.set("EMSX_SETTLE_DATE", 20170106)
                 #request.set("EMSX_SETTLE_TYPE", "T+2")
                 #request.set("EMSX_STOP_PRICE", 123.5)
+                
+                # Below we establish the strategy details
+                
+                strategy = request.getElement("EMSX_STRATEGY_PARAMS")
+                strategy.setElement("EMSX_STRATEGY_NAME", "VWAP")
+                
+                indicator = strategy.getElement("EMSX_STRATEGY_FIELD_INDICATORS")
+                data = strategy.getElement("EMSX_STRATEGY_FIELDS")
+                
+                # Strategy parameters must be appended in the correct order. See the output 
+                # of GetBrokerStrategyInfo request for the order. The indicator value is 0 for 
+                # a field that carries a value, and 1 where the field should be ignored
+                
+                data.appendElement().setElement("EMSX_FIELD_DATA", "09:30:00") # StartTime
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "10:30:00") # EndTime
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # Max%Volume
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # %AMSession
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # OPG
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # MOC
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # CompletePX
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+                   
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # TriggerPX
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # DarkComplete
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # DarkCompPX
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # RefIndex
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
+    
+                data.appendElement().setElement("EMSX_FIELD_DATA", "")         # Discretion
+                indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
 
                 print "Request: %s" % request.toString()
                     
@@ -132,7 +181,7 @@ class SessionEventHandler():
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
                     print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
-                elif msg.messageType() == CREATE_ORDER_AND_ROUTE:
+                elif msg.messageType() == CREATE_ORDER_AND_ROUTE_EX:
                     emsx_sequence = msg.getElementAsInteger("EMSX_SEQUENCE")
                     emsx_route_id = msg.getElementAsInteger("EMSX_ROUTE_ID")
                     message = msg.getElementAsString("MESSAGE")
@@ -173,7 +222,7 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - CreateOrderAndRoute"
+    print "Bloomberg - EMSX API Example - CreateOrderAndRouteEx"
     try:
         main()
     except KeyboardInterrupt:

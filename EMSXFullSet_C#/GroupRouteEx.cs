@@ -32,7 +32,7 @@ using System;
 
 namespace com.bloomberg.emsx.samples
 {
-    public class GroupRoute
+    public class GroupRouteEx
     {
 
         private static readonly Name SESSION_STARTED = new Name("SessionStarted");
@@ -41,7 +41,7 @@ namespace com.bloomberg.emsx.samples
         private static readonly Name SERVICE_OPEN_FAILURE = new Name("ServiceOpenFailure");
 
         private static readonly Name ERROR_INFO = new Name("ErrorInfo");
-        private static readonly Name GROUP_ROUTE = new Name("GroupRouteEx");
+        private static readonly Name GROUP_ROUTE_EX = new Name("GroupRouteEx");
 
         private string d_service;
         private string d_host;
@@ -53,16 +53,16 @@ namespace com.bloomberg.emsx.samples
 
         public static void Main(String[] args)
         {
-            System.Console.WriteLine("Bloomberg - EMSX API Example - GroupRoute\n");
+            System.Console.WriteLine("Bloomberg - EMSX API Example - GroupRouteEx\n");
 
-            GroupRoute example = new GroupRoute();
+            GroupRouteEx example = new GroupRouteEx();
             example.run(args);
 
             while (!quit) { };
 
         }
 
-        public GroupRoute()
+        public GroupRouteEx()
         {
 
             // Define the service required, in this case the beta service, 
@@ -211,6 +211,7 @@ namespace com.bloomberg.emsx.samples
 
                     // Below we establish the strategy details. Strategy details
                     // are common across all orders in a GroupRoute operation.
+                    // The following segment can be removed if no broker strategies are used
 
                     Element strategy = request.GetElement("EMSX_STRATEGY_PARAMS");
                     strategy.SetElement("EMSX_STRATEGY_NAME", "VWAP");
@@ -300,7 +301,7 @@ namespace com.bloomberg.emsx.samples
                         String errorMessage = msg.GetElementAsString("ERROR_MESSAGE");
                         System.Console.WriteLine("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                     }
-                    else if (msg.MessageType.Equals(GROUP_ROUTE))
+                    else if (msg.MessageType.Equals(GROUP_ROUTE_EX))
                     {
                         int numValues = 0;
 

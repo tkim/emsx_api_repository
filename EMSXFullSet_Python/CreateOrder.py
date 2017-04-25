@@ -32,12 +32,13 @@ class SessionEventHandler():
             else:
                 self.processMiscEvents(event)
                 
-        except blpapi.Exception as e:
-            print "Exception:  %s" % e.description()
+        except:
+            print "Exception:  %s" % sys.exc_info()[0]
+            
         return False
 
 
-    def processSessionStatusEvent(self,event,session):
+    def processSessionStatusEvent(self,event,session):  
         print "Processing SESSION_STATUS event"
 
         for msg in event:
@@ -71,6 +72,7 @@ class SessionEventHandler():
                 request.set("EMSX_TIF", "DAY")
                 request.set("EMSX_HAND_INSTRUCTION", "ANY")
                 request.set("EMSX_SIDE", "BUY")
+
             
                 # The fields below are optional
                 #request.set("EMSX_ACCOUNT","TestAccount")

@@ -161,9 +161,9 @@ public class CreateOrder {
             	    request.set("EMSX_SIDE", "BUY");
             	
             	    // The fields below are optional
-            	    //request.set("EMSX_ACCOUNT","TestAccount");
+            	    request.set("EMSX_ACCOUNT","TestAccount");
             	    //request.set("EMSX_BASKET_NAME", "HedgingBasket");
-            	    //request.set("EMSX_BROKER", "BMTB");
+            	    request.set("EMSX_BROKER", "BMTB");
             	    //request.set("EMSX_CFD_FLAG", "1");
             	    //request.set("EMSX_CLEARING_ACCOUNT", "ClrAccName");
             	    //request.set("EMSX_CLEARING_FIRM", "FirmName");
@@ -222,6 +222,7 @@ public class CreateOrder {
             while(msgIter.hasNext())
             {
             	Message msg = msgIter.next();
+        
                 System.out.println("MESSAGE: " + msg.toString());
                 System.out.println("CORRELATION ID: " + msg.correlationID());
                 

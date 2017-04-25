@@ -19,17 +19,16 @@
  */
 package com.bloomberg.emsx.samples;
 
-import com.bloomberglp.blpapi.Element;
+import com.bloomberglp.blpapi.CorrelationID;
 import com.bloomberglp.blpapi.Event;
 import com.bloomberglp.blpapi.EventHandler;
 import com.bloomberglp.blpapi.Message;
 import com.bloomberglp.blpapi.MessageIterator;
 import com.bloomberglp.blpapi.Name;
-import com.bloomberglp.blpapi.Session;
-import com.bloomberglp.blpapi.SessionOptions;
 import com.bloomberglp.blpapi.Request;
 import com.bloomberglp.blpapi.Service;
-import com.bloomberglp.blpapi.CorrelationID;
+import com.bloomberglp.blpapi.Session;
+import com.bloomberglp.blpapi.SessionOptions;
 
 
 public class RouteManually {

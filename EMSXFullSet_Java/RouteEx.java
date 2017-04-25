@@ -19,6 +19,7 @@
  */
 package com.bloomberg.emsx.samples;
 
+import com.bloomberglp.blpapi.Element;
 import com.bloomberglp.blpapi.Event;
 import com.bloomberglp.blpapi.EventHandler;
 import com.bloomberglp.blpapi.Message;
@@ -31,7 +32,7 @@ import com.bloomberglp.blpapi.Service;
 import com.bloomberglp.blpapi.CorrelationID;
 
 
-public class Route {
+public class RouteEx {
 	
 	private static final Name 	SESSION_STARTED 		= new Name("SessionStarted");
 	private static final Name 	SESSION_STARTUP_FAILURE = new Name("SessionStartupFailure");
@@ -39,7 +40,7 @@ public class Route {
 	private static final Name 	SERVICE_OPEN_FAILURE 	= new Name("ServiceOpenFailure");
 	
     private static final Name 	ERROR_INFO = new Name("ErrorInfo");
-    private static final Name 	ROUTE = new Name("Route");
+    private static final Name 	ROUTE_WITH_STRAT = new Name("Route");
 
 	private String 	d_service;
     private String  d_host;
@@ -51,9 +52,9 @@ public class Route {
     
     public static void main(String[] args) throws java.lang.Exception
     {
-        System.out.println("Bloomberg - EMSX API Example - Route\n");
+        System.out.println("Bloomberg - EMSX API Example - RouteEx\n");
 
-        Route example = new Route();
+        RouteEx example = new RouteEx();
         example.run(args);
 
         while(!quit) {
@@ -62,7 +63,7 @@ public class Route {
         
     }
     
-    public Route()
+    public RouteEx()
     {
     	
     	// Define the service required, in this case the EMSX beta service, 
@@ -152,10 +153,12 @@ public class Route {
 
                     Request request = service.createRequest("RouteEx");
 
-            	    // The fields below are mandatory
-            	    request.set("EMSX_SEQUENCE", 3654595); // Order number
-            	    request.set("EMSX_AMOUNT", 500);
-            	    request.set("EMSX_BROKER", "BB");
+            	    //request.set("EMSX_REQUEST_SEQ", 1);
+
+                    // The fields below are mandatory
+            	    request.set("EMSX_SEQUENCE", 3654612); // Order number
+            	    request.set("EMSX_AMOUNT", 1000);
+            	    request.set("EMSX_BROKER", "BMTB");
             	    request.set("EMSX_HAND_INSTRUCTION", "ANY");
             	    request.set("EMSX_ORDER_TYPE", "MKT");
             	    request.set("EMSX_TICKER", "IBM US Equity");
@@ -163,6 +166,7 @@ public class Route {
             	
             	    // The fields below are optional
             	    //request.set("EMSX_ACCOUNT","TestAccount");
+            	    //request.set("EMSX_BOOKNAME","BookName");
             	    //request.set("EMSX_CFD_FLAG", "1");
             	    //request.set("EMSX_CLEARING_ACCOUNT", "ClrAccName");
             	    //request.set("EMSX_CLEARING_FIRM", "FirmName");
@@ -177,10 +181,58 @@ public class Route {
             	    //request.set("EMSX_ODD_LOT", "0");
             	    //request.set("EMSX_P_A", "P");
             	    //request.set("EMSX_RELEASE_TIME", 34341);
-            	    //request.set("EMSX_REQUEST_SEQ", 1001);
             	    //request.set("EMSX_ROUTE_REF_ID", "UniqueRef");
             	    //request.set("EMSX_STOP_PRICE", 123.5);
             	    //request.set("EMSX_TRADER_UUID", 1234567);
+
+            	    // Below we establish the strategy details
+            	    // The following segment can be removed if no broker strategies are used
+            	    
+            	    Element strategy = request.getElement("EMSX_STRATEGY_PARAMS");
+            	    strategy.setElement("EMSX_STRATEGY_NAME", "VWAP");
+            	    
+            	    Element indicator = strategy.getElement("EMSX_STRATEGY_FIELD_INDICATORS");
+            	    Element data = strategy.getElement("EMSX_STRATEGY_FIELDS");
+            	    
+            		// Strategy parameters must be appended in the correct order. See the output 
+            	    // of GetBrokerStrategyInfo request for the order. The indicator value is 0 for 
+            	    // a field that carries a value, and 1 where the field should be ignored
+            	    
+            	    data.appendElement().setElement("EMSX_FIELD_DATA", "09:30:00"); // StartTime
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", "10:30:00"); // EndTime
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Max%Volume
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// %AMSession
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// OPG
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// MOC
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// CompletePX
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+               		
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// TriggerPX
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkComplete
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkCompPX
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// RefIndex
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Discretion
+               		indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
 
             	    System.out.println("Request: " + request.toString());
 
@@ -221,7 +273,7 @@ public class Route {
                 		Integer errorCode = msg.getElementAsInt32("ERROR_CODE");
                 		String errorMessage = msg.getElementAsString("ERROR_MESSAGE");
                 		System.out.println("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
-                	} else if(msg.messageType().equals(ROUTE)) {
+                	} else if(msg.messageType().equals(ROUTE_WITH_STRAT)) {
                 		Integer emsx_sequence = msg.getElementAsInt32("EMSX_SEQUENCE");
                 		Integer emsx_route_id = msg.getElementAsInt32("EMSX_ROUTE_ID");
                 		String message = msg.getElementAsString("MESSAGE");

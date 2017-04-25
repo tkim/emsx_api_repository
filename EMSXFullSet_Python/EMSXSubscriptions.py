@@ -57,8 +57,9 @@ class SessionEventHandler(object):
             else:
                 self.processMiscEvents(event)
                 
-        except blpapi.Exception as e:
-            print "Exception:  %s" % e
+        except:
+            print "Exception:  %s" % sys.exc_info()[0]
+            
         return False
 
 

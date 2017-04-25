@@ -32,7 +32,7 @@ using System;
 
 namespace com.bloomberg.emsx.samples
 {
-    public class GetBrokerStrategyInfoWithAssetClass
+    public class ModifyRouteEx
     {
 
         private static readonly Name SESSION_STARTED = new Name("SessionStarted");
@@ -41,7 +41,7 @@ namespace com.bloomberg.emsx.samples
         private static readonly Name SERVICE_OPEN_FAILURE = new Name("ServiceOpenFailure");
 
         private static readonly Name ERROR_INFO = new Name("ErrorInfo");
-        private static readonly Name GET_BROKER_STRATEGY_INFO_WITH_ASSET_CLASS = new Name("GetBrokerStrategyInfoWithAssetClass");
+        private static readonly Name MODIFY_ROUTE_EX = new Name("ModifyRouteEx");
 
         private string d_service;
         private string d_host;
@@ -53,16 +53,16 @@ namespace com.bloomberg.emsx.samples
 
         public static void Main(String[] args)
         {
-            System.Console.WriteLine("Bloomberg - EMSX API Example - GetBrokerStrategyInfoWithAssetClass\n");
+            System.Console.WriteLine("Bloomberg - EMSX API Example - ModifyRouteEx\n");
 
-            GetBrokerStrategyInfoWithAssetClass example = new GetBrokerStrategyInfoWithAssetClass();
+            ModifyRouteEx example = new ModifyRouteEx();
             example.run(args);
 
             while (!quit) { };
 
         }
 
-        public GetBrokerStrategyInfoWithAssetClass()
+        public ModifyRouteEx()
         {
 
             // Define the service required, in this case the beta service, 
@@ -145,13 +145,97 @@ namespace com.bloomberg.emsx.samples
 
                     Service service = session.GetService(d_service);
 
-                    Request request = service.CreateRequest("GetBrokerStrategyInfoWithAssetClass");
+                    Request request = service.CreateRequest("ModifyRouteEx");
 
-                    //request.set("EMSX_REQUEST_SEQ", 1);
+                    // The fields below are mandatory
+                    request.Set("EMSX_SEQUENCE", 3867744);
+                    request.Set("EMSX_ROUTE_ID", 1);
+                    request.Set("EMSX_AMOUNT", 500);
+                    request.Set("EMSX_ORDER_TYPE", "MKT");
+                    request.Set("EMSX_TIF", "DAY");
 
-                    request.Set("EMSX_ASSET_CLASS", "EQTY"); //one of EQTY, OPT, FUT or MULTILEG_OPT
-                    request.Set("EMSX_BROKER", "BMTB");
-                    request.Set("EMSX_STRATEGY", "VWAP");
+                    // The fields below are optional
+                    //request.Set("EMSX_ACCOUNT","TestAccount");
+                    //request.Set("EMSX_CLEARING_ACCOUNT", "ClearingAcnt");
+                    //request.Set("EMSX_CLEARING_FIRM", "ClearingFirm");
+                    //request.Set("EMSX_COMM_TYPE", "Absolute");
+                    //request.Set("EMSX_EXCHANGE_DESTINATION", "DEST");
+                    //request.Set("EMSX_GET_WARNINGS", "0");
+                    //request.Set("EMSX_GTD_DATE", "20170105");
+                    //request.Set("EMSX_LIMIT_PRICE", 123.45);
+                    //request.Set("EMSX_LOC_BROKER", "ABCD");
+                    //request.Set("EMSX_LOC_ID", "1234567");
+                    //request.Set("EMSX_LOC_REQ", "Y");
+                    //request.Set("EMSX_NOTES", "Some notes");
+                    //request.Set("EMSX_ODD_LOT", "" );
+                    //request.Set("EMSX_P_A", "P");
+                    //request.Set("EMSX_REQUEST_SEQ", 1001);
+                    //request.Set("EMSX_STOP_PRICE", 123.5);
+                    //request.Set("EMSX_TRADER_NOTES", "Trader notes");
+                    //request.Set("EMSX_USER_COMM_RATE", 0.02);
+                    //request.Set("EMSX_USER_FEES", "1.5");
+
+                    // Note: When changing order type to a LMT order, you will need to provide the EMSX_LIMIT_PRICE value.
+                    //       When changing order type away from LMT order, you will need to reset the EMSX_LIMIT_PRICE value
+                    //       by setting the content to -99999
+
+                    // Note: To clear down the stop price, set the content to -1
+
+                    // Set the strategy parameters, if required
+
+                    /*
+            	    Element strategy = request.GetElement("EMSX_STRATEGY_PARAMS");
+            	    strategy.SetElement("EMSX_STRATEGY_NAME", "VWAP");
+            	    
+            	    Element indicator = strategy.GetElement("EMSX_STRATEGY_FIELD_INDICATORS");
+            	    Element data = strategy.GetElement("EMSX_STRATEGY_FIELDS");
+            	    
+            		// Strategy parameters must be appended in the correct order. See the output 
+            	    // of GetBrokerStrategyInfo request for the order. The indicator value is 0 for 
+            	    // a field that carries a value, and 1 where the field should be ignored
+            	    
+            	    data.AppendElement().SetElement("EMSX_FIELD_DATA", "09:30:00"); // StartTime
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 0);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", "10:30:00"); // EndTime
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 0);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// Max%Volume
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// %AMSession
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// OPG
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// MOC
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// CompletePX
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+               		
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// TriggerPX
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// DarkComplete
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// DarkCompPX
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// RefIndex
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+               		data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// Discretion
+               		indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+					*/
+
+                    // If modifying on behalf of another trader, set the order owner's UUID
+                    //request.Set("EMSX_TRADER_UUID", 1234567);
+
+                    // If modifying a multi-leg route, indicate the Multileg ID 
+                    //request.GetElement("EMSX_REQUEST_TYPE").SetChoice("Multileg").SetElement("EMSX_ML_ID", "123456");
 
                     System.Console.WriteLine("Request: " + request.ToString());
 
@@ -188,30 +272,17 @@ namespace com.bloomberg.emsx.samples
                 if (evt.Type == Event.EventType.RESPONSE && msg.CorrelationID == requestID)
                 {
                     System.Console.WriteLine("Message Type: " + msg.MessageType);
-
                     if (msg.MessageType.Equals(ERROR_INFO))
                     {
                         int errorCode = msg.GetElementAsInt32("ERROR_CODE");
                         String errorMessage = msg.GetElementAsString("ERROR_MESSAGE");
                         System.Console.WriteLine("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                     }
-                    else if (msg.MessageType.Equals(GET_BROKER_STRATEGY_INFO_WITH_ASSET_CLASS))
+                    else if (msg.MessageType.Equals(MODIFY_ROUTE_EX))
                     {
-                        Element strategies = msg.GetElement("EMSX_STRATEGY_INFO");
-
-                        int numValues = strategies.NumValues;
-
-                        for (int i = 0; i < numValues; i++)
-                        {
-
-                            Element e = strategies.GetValueAsElement(i);
-
-                            String fieldName = e.GetElementAsString("FieldName");
-                            String disable = e.GetElementAsString("Disable");
-                            String stringValue = e.GetElementAsString("StringValue");
-
-                            System.Console.WriteLine("EMSX_STRATEGY_INFO: " + fieldName + ", " + disable + ", " + stringValue);
-                        }
+                        // The response has fields for EMSX_SEQUENCE and EMSX_ROUTE_ID, but these will always be zero
+                        String message = msg.GetElementAsString("MESSAGE");
+                        System.Console.WriteLine("MESSAGE: " + message);
                     }
 
                     quit = true;

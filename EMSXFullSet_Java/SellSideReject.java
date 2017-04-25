@@ -154,7 +154,8 @@ public class SellSideReject {
 
                     //request.set("EMSX_REQUEST_SEQ", 1); 
 
-                    request.set("EMSX_SEQUENCE", 1234567);
+                    // Append is used as any number of orders can be rejected in a single request
+                    request.append("EMSX_SEQUENCE", 3834725);
 
                     // If performing the reject on an order owned by another team member, provide owner's UUID
                     //request.set("EMSX_TRADER_UUID", 7654321);

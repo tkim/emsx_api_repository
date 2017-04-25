@@ -152,9 +152,11 @@ public class ModifyOrderEx {
 
                     Request request = service.createRequest("ModifyOrderEx");
 
-            	    // The fields below are mandatory
-            	    request.set("EMSX_SEQUENCE", 3827440);
-            	    request.set("EMSX_AMOUNT", 800);
+            	    //request.set("EMSX_REQUEST_SEQ", 1);
+
+                    // The fields below are mandatory
+            	    request.set("EMSX_SEQUENCE", 3830750);
+            	    request.set("EMSX_AMOUNT", 1500);
             	    request.set("EMSX_ORDER_TYPE", "MKT");
             	    request.set("EMSX_TIF", "DAY");
             	
@@ -168,7 +170,6 @@ public class ModifyOrderEx {
             	    //request.set("EMSX_INVESTOR_ID", "InvID");
             	    //request.set("EMSX_LIMIT_PRICE", 123.45);
             	    //request.set("EMSX_NOTES", "Some notes");
-            	    //request.set("EMSX_REQUEST_SEQ", 1001);
             	    //request.set("EMSX_STOP_PRICE", 123.5);
 
             	    // Note: When changing order type to a LMT order, you will need to provide the EMSX_LIMIT_PRICE value.

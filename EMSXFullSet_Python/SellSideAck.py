@@ -1,4 +1,4 @@
-# GetBrokerStrategiesWithAssetClass.py
+# SellSideAck.py
 
 import sys
 import blpapi
@@ -9,7 +9,7 @@ SESSION_STARTUP_FAILURE = blpapi.Name("SessionStartupFailure")
 SERVICE_OPENED          = blpapi.Name("ServiceOpened")
 SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
-GET_BROKER_STRATEGIES_WITH_ASSET_CLASS  = blpapi.Name("GetBrokerStrategiesWithAssetClass")
+SELL_SIDE_ACK           = blpapi.Name("SellSideAck")
 
 d_service="//blp/emapisvc_beta"
 d_host="localhost"
@@ -38,7 +38,7 @@ class SessionEventHandler():
         return False
 
 
-    def processSessionStatusEvent(self,event,session):
+    def processSessionStatusEvent(self,event,session):  
         print "Processing SESSION_STATUS event"
 
         for msg in event:
@@ -63,13 +63,15 @@ class SessionEventHandler():
 
                 service = session.getService(d_service)
     
-                request = service.createRequest("GetBrokerStrategiesWithAssetClass")
+                request = service.createRequest("SellSideAck");
 
                 #request.set("EMSX_REQUEST_SEQ", 1)
-                
-                request.set("EMSX_ASSET_CLASS","EQTY")  # one of EQTY, OPT, FUT or MULTILEG_OPT
-                request.set("EMSX_BROKER","BMTB")
-            
+
+                request.setElement("EMSX_SEQUENCE", 1234567)
+                    
+                # If performing the ack on an order owned by another team member, provide owner's UUID
+                #request.set("EMSX_TRADER_UUID", 7654321)
+
                 print "Request: %s" % request.toString()
                     
                 self.requestID = blpapi.CorrelationId()
@@ -95,12 +97,10 @@ class SessionEventHandler():
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
                     print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
-                elif msg.messageType() == GET_BROKER_STRATEGIES_WITH_ASSET_CLASS:
-
-                    strategies = msg.getElement("EMSX_STRATEGIES")
-
-                    for s in strategies.values():
-                        print "EMSX_STRATEGY: %s" % (s)
+                elif msg.messageType() == SELL_SIDE_ACK:
+                    status = msg.getElementAsInteger("STATUS")
+                    message = msg.getElementAsString("MESSAGE")
+                    print "STATUS: %d\tMESSAGE: %s" % (status,message)
 
                 global bEnd
                 bEnd = True
@@ -137,7 +137,7 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - GetBrokerStrategiesWithAssetClass"
+    print "Bloomberg - EMSX API Sell-Side Example - SellSideAck"
     try:
         main()
     except KeyboardInterrupt:

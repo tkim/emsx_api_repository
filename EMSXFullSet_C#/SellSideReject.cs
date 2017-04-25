@@ -32,7 +32,7 @@ using System;
 
 namespace com.bloomberg.emsx.samples
 {
-    public class GetBrokerStrategyInfoWithAssetClass
+    public class SellSideReject
     {
 
         private static readonly Name SESSION_STARTED = new Name("SessionStarted");
@@ -41,7 +41,7 @@ namespace com.bloomberg.emsx.samples
         private static readonly Name SERVICE_OPEN_FAILURE = new Name("ServiceOpenFailure");
 
         private static readonly Name ERROR_INFO = new Name("ErrorInfo");
-        private static readonly Name GET_BROKER_STRATEGY_INFO_WITH_ASSET_CLASS = new Name("GetBrokerStrategyInfoWithAssetClass");
+        private static readonly Name SELL_SIDE_REJECT = new Name("SellSideReject");
 
         private string d_service;
         private string d_host;
@@ -53,16 +53,16 @@ namespace com.bloomberg.emsx.samples
 
         public static void Main(String[] args)
         {
-            System.Console.WriteLine("Bloomberg - EMSX API Example - GetBrokerStrategyInfoWithAssetClass\n");
+            System.Console.WriteLine("Bloomberg - EMSX API Example - SellSideReject\n");
 
-            GetBrokerStrategyInfoWithAssetClass example = new GetBrokerStrategyInfoWithAssetClass();
+            SellSideReject example = new SellSideReject();
             example.run(args);
 
             while (!quit) { };
 
         }
 
-        public GetBrokerStrategyInfoWithAssetClass()
+        public SellSideReject()
         {
 
             // Define the service required, in this case the beta service, 
@@ -145,13 +145,15 @@ namespace com.bloomberg.emsx.samples
 
                     Service service = session.GetService(d_service);
 
-                    Request request = service.CreateRequest("GetBrokerStrategyInfoWithAssetClass");
+                    Request request = service.CreateRequest("SellSideReject");
 
                     //request.set("EMSX_REQUEST_SEQ", 1);
 
-                    request.Set("EMSX_ASSET_CLASS", "EQTY"); //one of EQTY, OPT, FUT or MULTILEG_OPT
-                    request.Set("EMSX_BROKER", "BMTB");
-                    request.Set("EMSX_STRATEGY", "VWAP");
+                    // Append is used as any number of orders can be rejected in a single request
+                    request.Append("EMSX_SEQUENCE", 3852549);
+
+                    // If performing the reject on an order owned by another team member, provide owner's UUID
+                    //request.Set("EMSX_TRADER_UUID", 7654321);
 
                     System.Console.WriteLine("Request: " + request.ToString());
 
@@ -188,30 +190,17 @@ namespace com.bloomberg.emsx.samples
                 if (evt.Type == Event.EventType.RESPONSE && msg.CorrelationID == requestID)
                 {
                     System.Console.WriteLine("Message Type: " + msg.MessageType);
-
                     if (msg.MessageType.Equals(ERROR_INFO))
                     {
                         int errorCode = msg.GetElementAsInt32("ERROR_CODE");
                         String errorMessage = msg.GetElementAsString("ERROR_MESSAGE");
                         System.Console.WriteLine("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                     }
-                    else if (msg.MessageType.Equals(GET_BROKER_STRATEGY_INFO_WITH_ASSET_CLASS))
+                    else if (msg.MessageType.Equals(SELL_SIDE_REJECT))
                     {
-                        Element strategies = msg.GetElement("EMSX_STRATEGY_INFO");
-
-                        int numValues = strategies.NumValues;
-
-                        for (int i = 0; i < numValues; i++)
-                        {
-
-                            Element e = strategies.GetValueAsElement(i);
-
-                            String fieldName = e.GetElementAsString("FieldName");
-                            String disable = e.GetElementAsString("Disable");
-                            String stringValue = e.GetElementAsString("StringValue");
-
-                            System.Console.WriteLine("EMSX_STRATEGY_INFO: " + fieldName + ", " + disable + ", " + stringValue);
-                        }
+                        int status = msg.GetElementAsInt32("STATUS");
+                        String message = msg.GetElementAsString("MESSAGE");
+                        System.Console.WriteLine("STATUS: " + status + "\tMESSAGE: " + message);
                     }
 
                     quit = true;

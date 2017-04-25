@@ -152,7 +152,9 @@ public class ModifyRouteEx {
 
                     Request request = service.createRequest("ModifyRouteEx");
 
-            	    // The fields below are mandatory
+            	    //request.set("EMSX_REQUEST_SEQ", 1);
+
+                    // The fields below are mandatory
             	    request.set("EMSX_SEQUENCE", 3827449);
             	    request.set("EMSX_ROUTE_ID", 1);
             	    request.set("EMSX_AMOUNT", 500);
@@ -174,7 +176,6 @@ public class ModifyRouteEx {
             	    //request.set("EMSX_NOTES", "Some notes");
             	    //request.set("EMSX_ODD_LOT", "" );
             	    //request.set("EMSX_P_A", "P");
-            	    //request.set("EMSX_REQUEST_SEQ", 1001);
             	    //request.set("EMSX_STOP_PRICE", 123.5);
             	    //request.set("EMSX_TRADER_NOTES", "Trader notes");
             	    //request.set("EMSX_USER_COMM_RATE", 0.02);

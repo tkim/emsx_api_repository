@@ -1,4 +1,4 @@
-# GroupRoute.py
+# GroupRouteEx.py
 
 import sys
 import blpapi
@@ -9,7 +9,7 @@ SESSION_STARTUP_FAILURE = blpapi.Name("SessionStartupFailure")
 SERVICE_OPENED          = blpapi.Name("ServiceOpened")
 SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
-GROUP_ROUTE             = blpapi.Name("GroupRouteEx")
+GROUP_ROUTE_EX          = blpapi.Name("GroupRouteEx")
 
 d_service="//blp/emapisvc_beta"
 d_host="localhost"
@@ -32,8 +32,9 @@ class SessionEventHandler():
             else:
                 self.processMiscEvents(event)
                 
-        except blpapi.Exception as e:
-            print "Exception:  %s" % e.description()
+        except:
+            print "Exception:  %s" % sys.exc_info()[0]
+            
         return False
 
 
@@ -65,18 +66,18 @@ class SessionEventHandler():
                 request = service.createRequest("GroupRouteEx")
 
                 # Multiple order numbers can be added
-                request.append("EMSX_SEQUENCE", 3745211) 
-                request.append("EMSX_SEQUENCE", 3745212) 
-                request.append("EMSX_SEQUENCE", 3745213) 
+                request.append("EMSX_SEQUENCE", 3761108) 
+                request.append("EMSX_SEQUENCE", 3761109) 
+                request.append("EMSX_SEQUENCE", 3761110) 
 
                 # The fields below are mandatory
                 request.set("EMSX_AMOUNT_PERCENT", 100)  # Note the amount here is %age of order amount
-                request.set("EMSX_BROKER", "BMTB");
+                request.set("EMSX_BROKER", "BB");
                 
                 # For GroupRoute, the below values need to be added, but are taken 
                 # from the original order when the route is created.
                 request.set("EMSX_HAND_INSTRUCTION", "ANY")
-                request.set("EMSX_ORDER_TYPE", "MKT")
+                request.set("EMSX_ORDER_TYPE", "LMT")
                 request.set("EMSX_TICKER", "IBM US Equity")
                 request.set("EMSX_TIF", "DAY")
             
@@ -116,19 +117,19 @@ class SessionEventHandler():
                 routeRefIDPairs = request.getElement("EMSX_ROUTE_REF_ID_PAIRS")
                 route1 = routeRefIDPairs.appendElement()
                 route1.setElement("EMSX_ROUTE_REF_ID","MyRouteRef1")
-                route1.setElement("EMSX_SEQUENCE",3745211)
+                route1.setElement("EMSX_SEQUENCE",3761108)
                 
                 route2 = routeRefIDPairs.appendElement();
                 route2.setElement("EMSX_ROUTE_REF_ID","MyRouteRef2")
-                route2.setElement("EMSX_SEQUENCE",3745212)
+                route2.setElement("EMSX_SEQUENCE",3761109)
                 
                 route3 = routeRefIDPairs.appendElement()
                 route3.setElement("EMSX_ROUTE_REF_ID","MyRouteRef3")
-                route3.setElement("EMSX_SEQUENCE",3745213)
+                route3.setElement("EMSX_SEQUENCE",3761110)
                 
                 # Below we establish the strategy details. Strategy details
                 # are common across all orders in a GroupRoute operation.
-                
+                '''
                 strategy = request.getElement("EMSX_STRATEGY_PARAMS")
                 strategy.setElement("EMSX_STRATEGY_NAME", "VWAP")
                 
@@ -174,7 +175,7 @@ class SessionEventHandler():
 
                 data.appendElement().setElement("EMSX_FIELD_DATA", "")          # Discretion
                 indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
-
+                '''
                 print "Request: %s" % request.toString()
                     
                 self.requestID = blpapi.CorrelationId()
@@ -200,7 +201,7 @@ class SessionEventHandler():
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
                     print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
-                elif msg.messageType() == GROUP_ROUTE:
+                elif msg.messageType() == GROUP_ROUTE_EX:
 
                     if(msg.hasElement("EMSX_SUCCESS_ROUTES")):
                         success = msg.getElement("EMSX_SUCCESS_ROUTES")
@@ -222,9 +223,8 @@ class SessionEventHandler():
                         for i in range(0,nV):
                             e = failed.getValueAsElement(i)
                             sq = e.getElementAsInteger("EMSX_SEQUENCE")
-                            rid = e.getElementAsInteger("EMSX_ROUTE_ID")
 
-                            print "FAILED: %d,%d" % (sq,rid)                                                            
+                            print "FAILED: %d" % (sq)                                                            
 
                 global bEnd
                 bEnd = True
@@ -261,7 +261,7 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - GroupRoute"
+    print "Bloomberg - EMSX API Example - GroupRouteEx"
     try:
         main()
     except KeyboardInterrupt:

@@ -158,7 +158,7 @@ public class CancelRoute {
                     
                     Element routes = request.getElement("ROUTES"); //Note, the case is important.
                     Element route = routes.appendElement(); // Multiple routes can be cancelled in a single request
-                    route.getElement("EMSX_SEQUENCE").setValue(3654624);
+                    route.getElement("EMSX_SEQUENCE").setValue(3776380);
                     route.getElement("EMSX_ROUTE_ID").setValue(1);
 
             	    System.out.println("Request: " + request.toString());

@@ -1,6 +1,7 @@
 # AssignTrader.py
 
 import sys
+
 import blpapi
 
 
@@ -32,8 +33,9 @@ class SessionEventHandler():
             else:
                 self.processMiscEvents(event)
                 
-        except blpapi.Exception as e:
-            print "Exception:  %s" % e.description()
+        except:
+            print "Exception:  %s" % sys.exc_info()[0]
+            
         return False
 
 

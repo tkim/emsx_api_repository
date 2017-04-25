@@ -32,7 +32,7 @@ using System;
 
 namespace com.bloomberg.emsx.samples
 {
-    public class CreateOrderAndRoute
+    public class CreateOrderAndRouteEx
     {
 
         private static readonly Name SESSION_STARTED = new Name("SessionStarted");
@@ -41,7 +41,7 @@ namespace com.bloomberg.emsx.samples
         private static readonly Name SERVICE_OPEN_FAILURE = new Name("ServiceOpenFailure");
 
         private static readonly Name ERROR_INFO = new Name("ErrorInfo");
-        private static readonly Name CREATE_ORDER_AND_ROUTE = new Name("CreateOrderAndRouteEx");
+        private static readonly Name CREATE_ORDER_AND_ROUTE_EX = new Name("CreateOrderAndRouteEx");
 
         private string d_service;
         private string d_host;
@@ -53,16 +53,16 @@ namespace com.bloomberg.emsx.samples
 
         public static void Main(String[] args)
         {
-            System.Console.WriteLine("Bloomberg - EMSX API Example - CreateOrderAndRoute\n");
+            System.Console.WriteLine("Bloomberg - EMSX API Example - CreateOrderAndRouteEx\n");
 
-            CreateOrderAndRoute example = new CreateOrderAndRoute();
+            CreateOrderAndRouteEx example = new CreateOrderAndRouteEx();
             example.run(args);
 
             while (!quit) { };
 
         }
 
-        public CreateOrderAndRoute()
+        public CreateOrderAndRouteEx()
         {
 
             // Define the service required, in this case the beta service, 
@@ -149,12 +149,12 @@ namespace com.bloomberg.emsx.samples
 
                     // The fields below are mandatory
                     request.Set("EMSX_TICKER", "IBM US Equity");
-                    request.Set("EMSX_AMOUNT", 4500);
+                    request.Set("EMSX_AMOUNT", 1000);
                     request.Set("EMSX_ORDER_TYPE", "MKT");
                     request.Set("EMSX_TIF", "DAY");
                     request.Set("EMSX_HAND_INSTRUCTION", "ANY");
                     request.Set("EMSX_SIDE", "BUY");
-                    request.Set("EMSX_BROKER", "BB");
+                    request.Set("EMSX_BROKER", "BMTB");
 
                     // The fields below are optional
                     //request.Set("EMSX_ACCOUNT","TestAccount");
@@ -177,7 +177,7 @@ namespace com.bloomberg.emsx.samples
                     //request.Set("EMSX_LOCATE_BROKER", "BMTB");
                     //request.Set("EMSX_LOCATE_ID", "SomeID");
                     //request.Set("EMSX_LOCATE_REQ", "Y");
-                    request.Set("EMSX_NOTES", "Some notes");
+                    //request.Set("EMSX_NOTES", "Some notes");
                     //request.Set("EMSX_ODD_LOT", "0");
                     //request.Set("EMSX_ORDER_ORIGIN", "");
                     //request.Set("EMSX_ORDER_REF_ID", "UniqueID");
@@ -189,6 +189,55 @@ namespace com.bloomberg.emsx.samples
                     //request.Set("EMSX_SETTLE_DATE", 20170106);
                     //request.Set("EMSX_SETTLE_TYPE", "T+2");
                     //request.Set("EMSX_STOP_PRICE", 123.5);
+
+                    // Below we establish the strategy details
+                    // The following segment can be removed if no broker strategies are used
+
+                    Element strategy = request.GetElement("EMSX_STRATEGY_PARAMS");
+                    strategy.SetElement("EMSX_STRATEGY_NAME", "VWAP");
+
+                    Element indicator = strategy.GetElement("EMSX_STRATEGY_FIELD_INDICATORS");
+                    Element data = strategy.GetElement("EMSX_STRATEGY_FIELDS");
+
+                    // Strategy parameters must be appended in the correct order. See the output 
+                    // of GetBrokerStrategyInfo request for the order. The indicator value is 0 for 
+                    // a field that carries a value, and 1 where the field should be ignored
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "09:30:00"); // StartTime
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 0);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "10:30:00"); // EndTime
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 0);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // Max%Volume
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // %AMSession
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // OPG
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // MOC
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // CompletePX
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // TriggerPX
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // DarkComplete
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // DarkCompPX
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // RefIndex
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
+
+                    data.AppendElement().SetElement("EMSX_FIELD_DATA", "");         // Discretion
+                    indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
 
                     System.Console.WriteLine("Request: " + request.ToString());
 
@@ -231,7 +280,7 @@ namespace com.bloomberg.emsx.samples
                         String errorMessage = msg.GetElementAsString("ERROR_MESSAGE");
                         System.Console.WriteLine("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                     }
-                    else if (msg.MessageType.Equals(CREATE_ORDER_AND_ROUTE))
+                    else if (msg.MessageType.Equals(CREATE_ORDER_AND_ROUTE_EX))
                     {
                         int emsx_sequence = msg.GetElementAsInt32("EMSX_SEQUENCE");
                         int emsx_route_id = msg.GetElementAsInt32("EMSX_ROUTE_ID");

@@ -1,4 +1,4 @@
-# GetBrokerStrategiesWithAssetClass.py
+# ManualFill.py
 
 import sys
 import blpapi
@@ -9,7 +9,7 @@ SESSION_STARTUP_FAILURE = blpapi.Name("SessionStartupFailure")
 SERVICE_OPENED          = blpapi.Name("ServiceOpened")
 SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
-GET_BROKER_STRATEGIES_WITH_ASSET_CLASS  = blpapi.Name("GetBrokerStrategiesWithAssetClass")
+MANUAL_FILL             = blpapi.Name("ManualFill")
 
 d_service="//blp/emapisvc_beta"
 d_host="localhost"
@@ -38,7 +38,7 @@ class SessionEventHandler():
         return False
 
 
-    def processSessionStatusEvent(self,event,session):
+    def processSessionStatusEvent(self,event,session):  
         print "Processing SESSION_STATUS event"
 
         for msg in event:
@@ -63,13 +63,33 @@ class SessionEventHandler():
 
                 service = session.getService(d_service)
     
-                request = service.createRequest("GetBrokerStrategiesWithAssetClass")
+                request = service.createRequest("ManualFill");
 
                 #request.set("EMSX_REQUEST_SEQ", 1)
-                
-                request.set("EMSX_ASSET_CLASS","EQTY")  # one of EQTY, OPT, FUT or MULTILEG_OPT
-                request.set("EMSX_BROKER","BMTB")
-            
+
+                request.set("EMSX_TRADER_UUID", 12109783)
+
+                routeToFill = request.getElement("ROUTE_TO_FILL")
+                    
+                routeToFill.setElement("EMSX_SEQUENCE", 1234567)
+                routeToFill.setElement("EMSX_ROUTE_ID", 1)
+                    
+                fills = request.getElement("FILLS")
+                    
+                fills.setElement("EMSX_FILL_AMOUNT", 1000)
+                fills.setElement("EMSX_FILL_PRICE", 123.4)
+                fills.setElement("EMSX_LAST_MARKET", "XLON")
+                    
+                fills.setElement("EMSX_INDIA_EXCHANGE","BGL")
+                    
+                fillDateTime = fills.getElement("EMSX_FILL_DATE_TIME")
+                    
+                fillDateTime.setChoice("Legacy");
+                    
+                fillDateTime.setElement("EMSX_FILL_DATE",20172203)
+                fillDateTime.setElement("EMSX_FILL_TIME",17054)
+                fillDateTime.setElement("EMSX_FILL_TIME_FORMAT","SecondsFromMidnight")
+
                 print "Request: %s" % request.toString()
                     
                 self.requestID = blpapi.CorrelationId()
@@ -95,12 +115,10 @@ class SessionEventHandler():
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
                     print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
-                elif msg.messageType() == GET_BROKER_STRATEGIES_WITH_ASSET_CLASS:
-
-                    strategies = msg.getElement("EMSX_STRATEGIES")
-
-                    for s in strategies.values():
-                        print "EMSX_STRATEGY: %s" % (s)
+                elif msg.messageType() == MANUAL_FILL:
+                    fillID = msg.getElementAsInteger("EMSX_FILL_ID")
+                    message = msg.getElementAsString("MESSAGE")
+                    print "EMSX_FILL_ID: %d\tMESSAGE: %s" % (fillID,message)
 
                 global bEnd
                 bEnd = True
@@ -137,7 +155,7 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - GetBrokerStrategiesWithAssetClass"
+    print "Bloomberg - EMSX API Sell-Side Example - ManualFill"
     try:
         main()
     except KeyboardInterrupt:

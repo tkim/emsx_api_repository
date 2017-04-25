@@ -172,7 +172,8 @@ public class EMSXHistory {
             	    scope.getElement("Uuids").appendValue(8639067);
             	    scope.getElement("Uuids").appendValue(4674574);
             	    */
-            	    Element filter = request.getElement("FilterBy");
+            	    
+            	    //Element filter = request.getElement("FilterBy");
             	    
             	    //filter.setChoice("Basket");
             	    //filter.setChoice("Multileg");
