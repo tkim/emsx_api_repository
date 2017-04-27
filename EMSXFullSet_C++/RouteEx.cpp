@@ -45,7 +45,7 @@ namespace {
 	Name SERVICE_OPENED("ServiceOpened");
 	Name SERVICE_OPEN_FAILURE("ServiceOpenFailure");
 	Name ERROR_INFO("ErrorInfo");
-	Name ROUTE("Route");
+	Name ROUTE_EX("Route");
 
 	const std::string d_service("//blp/emapisvc_beta");
 	CorrelationId requestID;
@@ -147,8 +147,8 @@ class EMSXEventHandler : public EventHandler
 				Request request = service.createRequest("RouteEx");
 
 				// The fields below are mandatory
-				request.set("EMSX_SEQUENCE", 3734835); // Order number
-				request.set("EMSX_AMOUNT", 500);
+				request.set("EMSX_SEQUENCE", 3734837); // Order number
+				request.set("EMSX_AMOUNT", 1000);
 				request.set("EMSX_BROKER", "BB");
 				request.set("EMSX_HAND_INSTRUCTION", "ANY");
 				request.set("EMSX_ORDER_TYPE", "MKT");
@@ -157,6 +157,7 @@ class EMSXEventHandler : public EventHandler
 
 				// The fields below are optional
 				//request.set("EMSX_ACCOUNT","TestAccount");
+				//request.set("EMSX_BOOKNAME","BookName");
 				//request.set("EMSX_CFD_FLAG", "1");
 				//request.set("EMSX_CLEARING_ACCOUNT", "ClrAccName");
 				//request.set("EMSX_CLEARING_FIRM", "FirmName");
@@ -175,6 +176,56 @@ class EMSXEventHandler : public EventHandler
 				//request.set("EMSX_ROUTE_REF_ID", "UniqueRef");
 				//request.set("EMSX_STOP_PRICE", 123.5);
 				//request.set("EMSX_TRADER_UUID", 1234567);
+
+				/*
+				// Below we establish the strategy details
+
+				Element strategy = request.getElement("EMSX_STRATEGY_PARAMS");
+				strategy.setElement("EMSX_STRATEGY_NAME", "VWAP");
+
+				Element indicator = strategy.getElement("EMSX_STRATEGY_FIELD_INDICATORS");
+				Element data = strategy.getElement("EMSX_STRATEGY_FIELDS");
+
+				// Strategy parameters must be appended in the correct order. See the output
+				// of GetBrokerStrategyInfo request for the order. The indicator value is 0 for
+				// a field that carries a value, and 1 where the field should be ignored
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", "09:30:00"); // StartTime
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", "10:30:00"); // EndTime
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Max%Volume
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// %AMSession
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// OPG
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// MOC
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// CompletePX
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// TriggerPX
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkComplete
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkCompPX
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// RefIndex
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+
+				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Discretion
+				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
+				*/
 
 				ConsoleOut(d_consoleLock_p) << "Request: " << request << std::endl;
 
@@ -210,7 +261,7 @@ class EMSXEventHandler : public EventHandler
 
 				ConsoleOut(d_consoleLock_p) << "ERROR CODE: " << errorCode << "\tERROR MESSAGE: " << errorMessage << std::endl;
 			}
-			else if (msg.messageType() == ROUTE) {
+			else if (msg.messageType() == ROUTE_EX) {
 
 				int emsx_sequence = msg.getElementAsInt32("EMSX_SEQUENCE");
 				int emsx_route_id = msg.getElementAsInt32("EMSX_ROUTE_ID");
@@ -273,7 +324,7 @@ public:
 	}
 };
 
-class Route
+class RouteEx
 {
 
 	SessionOptions            d_sessionOptions;
@@ -296,7 +347,7 @@ class Route
 
 public:
 
-	Route()
+	RouteEx()
 		: d_session(0)
 		, d_eventHandler(0)
 	{
@@ -307,7 +358,7 @@ public:
 		d_sessionOptions.setMaxEventQueueSize(10000);
 	}
 
-	~Route()
+	~RouteEx()
 	{
 		if (d_session) delete d_session;
 		if (d_eventHandler) delete d_eventHandler;
@@ -333,10 +384,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	std::cout << "Bloomberg - EMSX API Example - Route" << std::endl;
-	Route route;
+	std::cout << "Bloomberg - EMSX API Example - RouteEx" << std::endl;
+	RouteEx routeEx;
 	try {
-		route.run(argc, argv);
+		routeEx.run(argc, argv);
 	}
 	catch (Exception &e) {
 		std::cout << "Library Exception!!!" << e.description() << std::endl;

@@ -45,7 +45,7 @@ namespace {
 	Name SERVICE_OPENED("ServiceOpened");
 	Name SERVICE_OPEN_FAILURE("ServiceOpenFailure");
 	Name ERROR_INFO("ErrorInfo");
-	Name CREATE_ORDER_AND_ROUTE_EX("CreateOrderAndRouteEx");
+	Name MODIFY_ORDER_EX("ModifyOrderEx");
 
 	const std::string d_service("//blp/emapisvc_beta");
 	CorrelationId requestID;
@@ -144,100 +144,35 @@ class EMSXEventHandler : public EventHandler
 
 				Service service = session->getService(d_service.c_str());
 
-				Request request = service.createRequest("CreateOrderAndRouteEx");
+				Request request = service.createRequest("ModifyOrderEx");
 
 				// The fields below are mandatory
-				request.set("EMSX_TICKER", "IBM US Equity");
-				request.set("EMSX_AMOUNT", 1000);
+				request.set("EMSX_SEQUENCE", 3830750);
+				request.set("EMSX_AMOUNT", 1500);
 				request.set("EMSX_ORDER_TYPE", "MKT");
 				request.set("EMSX_TIF", "DAY");
-				request.set("EMSX_HAND_INSTRUCTION", "ANY");
-				request.set("EMSX_SIDE", "BUY");
-				request.set("EMSX_BROKER", "BB");
 
 				// The fields below are optional
+				//request.set("EMSX_HAND_INSTRUCTION", "ANY");
 				//request.set("EMSX_ACCOUNT","TestAccount");
-				//request.set("EMSX_BOOKNAME","BookName");
-				//request.set("EMSX_BASKET_NAME", "HedgingBasket");
 				//request.set("EMSX_CFD_FLAG", "1");
-				//request.set("EMSX_CLEARING_ACCOUNT", "ClrAccName");
-				//request.set("EMSX_CLEARING_FIRM", "FirmName");
-				//request.set("EMSX_CUSTOM_NOTE1", "Note1");
-				//request.set("EMSX_CUSTOM_NOTE2", "Note2");
-				//request.set("EMSX_CUSTOM_NOTE3", "Note3");
-				//request.set("EMSX_CUSTOM_NOTE4", "Note4");
-				//request.set("EMSX_CUSTOM_NOTE5", "Note5");
-				//request.set("EMSX_EXCHANGE_DESTINATION", "ExchDest");
 				//request.set("EMSX_EXEC_INSTRUCTIONS", "AnyInst");
 				//request.set("EMSX_GET_WARNINGS", "0");
 				//request.set("EMSX_GTD_DATE", "20170105");
 				//request.set("EMSX_INVESTOR_ID", "InvID");
 				//request.set("EMSX_LIMIT_PRICE", 123.45);
-				//request.set("EMSX_LOCATE_BROKER", "BMTB");
-				//request.set("EMSX_LOCATE_ID", "SomeID");
-				//request.set("EMSX_LOCATE_REQ", "Y");
 				//request.set("EMSX_NOTES", "Some notes");
-				//request.set("EMSX_ODD_LOT", "0");
-				//request.set("EMSX_ORDER_ORIGIN", "");
-				//request.set("EMSX_ORDER_REF_ID", "UniqueID");
-				//request.set("EMSX_P_A", "P");
-				//request.set("EMSX_RELEASE_TIME", 34341);
 				//request.set("EMSX_REQUEST_SEQ", 1001);
-				//request.set("EMSX_ROUTE_REF_ID", "UniqueID");
-				//request.set("EMSX_SETTLE_CURRENCY", "USD");
-				//request.set("EMSX_SETTLE_DATE", 20170106);
-				//request.set("EMSX_SETTLE_TYPE", "T+2");
 				//request.set("EMSX_STOP_PRICE", 123.5);
 
-				/*
-				// Below we establish the strategy details
+				// Note: When changing order type to a LMT order, you will need to provide the EMSX_LIMIT_PRICE value.
+				//       When changing order type away from LMT order, you will need to reset the EMSX_LIMIT_PRICE value
+				//       by setting the content to -99999
 
-				Element strategy = request.getElement("EMSX_STRATEGY_PARAMS");
-				strategy.setElement("EMSX_STRATEGY_NAME", "VWAP");
+				// Note: To clear down the stop price, set the content to -1
 
-				Element indicator = strategy.getElement("EMSX_STRATEGY_FIELD_INDICATORS");
-				Element data = strategy.getElement("EMSX_STRATEGY_FIELDS");
-
-				// Strategy parameters must be appended in the correct order. See the output 
-				// of GetBrokerStrategyInfo request for the order. The indicator value is 0 for 
-				// a field that carries a value, and 1 where the field should be ignored
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", "09:30:00"); // StartTime
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", "10:30:00"); // EndTime
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Max%Volume
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// %AMSession
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// OPG
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// MOC
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// CompletePX
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// TriggerPX
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkComplete
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkCompPX
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// RefIndex
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Discretion
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-				*/
+				// If modifying on behalf of another trader, set the order owner's UUID
+				//request.set("EMSX_TRADER_UUID", 1234567);
 
 				ConsoleOut(d_consoleLock_p) << "Request: " << request << std::endl;
 
@@ -273,13 +208,12 @@ class EMSXEventHandler : public EventHandler
 
 				ConsoleOut(d_consoleLock_p) << "ERROR CODE: " << errorCode << "\tERROR MESSAGE: " << errorMessage << std::endl;
 			}
-			else if (msg.messageType() == CREATE_ORDER_AND_ROUTE_EX) {
+			else if (msg.messageType() == MODIFY_ORDER_EX) {
 
-				int emsx_sequence = msg.getElementAsInt32("EMSX_SEQUENCE");
-				int emsx_route_id = msg.getElementAsInt32("EMSX_ROUTE_ID");
+				int emsxSequence = msg.getElementAsInt32("EMSX_SEQUENCE");
 				std::string message = msg.getElementAsString("MESSAGE");
 
-				ConsoleOut(d_consoleLock_p) << "EMSX_SEQUENCE: " << emsx_sequence << "\tEMSX_ROUTE_ID: " << emsx_route_id << "\tMESSAGE: " << message << std::endl;
+				ConsoleOut(d_consoleLock_p) << "EMSX_SEQUENCE: " << emsxSequence << "\tMESSAGE: " << message << std::endl;
 			}
 
 		}
@@ -336,7 +270,7 @@ public:
 	}
 };
 
-class CreateOrderAndRouteEx
+class ModifyOrderEx
 {
 
 	SessionOptions            d_sessionOptions;
@@ -359,7 +293,7 @@ class CreateOrderAndRouteEx
 
 public:
 
-	CreateOrderAndRouteEx()
+	ModifyOrderEx()
 		: d_session(0)
 		, d_eventHandler(0)
 	{
@@ -370,7 +304,7 @@ public:
 		d_sessionOptions.setMaxEventQueueSize(10000);
 	}
 
-	~CreateOrderAndRouteEx()
+	~ModifyOrderEx()
 	{
 		if (d_session) delete d_session;
 		if (d_eventHandler) delete d_eventHandler;
@@ -396,10 +330,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	std::cout << "Bloomberg - EMSX API Example - CreateOrderAndRouteEx" << std::endl;
-	CreateOrderAndRouteEx createOrderAndRouteEx;
+	std::cout << "Bloomberg - EMSX API Example - ModifyOrderEx" << std::endl;
+	ModifyOrderEx modifyOrderEx;
 	try {
-		createOrderAndRouteEx.run(argc, argv);
+		modifyOrderEx.run(argc, argv);
 	}
 	catch (Exception &e) {
 		std::cout << "Library Exception!!!" << e.description() << std::endl;
@@ -410,3 +344,4 @@ int main(int argc, char **argv)
 	std::cin.getline(dummy, 2);
 	return 0;
 }
+

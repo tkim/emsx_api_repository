@@ -45,7 +45,7 @@ namespace {
 	Name SERVICE_OPENED("ServiceOpened");
 	Name SERVICE_OPEN_FAILURE("ServiceOpenFailure");
 	Name ERROR_INFO("ErrorInfo");
-	Name GROUP_ROUTE("GroupRouteEx");
+	Name GROUP_ROUTE_EX("GroupRouteEx");
 
 	const std::string d_service("//blp/emapisvc_beta");
 	CorrelationId requestID;
@@ -291,7 +291,7 @@ class EMSXEventHandler : public EventHandler
 
 				ConsoleOut(d_consoleLock_p) << "ERROR CODE: " << errorCode << "\tERROR MESSAGE: " << errorMessage << std::endl;
 			}
-			else if (msg.messageType() == GROUP_ROUTE) {
+			else if (msg.messageType() == GROUP_ROUTE_EX) {
 
 				int numValues = 0;
 
@@ -389,7 +389,7 @@ public:
 	}
 };
 
-class GroupRoute
+class GroupRouteEx
 {
 
 	SessionOptions            d_sessionOptions;
@@ -412,7 +412,7 @@ class GroupRoute
 
 public:
 
-	GroupRoute()
+	GroupRouteEx()
 		: d_session(0)
 		, d_eventHandler(0)
 	{
@@ -423,7 +423,7 @@ public:
 		d_sessionOptions.setMaxEventQueueSize(10000);
 	}
 
-	~GroupRoute()
+	~GroupRouteEx()
 	{
 		if (d_session) delete d_session;
 		if (d_eventHandler) delete d_eventHandler;
@@ -449,10 +449,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	std::cout << "Bloomberg - EMSX API Example - GroupRoute" << std::endl;
-	GroupRoute groupRoute;
+	std::cout << "Bloomberg - EMSX API Example - GroupRouteEx" << std::endl;
+	GroupRouteEx groupRouteEx;
 	try {
-		groupRoute.run(argc, argv);
+		groupRouteEx.run(argc, argv);
 	}
 	catch (Exception &e) {
 		std::cout << "Library Exception!!!" << e.description() << std::endl;

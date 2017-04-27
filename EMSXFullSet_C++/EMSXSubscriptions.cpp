@@ -487,6 +487,15 @@ class EMSXEventHandler : public EventHandler
 						ConsoleOut(d_consoleLock_p) << "R.";
 					}
 				}
+				else if (event_status == 11) {
+
+					if (msg.correlationId().asInteger() == orderSubscriptionID.asInteger()) {
+						ConsoleOut(d_consoleLock_p) << "Order - End of initial paint" << std::endl;
+					}
+					else if (msg.correlationId().asInteger() == routeSubscriptionID.asInteger()) {
+						ConsoleOut(d_consoleLock_p) << "Route - End of initial paint" << std::endl;
+					}
+				}
 				else {
 					ConsoleOut(d_consoleLock_p) << "" << std::endl;
 

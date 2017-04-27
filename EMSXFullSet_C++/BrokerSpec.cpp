@@ -45,9 +45,9 @@ namespace {
 	Name SERVICE_OPENED("ServiceOpened");
 	Name SERVICE_OPEN_FAILURE("ServiceOpenFailure");
 	Name ERROR_INFO("ErrorInfo");
-	Name CREATE_ORDER_AND_ROUTE_EX("CreateOrderAndRouteEx");
+	Name BROKER_SPEC("BrokerSpec");
 
-	const std::string d_service("//blp/emapisvc_beta");
+	const std::string d_service("//blp/emsx.brokerspec"); //The BrokerSpec service is only available in the production environment
 	CorrelationId requestID;
 
 }
@@ -144,100 +144,8 @@ class EMSXEventHandler : public EventHandler
 
 				Service service = session->getService(d_service.c_str());
 
-				Request request = service.createRequest("CreateOrderAndRouteEx");
-
-				// The fields below are mandatory
-				request.set("EMSX_TICKER", "IBM US Equity");
-				request.set("EMSX_AMOUNT", 1000);
-				request.set("EMSX_ORDER_TYPE", "MKT");
-				request.set("EMSX_TIF", "DAY");
-				request.set("EMSX_HAND_INSTRUCTION", "ANY");
-				request.set("EMSX_SIDE", "BUY");
-				request.set("EMSX_BROKER", "BB");
-
-				// The fields below are optional
-				//request.set("EMSX_ACCOUNT","TestAccount");
-				//request.set("EMSX_BOOKNAME","BookName");
-				//request.set("EMSX_BASKET_NAME", "HedgingBasket");
-				//request.set("EMSX_CFD_FLAG", "1");
-				//request.set("EMSX_CLEARING_ACCOUNT", "ClrAccName");
-				//request.set("EMSX_CLEARING_FIRM", "FirmName");
-				//request.set("EMSX_CUSTOM_NOTE1", "Note1");
-				//request.set("EMSX_CUSTOM_NOTE2", "Note2");
-				//request.set("EMSX_CUSTOM_NOTE3", "Note3");
-				//request.set("EMSX_CUSTOM_NOTE4", "Note4");
-				//request.set("EMSX_CUSTOM_NOTE5", "Note5");
-				//request.set("EMSX_EXCHANGE_DESTINATION", "ExchDest");
-				//request.set("EMSX_EXEC_INSTRUCTIONS", "AnyInst");
-				//request.set("EMSX_GET_WARNINGS", "0");
-				//request.set("EMSX_GTD_DATE", "20170105");
-				//request.set("EMSX_INVESTOR_ID", "InvID");
-				//request.set("EMSX_LIMIT_PRICE", 123.45);
-				//request.set("EMSX_LOCATE_BROKER", "BMTB");
-				//request.set("EMSX_LOCATE_ID", "SomeID");
-				//request.set("EMSX_LOCATE_REQ", "Y");
-				//request.set("EMSX_NOTES", "Some notes");
-				//request.set("EMSX_ODD_LOT", "0");
-				//request.set("EMSX_ORDER_ORIGIN", "");
-				//request.set("EMSX_ORDER_REF_ID", "UniqueID");
-				//request.set("EMSX_P_A", "P");
-				//request.set("EMSX_RELEASE_TIME", 34341);
-				//request.set("EMSX_REQUEST_SEQ", 1001);
-				//request.set("EMSX_ROUTE_REF_ID", "UniqueID");
-				//request.set("EMSX_SETTLE_CURRENCY", "USD");
-				//request.set("EMSX_SETTLE_DATE", 20170106);
-				//request.set("EMSX_SETTLE_TYPE", "T+2");
-				//request.set("EMSX_STOP_PRICE", 123.5);
-
-				/*
-				// Below we establish the strategy details
-
-				Element strategy = request.getElement("EMSX_STRATEGY_PARAMS");
-				strategy.setElement("EMSX_STRATEGY_NAME", "VWAP");
-
-				Element indicator = strategy.getElement("EMSX_STRATEGY_FIELD_INDICATORS");
-				Element data = strategy.getElement("EMSX_STRATEGY_FIELDS");
-
-				// Strategy parameters must be appended in the correct order. See the output 
-				// of GetBrokerStrategyInfo request for the order. The indicator value is 0 for 
-				// a field that carries a value, and 1 where the field should be ignored
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", "09:30:00"); // StartTime
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", "10:30:00"); // EndTime
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 0);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Max%Volume
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// %AMSession
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// OPG
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// MOC
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// CompletePX
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// TriggerPX
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkComplete
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// DarkCompPX
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// RefIndex
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-
-				data.appendElement().setElement("EMSX_FIELD_DATA", ""); 		// Discretion
-				indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1);
-				*/
+				Request request = service.createRequest("GetBrokerSpecForUuid");
+				request.set("uuid", 8049857);
 
 				ConsoleOut(d_consoleLock_p) << "Request: " << request << std::endl;
 
@@ -264,7 +172,7 @@ class EMSXEventHandler : public EventHandler
 
 			Message msg = msgIter.message();
 
-			ConsoleOut(d_consoleLock_p) << "MESSAGE: " << msg << std::endl;
+			//ConsoleOut(d_consoleLock_p) << "MESSAGE: " << msg << std::endl;
 
 			if (msg.messageType() == ERROR_INFO) {
 
@@ -273,15 +181,139 @@ class EMSXEventHandler : public EventHandler
 
 				ConsoleOut(d_consoleLock_p) << "ERROR CODE: " << errorCode << "\tERROR MESSAGE: " << errorMessage << std::endl;
 			}
-			else if (msg.messageType() == CREATE_ORDER_AND_ROUTE_EX) {
+			else if (msg.messageType() == BROKER_SPEC) {
 
-				int emsx_sequence = msg.getElementAsInt32("EMSX_SEQUENCE");
-				int emsx_route_id = msg.getElementAsInt32("EMSX_ROUTE_ID");
-				std::string message = msg.getElementAsString("MESSAGE");
+				Element brokers = msg.getElement("brokers");
 
-				ConsoleOut(d_consoleLock_p) << "EMSX_SEQUENCE: " << emsx_sequence << "\tEMSX_ROUTE_ID: " << emsx_route_id << "\tMESSAGE: " << message << std::endl;
+				int numBkrs = brokers.numValues();
+
+				ConsoleOut(d_consoleLock_p) << "Number of Brokers: " << numBkrs << std::endl;
+
+				for (int i = 0; i < numBkrs; i++) {
+
+					Element broker = brokers.getValueAsElement(i);
+
+					std::string code = broker.getElementAsString("code");
+					std::string assetClass = broker.getElementAsString("assetClass");
+
+					if (broker.hasElement("strategyFixTag")) {
+						long tag = broker.getElementAsInt64("strategyFixTag");
+						ConsoleOut(d_consoleLock_p) << "\nBroker code: " << code << "\tClass: " << assetClass << "\tTag: " << tag << std::endl;
+
+						Element strats = broker.getElement("strategies");
+
+						int numStrats = strats.numValues();
+
+						ConsoleOut(d_consoleLock_p) << "\tNo. of Strategies: " << numStrats << std::endl;
+
+						for (int s = 0; s < numStrats; s++) {
+
+							Element strat = strats.getValueAsElement(s);
+
+							std::string name = strat.getElementAsString("name");
+							std::string fixVal = strat.getElementAsString("fixValue");
+
+							ConsoleOut(d_consoleLock_p) << "\n\tStrategy Name: " << name << "\tFix Value: " << fixVal << std::endl;
+
+							Element parameters = strat.getElement("parameters");
+
+							int numParams = parameters.numValues();
+
+							ConsoleOut(d_consoleLock_p) << "\t\tNo. of Parameters: " << numParams << std::endl;
+
+							for (int p = 0; p < numParams; p++) {
+
+								Element param = parameters.getValueAsElement(p);
+
+								std::string pname = param.getElementAsString("name");
+								long fixTag = param.getElementAsInt64("fixTag");
+								std::string required = param.getElementAsString("isRequired");
+								std::string replaceable = param.getElementAsString("isReplaceable");
+
+								ConsoleOut(d_consoleLock_p) << "\t\tParameter: " << pname << "\tTag: " << fixTag << "\tRequired: " << required << "\tReplaceable: " << replaceable << std::endl;
+
+								std::string typeName = param.getElement("type").getChoice().name().string();
+
+								std::string vals = "";
+
+								if (typeName == "enumeration") {
+									Element enumerators = param.getElement("type").getElement((size_t)0).getElement("enumerators");
+
+									int numEnums = enumerators.numValues();
+
+									for (int e = 0; e < numEnums; e++) {
+										Element en = enumerators.getValueAsElement(e);
+
+										vals = vals + en.getElementAsString("name") + "[" + en.getElementAsString("fixValue") + "],";
+									}
+									vals = vals.substr(0, vals.length() - 1);
+								}
+								else if (typeName == "range") {
+									Element rng = param.getElement("type").getElement((size_t)0);
+									long mn = rng.getElementAsInt64("min");
+									long mx = rng.getElementAsInt64("max");
+									long st = rng.getElementAsInt64("step");
+									vals = "min:" + std::to_string(mn) + " max:" + std::to_string(mx) + " step:" + std::to_string(st);
+								}
+								else if (typeName == "string") {
+									Element possVals = param.getElement("type").getElement((size_t)0).getElement("possibleValues");
+
+									int numVals = possVals.numValues();
+
+									for (int v = 0; v < numVals; v++) {
+										vals = vals + possVals.getValueAsString(v) + ",";
+									}
+									if (vals.length()>0) vals = vals.substr(0, vals.length() - 1);
+								}
+
+								if (vals.length() > 0) {
+									ConsoleOut(d_consoleLock_p) << "\t\t\tType: " << typeName << " (" << vals << ")" << std::endl;
+								}
+								else {
+									ConsoleOut(d_consoleLock_p) << "\t\t\tType: " << typeName << std::endl;
+								}
+
+							}
+
+						}
+
+					}
+					else {
+						ConsoleOut(d_consoleLock_p) << "\nBroker code: " << code << "\tclass: " << assetClass << std::endl;
+						ConsoleOut(d_consoleLock_p) << "\tNo Strategies" << std::endl;
+					}
+
+					ConsoleOut(d_consoleLock_p) << "\n\tTime In Force:" << std::endl;
+					Element tifs = broker.getElement("timesInForce");
+					int numTifs = tifs.numValues();
+					for (int t = 0; t<numTifs; t++) {
+						Element tif = tifs.getValueAsElement(t);
+						std::string tifName = tif.getElementAsString("name");
+						std::string tifFixValue = tif.getElementAsString("fixValue");
+						ConsoleOut(d_consoleLock_p) << "\t\tName: " << tifName << "\tFix Value: " << tifFixValue << std::endl;
+					}
+
+					ConsoleOut(d_consoleLock_p) << "\n\tOrder Types:" << std::endl;
+					Element ordTypes = broker.getElement("orderTypes");
+					int numOrdTypes = ordTypes.numValues();
+					for (int o = 0; o<numOrdTypes; o++) {
+						Element ordType = ordTypes.getValueAsElement(o);
+						std::string typName = ordType.getElementAsString("name");
+						std::string typFixValue = ordType.getElementAsString("fixValue");
+						ConsoleOut(d_consoleLock_p) << "\t\tName: " << typName << "\tFix Value: " << typFixValue << std::endl;
+					}
+
+					ConsoleOut(d_consoleLock_p) << "\n\tHandling Instructions:" << std::endl;
+					Element handInsts = broker.getElement("handlingInstructions");
+					int numHandInsts = handInsts.numValues();
+					for (int h = 0; h<numHandInsts; h++) {
+						Element handInst = handInsts.getValueAsElement(h);
+						std::string instName = handInst.getElementAsString("name");
+						std::string instFixValue = handInst.getElementAsString("fixValue");
+						ConsoleOut(d_consoleLock_p) << "\t\tName: " << instName << "\tFix Value: " << instFixValue << std::endl;
+					}
+				}
 			}
-
 		}
 		return true;
 	}
@@ -336,7 +368,7 @@ public:
 	}
 };
 
-class CreateOrderAndRouteEx
+class BrokerSpec
 {
 
 	SessionOptions            d_sessionOptions;
@@ -359,7 +391,7 @@ class CreateOrderAndRouteEx
 
 public:
 
-	CreateOrderAndRouteEx()
+	BrokerSpec()
 		: d_session(0)
 		, d_eventHandler(0)
 	{
@@ -370,7 +402,7 @@ public:
 		d_sessionOptions.setMaxEventQueueSize(10000);
 	}
 
-	~CreateOrderAndRouteEx()
+	~BrokerSpec()
 	{
 		if (d_session) delete d_session;
 		if (d_eventHandler) delete d_eventHandler;
@@ -396,10 +428,10 @@ public:
 
 int main(int argc, char **argv)
 {
-	std::cout << "Bloomberg - EMSX API Example - CreateOrderAndRouteEx" << std::endl;
-	CreateOrderAndRouteEx createOrderAndRouteEx;
+	std::cout << "Bloomberg - EMSX API Example - BrokerSpec" << std::endl;
+	BrokerSpec brokerSpec;
 	try {
-		createOrderAndRouteEx.run(argc, argv);
+		brokerSpec.run(argc, argv);
 	}
 	catch (Exception &e) {
 		std::cout << "Library Exception!!!" << e.description() << std::endl;
