@@ -11,7 +11,7 @@ SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
 ASSIGN_TRADER           = blpapi.Name("AssignTrader")
 
-d_service="//blp/emapisvc"
+d_service="//blp/emapisvc_beta"
 d_host="localhost"
 d_port=8194
 bEnd=False
