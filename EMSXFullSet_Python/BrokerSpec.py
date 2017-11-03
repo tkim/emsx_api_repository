@@ -1,7 +1,7 @@
 # BrokerSpec.py
 
-import sys
 import blpapi
+import sys
 
 
 SESSION_STARTED         = blpapi.Name("SessionStarted")
@@ -33,72 +33,72 @@ class SessionEventHandler():
                 self.processMiscEvents(event)
                 
         except:
-            print "Exception:  %s" % sys.exc_info()[0]
+            print ("Exception:  %s" % sys.exc_info()[0])
             
         return False
 
 
     def processSessionStatusEvent(self,event,session):
-        print "Processing SESSION_STATUS event"
+        print ("Processing SESSION_STATUS event")
 
         for msg in event:
             if msg.messageType() == SESSION_STARTED:
-                print "Session started..."
+                print ("Session started...")
                 session.openServiceAsync(d_service)
                 
             elif msg.messageType() == SESSION_STARTUP_FAILURE:
-                print >> sys.stderr, "Error: Session startup failed"
+                print >> sys.stderr, ("Error: Session startup failed")
                 
             else:
-                print msg
+                print (msg)
                 
 
     def processServiceStatusEvent(self,event,session):
-        print "Processing SERVICE_STATUS event"
+        print ("Processing SERVICE_STATUS event")
         
         for msg in event:
             
             if msg.messageType() == SERVICE_OPENED:
-                print "Service opened..."
+                print ("Service opened...")
 
                 service = session.getService(d_service)
     
                 request = service.createRequest("GetBrokerSpecForUuid")
 
-                request.set("uuid", 8049857)
+                request.set("uuid", 6767714) # Users UUID
 
-                print "Request: %s" % request.toString()
+                print ("Request: %s" % request.toString())
                     
                 self.requestID = blpapi.CorrelationId()
                 
                 session.sendRequest(request, correlationId=self.requestID )
                             
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
-                print >> sys.stderr, "Error: Service failed to open"        
+                print >> sys.stderr, ("Error: Service failed to open")        
                 
     def processResponseEvent(self, event):
-        print "Processing RESPONSE event"
+        print ("Processing RESPONSE event")
         
         for msg in event:
             
-            #print "MESSAGE: %s" % msg.toString()
-            #print "CORRELATION ID: %d" % msg.correlationIds()[0].value()
+            #print ("MESSAGE: %s" % msg.toString())
+            #print ("CORRELATION ID: %d" % msg.correlationIds()[0].value())
 
 
             if msg.correlationIds()[0].value() == self.requestID.value():
-                print "MESSAGE TYPE: %s" % msg.messageType()
+                print ("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
-                    print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
+                    print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
                 elif msg.messageType() == BROKER_SPEC:
                     
                     brokers=msg.getElement("brokers")
                     
                     num = brokers.numValues()
                     
-                    print "Number of Brokers: %d\n" % (num)
+                    print ("Number of Brokers: %d\n" % (num))
                     
                     for broker in brokers.values():
                         code = broker.getElement("code").getValue()
@@ -106,27 +106,27 @@ class SessionEventHandler():
                         
                         if broker.hasElement("strategyFixTag"):
                             tag = broker.getElement("strategyFixTag").getValue()
-                            print "\nBroker code: %s\tclass: %s\ttag: %s" % (code,assetClass,tag)
+                            print ("\nBroker code: %s\tclass: %s\ttag: %s" % (code,assetClass,tag))
                             strats = broker.getElement("strategies")
                             numStrats = strats.numValues()
-                            print"\tNo. of Strategies: %d" % (numStrats)
+                            print ("\tNo. of Strategies: %d" % (numStrats))
                             for strat in strats.values():
                                 name = strat.getElement("name").getValue()
                                 fixVal = strat.getElement("fixValue").getValue()
-                                print "\n\tStrategy Name: %s\tFix Value: %s" % (name,fixVal)
+                                print ("\n\tStrategy Name: %s\tFix Value: %s" % (name,fixVal))
                                 
                                 parameters = strat.getElement("parameters")
                                 
                                 numParams = parameters.numValues()
                                 
-                                print "\t\tNo. of Parameters: %d\n" % (numParams)
+                                print ("\t\tNo. of Parameters: %d\n" % (numParams))
                                 
                                 for param in parameters.values():
                                     pname = param.getElement("name").getValue()
                                     tag = param.getElement("fixTag").getValue()
                                     required = param.getElement("isRequired").getValue()
                                     replaceable = param.getElement("isReplaceable").getValue()
-                                    print "\t\tParameter: %s\tTag: %d\tRequired: %s\tReplaceable: %s" % (pname,tag,required,replaceable)
+                                    print ("\t\tParameter: %s\tTag: %d\tRequired: %s\tReplaceable: %s" % (pname,tag,required,replaceable))
                                     
                                     typeName = param.getElement("type").getElement(0).name()
                                     
@@ -161,46 +161,46 @@ class SessionEventHandler():
                                         
                                     
                                     if len(vals) > 0:
-                                        print "\t\t\tType: %s (%s)" % (typeName, vals)           
+                                        print ("\t\t\tType: %s (%s)" % (typeName, vals))           
                                     else:
-                                        print "\t\t\tType: %s" % (typeName)           
+                                        print ("\t\t\tType: %s" % (typeName))           
 
                         else:
-                            print "\nBroker code: %s\tclass: %s" % (code,assetClass)
-                            print"\tNo strategies\n"
+                            print ("\nBroker code: %s\tclass: %s" % (code,assetClass))
+                            print ("\tNo strategies\n")
                             
                         
-                        print "\tTime In Force:"
+                        print ("\tTime In Force:")
                         tifs = broker.getElement("timesInForce")
                         for tif in tifs.values():
                             tifName = tif.getElement("name").getValue()
                             tifFixValue = tif.getElement("fixValue").getValue()
-                            print "\t\tName: %s\tFix Value: %s" % (tifName, tifFixValue)
+                            print ("\t\tName: %s\tFix Value: %s" % (tifName, tifFixValue))
                         
-                        print "\n\tOrder Types:"
+                        print ("\n\tOrder Types:")
                         ordTypes = broker.getElement("orderTypes")
                         for ordType in ordTypes.values():
                             typName = ordType.getElement("name").getValue()
                             typFixValue = ordType.getElement("fixValue").getValue()
-                            print "\t\tName: %s\tFix Value: %s" % (typName, typFixValue)
+                            print ("\t\tName: %s\tFix Value: %s" % (typName, typFixValue))
                     
-                        print "\n\tHandling Instructions:"
+                        print ("\n\tHandling Instructions:")
                         handInsts = broker.getElement("handlingInstructions")
                         for handInst in handInsts.values():
                             instName = handInst.getElement("name").getValue()
                             instFixValue = handInst.getElement("fixValue").getValue()
-                            print "\t\tName: %s\tFix Value: %s" % (instName, instFixValue)
+                            print ("\t\tName: %s\tFix Value: %s" % (instName, instFixValue))
 
                 global bEnd
                 bEnd = True
                 
     def processMiscEvents(self, event):
         
-        print "Processing " + event.eventType() + " event"
+        print ("Processing " + event.eventType() + " event")
         
         for msg in event:
 
-            print "MESSAGE: %s" % (msg.tostring())
+            print ("MESSAGE: %s" % (msg.tostring()))
 
 
 def main():
@@ -209,14 +209,14 @@ def main():
     sessionOptions.setServerHost(d_host)
     sessionOptions.setServerPort(d_port)
 
-    print "Connecting to %s:%d" % (d_host,d_port)
+    print ("Connecting to %s:%d" % (d_host,d_port))
 
     eventHandler = SessionEventHandler()
 
     session = blpapi.Session(sessionOptions, eventHandler.processEvent)
 
     if not session.startAsync():
-        print "Failed to start session."
+        print ("Failed to start session.")
         return
     
     global bEnd
@@ -226,11 +226,11 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - BrokerSpec"
+    print ("Bloomberg - EMSX API Example - BrokerSpec")
     try:
         main()
     except KeyboardInterrupt:
-        print "Ctrl+C pressed. Stopping..."
+        print ("Ctrl+C pressed. Stopping...")
 
 
 __copyright__ = """

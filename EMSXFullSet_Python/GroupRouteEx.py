@@ -1,7 +1,7 @@
 # GroupRouteEx.py
 
-import sys
 import blpapi
+import sys
 
 
 SESSION_STARTED         = blpapi.Name("SessionStarted")
@@ -15,6 +15,7 @@ d_service="//blp/emapisvc_beta"
 d_host="localhost"
 d_port=8194
 bEnd=False
+
 
 class SessionEventHandler():
 
@@ -33,52 +34,52 @@ class SessionEventHandler():
                 self.processMiscEvents(event)
                 
         except:
-            print "Exception:  %s" % sys.exc_info()[0]
+            print ("Exception:  %s" % sys.exc_info()[0])
             
         return False
 
 
     def processSessionStatusEvent(self,event,session):
-        print "Processing SESSION_STATUS event"
+        print ("Processing SESSION_STATUS event")
 
         for msg in event:
             if msg.messageType() == SESSION_STARTED:
-                print "Session started..."
+                print ("Session started...")
                 session.openServiceAsync(d_service)
                 
             elif msg.messageType() == SESSION_STARTUP_FAILURE:
-                print >> sys.stderr, "Error: Session startup failed"
+                print >> sys.stderr, ("Error: Session startup failed")
                 
             else:
-                print msg
+                print (msg)
                 
 
     def processServiceStatusEvent(self,event,session):
-        print "Processing SERVICE_STATUS event"
+        print ("Processing SERVICE_STATUS event")
         
         for msg in event:
             
             if msg.messageType() == SERVICE_OPENED:
-                print "Service opened..."
+                print ("Service opened...")
 
                 service = session.getService(d_service)
     
                 request = service.createRequest("GroupRouteEx")
 
                 # Multiple order numbers can be added
-                request.append("EMSX_SEQUENCE", 3761108) 
-                request.append("EMSX_SEQUENCE", 3761109) 
-                request.append("EMSX_SEQUENCE", 3761110) 
+                request.append("EMSX_SEQUENCE", 4116143) 
+                request.append("EMSX_SEQUENCE", 4116144) 
+                request.append("EMSX_SEQUENCE", 4116145) 
 
                 # The fields below are mandatory
-                request.set("EMSX_AMOUNT_PERCENT", 100)  # Note the amount here is %age of order amount
+                request.set("EMSX_AMOUNT_PERCENT", 50)  # Note the amount here is %age of order amount
                 request.set("EMSX_BROKER", "BB");
                 
                 # For GroupRoute, the below values need to be added, but are taken 
                 # from the original order when the route is created.
                 request.set("EMSX_HAND_INSTRUCTION", "ANY")
-                request.set("EMSX_ORDER_TYPE", "LMT")
-                request.set("EMSX_TICKER", "IBM US Equity")
+                request.set("EMSX_ORDER_TYPE", "MKT")
+                request.set("EMSX_TICKER", "XOM US Equity")
                 request.set("EMSX_TIF", "DAY")
             
                 # The fields below are optional
@@ -117,15 +118,15 @@ class SessionEventHandler():
                 routeRefIDPairs = request.getElement("EMSX_ROUTE_REF_ID_PAIRS")
                 route1 = routeRefIDPairs.appendElement()
                 route1.setElement("EMSX_ROUTE_REF_ID","MyRouteRef1")
-                route1.setElement("EMSX_SEQUENCE",3761108)
+                route1.setElement("EMSX_SEQUENCE",4116143)
                 
                 route2 = routeRefIDPairs.appendElement();
                 route2.setElement("EMSX_ROUTE_REF_ID","MyRouteRef2")
-                route2.setElement("EMSX_SEQUENCE",3761109)
+                route2.setElement("EMSX_SEQUENCE",4116144)
                 
                 route3 = routeRefIDPairs.appendElement()
                 route3.setElement("EMSX_ROUTE_REF_ID","MyRouteRef3")
-                route3.setElement("EMSX_SEQUENCE",3761110)
+                route3.setElement("EMSX_SEQUENCE",4116145)
                 
                 # Below we establish the strategy details. Strategy details
                 # are common across all orders in a GroupRoute operation.
@@ -176,31 +177,31 @@ class SessionEventHandler():
                 data.appendElement().setElement("EMSX_FIELD_DATA", "")          # Discretion
                 indicator.appendElement().setElement("EMSX_FIELD_INDICATOR", 1)
                 '''
-                print "Request: %s" % request.toString()
+                print ("Request: %s" % request.toString())
                     
                 self.requestID = blpapi.CorrelationId()
                 
                 session.sendRequest(request, correlationId=self.requestID )
                             
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
-                print >> sys.stderr, "Error: Service failed to open"        
+                print >> sys.stderr, ("Error: Service failed to open")        
                 
     def processResponseEvent(self, event):
-        print "Processing RESPONSE event"
+        print ("Processing RESPONSE event")
         
         for msg in event:
             
-            print "MESSAGE: %s" % msg.toString()
-            print "CORRELATION ID: %d" % msg.correlationIds()[0].value()
+            print ("MESSAGE: %s" % msg.toString())
+            print ("CORRELATION ID: %d" % msg.correlationIds()[0].value())
 
 
             if msg.correlationIds()[0].value() == self.requestID.value():
-                print "MESSAGE TYPE: %s" % msg.messageType()
+                print ("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
-                    print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
+                    print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
                 elif msg.messageType() == GROUP_ROUTE_EX:
 
                     if(msg.hasElement("EMSX_SUCCESS_ROUTES")):
@@ -213,7 +214,7 @@ class SessionEventHandler():
                             sq = e.getElementAsInteger("EMSX_SEQUENCE")
                             rid = e.getElementAsInteger("EMSX_ROUTE_ID")
 
-                            print "SUCCESS: %d,%d" % (sq,rid)
+                            print ("SUCCESS: %d,%d" % (sq,rid))
                     
                     if(msg.hasElement("EMSX_FAILED_ROUTES")):
                         failed = msg.getElement("EMSX_FAILED_ROUTES")
@@ -224,18 +225,18 @@ class SessionEventHandler():
                             e = failed.getValueAsElement(i)
                             sq = e.getElementAsInteger("EMSX_SEQUENCE")
 
-                            print "FAILED: %d" % (sq)                                                            
+                            print ("FAILED: %d" % (sq))                                                            
 
                 global bEnd
                 bEnd = True
                 
     def processMiscEvents(self, event):
         
-        print "Processing " + event.eventType() + " event"
+        print ("Processing " + event.eventType() + " event")
         
         for msg in event:
 
-            print "MESSAGE: %s" % (msg.tostring())
+            print ("MESSAGE: %s" % (msg.tostring()))
 
 
 def main():
@@ -244,14 +245,14 @@ def main():
     sessionOptions.setServerHost(d_host)
     sessionOptions.setServerPort(d_port)
 
-    print "Connecting to %s:%d" % (d_host,d_port)
+    print ("Connecting to %s:%d" % (d_host,d_port))
 
     eventHandler = SessionEventHandler()
 
     session = blpapi.Session(sessionOptions, eventHandler.processEvent)
 
     if not session.startAsync():
-        print "Failed to start session."
+        print ("Failed to start session.")
         return
     
     global bEnd
@@ -261,11 +262,11 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - GroupRouteEx"
+    print ("Bloomberg - EMSX API Example - GroupRouteEx")
     try:
         main()
     except KeyboardInterrupt:
-        print "Ctrl+C pressed. Stopping..."
+        print ("Ctrl+C pressed. Stopping...")
 
 
 __copyright__ = """

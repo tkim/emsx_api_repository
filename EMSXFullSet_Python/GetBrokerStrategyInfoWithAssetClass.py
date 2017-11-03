@@ -1,7 +1,7 @@
 # GetBrokerStrategyInfoWithAssetClass.py
 
-import sys
 import blpapi
+import sys
 
 
 SESSION_STARTED         = blpapi.Name("SessionStarted")
@@ -33,33 +33,33 @@ class SessionEventHandler():
                 self.processMiscEvents(event)
                 
         except:
-            print "Exception:  %s" % sys.exc_info()[0]
+            print ("Exception:  %s" % sys.exc_info()[0])
             
         return False
 
 
     def processSessionStatusEvent(self,event,session):
-        print "Processing SESSION_STATUS event"
+        print ("Processing SESSION_STATUS event")
 
         for msg in event:
             if msg.messageType() == SESSION_STARTED:
-                print "Session started..."
+                print ("Session started...")
                 session.openServiceAsync(d_service)
                 
             elif msg.messageType() == SESSION_STARTUP_FAILURE:
-                print >> sys.stderr, "Error: Session startup failed"
+                print >> sys.stderr, ("Error: Session startup failed")
                 
             else:
-                print msg
+                print (msg)
                 
 
     def processServiceStatusEvent(self,event,session):
-        print "Processing SERVICE_STATUS event"
+        print ("Processing SERVICE_STATUS event")
         
         for msg in event:
             
             if msg.messageType() == SERVICE_OPENED:
-                print "Service opened..."
+                print ("Service opened...")
 
                 service = session.getService(d_service)
     
@@ -71,31 +71,31 @@ class SessionEventHandler():
                 request.set("EMSX_BROKER","BMTB")
                 request.set("EMSX_STRATEGY","VWAP")
                     
-                print "Request: %s" % request.toString()
+                print ("Request: %s" % request.toString())
                     
                 self.requestID = blpapi.CorrelationId()
                 
                 session.sendRequest(request, correlationId=self.requestID )
                             
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
-                print >> sys.stderr, "Error: Service failed to open"        
+                print >> sys.stderr, ("Error: Service failed to open")        
                 
     def processResponseEvent(self, event):
-        print "Processing RESPONSE event"
+        print ("Processing RESPONSE event")
         
         for msg in event:
             
-            print "MESSAGE: %s" % msg.toString()
-            print "CORRELATION ID: %d" % msg.correlationIds()[0].value()
+            print ("MESSAGE: %s" % msg.toString())
+            print ("CORRELATION ID: %d" % msg.correlationIds()[0].value())
 
 
             if msg.correlationIds()[0].value() == self.requestID.value():
-                print "MESSAGE TYPE: %s" % msg.messageType()
+                print ("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
-                    print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
+                    print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
                 elif msg.messageType() == GET_BROKER_STRATEGY_INFO_WITH_ASSET_CLASS:
 
                     strategies = msg.getElement("EMSX_STRATEGY_INFO")
@@ -105,18 +105,18 @@ class SessionEventHandler():
                         disable = s.getElementAsString("Disable")
                         stringvalue = s.getElementAsString("StringValue")
                         
-                        print "EMSX_STRATEGY_INFO: %s, %s, %s" % (fieldname,disable,stringvalue)
+                        print ("EMSX_STRATEGY_INFO: %s, %s, %s" % (fieldname,disable,stringvalue))
 
                 global bEnd
                 bEnd = True
                 
     def processMiscEvents(self, event):
         
-        print "Processing " + event.eventType() + " event"
+        print ("Processing " + event.eventType() + " event")
         
         for msg in event:
 
-            print "MESSAGE: %s" % (msg.tostring())
+            print ("MESSAGE: %s" % (msg.tostring()))
 
 
 def main():
@@ -125,14 +125,14 @@ def main():
     sessionOptions.setServerHost(d_host)
     sessionOptions.setServerPort(d_port)
 
-    print "Connecting to %s:%d" % (d_host,d_port)
+    print ("Connecting to %s:%d" % (d_host,d_port))
 
     eventHandler = SessionEventHandler()
 
     session = blpapi.Session(sessionOptions, eventHandler.processEvent)
 
     if not session.startAsync():
-        print "Failed to start session."
+        print ("Failed to start session.")
         return
     
     global bEnd
@@ -142,11 +142,11 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - GetBrokerStrategyInfoWithAssetClass"
+    print ("Bloomberg - EMSX API Example - GetBrokerStrategyInfoWithAssetClass")
     try:
         main()
     except KeyboardInterrupt:
-        print "Ctrl+C pressed. Stopping..."
+        print ("Ctrl+C pressed. Stopping...")
 
 
 __copyright__ = """

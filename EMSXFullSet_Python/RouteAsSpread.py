@@ -1,7 +1,7 @@
 # EMSXRouteAsSpread.py
 
-import sys
 import blpapi
+import sys
 
 
 SESSION_STARTED         = blpapi.Name("SessionStarted")
@@ -16,6 +16,7 @@ d_service="//blp/emapisvc_beta"
 d_host="localhost"
 d_port=8194
 bEnd=False
+
 
 class SessionEventHandler():
 
@@ -42,60 +43,60 @@ class SessionEventHandler():
                 self.processMiscEvents(event)
                 
         except:
-            print "Exception:  %s" % sys.exc_info()[0]
+            print ("Exception:  %s" % sys.exc_info()[0])
             
         return False
 
 
     def processSessionStatusEvent(self,event,session):
-        print "Processing SESSION_STATUS event"
+        print ("Processing SESSION_STATUS event")
 
         for msg in event:
             if msg.messageType() == SESSION_STARTED:
-                print "Session started..."
+                print ("Session started...")
                 session.openServiceAsync(d_service)
                 
             elif msg.messageType() == SESSION_STARTUP_FAILURE:
-                print >> sys.stderr, "Error: Session startup failed"
+                print >> sys.stderr, ("Error: Session startup failed")
                 
             else:
-                print msg
+                print (msg)
                 
 
     def processServiceStatusEvent(self,event,session):
-        print "Processing SERVICE_STATUS event"
+        print ("Processing SERVICE_STATUS event")
         
         for msg in event:
             
             if msg.messageType() == SERVICE_OPENED:
-                print "Service opened..."
+                print ("Service opened...")
 
                 self.service = session.getService(d_service)
     
                 self.createBuyOrder(session)
                 
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
-                print >> sys.stderr, "Error: Service failed to open"        
+                print >> sys.stderr, ("Error: Service failed to open")
                 
     def processResponseEvent(self, event, session):
-        print "Processing RESPONSE event"
+        print ("Processing RESPONSE event")
         
         for msg in event:
             
-            print "MESSAGE: %s" % msg.toString()
-            print "CORRELATION ID: %d" % msg.correlationIds()[0].value()
+            print ("MESSAGE: %s" % msg.toString())
+            print ("CORRELATION ID: %d" % msg.correlationIds()[0].value())
 
             if msg.correlationIds()[0].value() == self.buyCorrID.value():
-                print "MESSAGE TYPE: %s" % msg.messageType()
+                print ("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
-                    print "Failed to create buy order >> ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
+                    print ("Failed to create buy order >> ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
                 elif msg.messageType() == CREATE_ORDER:
                     self.buySeqNo = msg.getElementAsInteger("EMSX_SEQUENCE")
                     message = msg.getElementAsString("MESSAGE")
-                    print "Buy order created >> EMSX_SEQUENCE: %d\tMESSAGE: %s" % (self.buySeqNo ,message)
+                    print ("Buy order created >> EMSX_SEQUENCE: %d\tMESSAGE: %s" % (self.buySeqNo ,message))
                 
                 if self.sellSeqNo > 0: # already received sell order response
                     self.routeSpread(session)
@@ -104,16 +105,16 @@ class SessionEventHandler():
 
 
             elif msg.correlationIds()[0].value() == self.sellCorrID.value():
-                print "MESSAGE TYPE: %s" % msg.messageType()
+                print ("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
-                    print "Failed to create sell order >> ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
+                    print ("Failed to create sell order >> ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
                 elif msg.messageType() == CREATE_ORDER:
                     self.sellSeqNo = msg.getElementAsInteger("EMSX_SEQUENCE")
                     message = msg.getElementAsString("MESSAGE")
-                    print "Sell order created >> EMSX_SEQUENCE: %d\tMESSAGE: %s" % (self.sellSeqNo ,message)
+                    print ("Sell order created >> EMSX_SEQUENCE: %d\tMESSAGE: %s" % (self.sellSeqNo ,message))
                 
                 if self.buySeqNo > 0: # already received buy order response
                     self.routeSpread(session)
@@ -122,12 +123,12 @@ class SessionEventHandler():
 
                 
             elif msg.correlationIds()[0].value() == self.requestID.value():
-                print "MESSAGE TYPE: %s" % msg.messageType()
+                print ("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
-                    print "ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage)
+                    print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
                 elif msg.messageType() == GROUP_ROUTE_EX:
 
                     if(msg.hasElement("EMSX_SUCCESS_ROUTES")):
@@ -140,7 +141,7 @@ class SessionEventHandler():
                             sq = e.getElementAsInteger("EMSX_SEQUENCE")
                             rid = e.getElementAsInteger("EMSX_ROUTE_ID")
 
-                            print "SUCCESS: %d,%d" % (sq,rid)
+                            print ("SUCCESS: %d,%d" % (sq,rid))
                     
                     if(msg.hasElement("EMSX_FAILED_ROUTES")):
                         failed = msg.getElement("EMSX_FAILED_ROUTES")
@@ -151,7 +152,7 @@ class SessionEventHandler():
                             e = failed.getValueAsElement(i)
                             sq = e.getElementAsInteger("EMSX_SEQUENCE")
 
-                            print "FAILED: %d" % (sq)                                                            
+                            print ("FAILED: %d" % (sq))
 
 
                     ''' 
@@ -263,11 +264,11 @@ SessionTerminated = {
                 
     def processMiscEvents(self, event):
         
-        print "Processing " + event.eventType() + " event"
+        print ("Processing " + event.eventType() + " event")
         
         for msg in event:
 
-            print "MESSAGE: %s" % (msg.tostring())
+            print ("MESSAGE: %s" % (msg.tostring()))
 
 
     def createBuyOrder(self, session):
@@ -282,7 +283,7 @@ SessionTerminated = {
         request.set("EMSX_HAND_INSTRUCTION", "ANY")
         request.set("EMSX_SIDE", "BUY")
         
-        print "Request: %s" % request.toString()
+        print ("Request: %s" % request.toString())
                     
         self.buyCorrID = blpapi.CorrelationId()
                 
@@ -300,7 +301,7 @@ SessionTerminated = {
         request.set("EMSX_HAND_INSTRUCTION", "ANY")
         request.set("EMSX_SIDE", "SELL")
         
-        print "Request: %s" % request.toString()
+        print ("Request: %s" % request.toString())
                     
         self.sellCorrID = blpapi.CorrelationId()
                 
@@ -313,7 +314,7 @@ SessionTerminated = {
         request.append("EMSX_SEQUENCE", self.buySeqNo) 
         request.append("EMSX_SEQUENCE", self.sellSeqNo) 
         request.set("EMSX_AMOUNT_PERCENT", 100)
-        request.set("EMSX_BROKER", "ETI");
+        request.set("EMSX_BROKER", "EFIX");
         request.set("EMSX_HAND_INSTRUCTION", "ANY")
         request.set("EMSX_ORDER_TYPE", "MKT")
         request.set("EMSX_TIF", "DAY")
@@ -322,7 +323,7 @@ SessionTerminated = {
         requestType = request.getElement("EMSX_REQUEST_TYPE") 
         requestType.setChoice("Spread")
     
-        print "Request: %s" % request.toString()
+        print ("Request: %s" % request.toString())
             
         self.requestID = blpapi.CorrelationId()
         
@@ -335,14 +336,14 @@ def main():
     sessionOptions.setServerHost(d_host)
     sessionOptions.setServerPort(d_port)
 
-    print "Connecting to %s:%d" % (d_host,d_port)
+    print ("Connecting to %s:%d" % (d_host,d_port))
 
     eventHandler = SessionEventHandler()
 
     session = blpapi.Session(sessionOptions, eventHandler.processEvent)
 
     if not session.startAsync():
-        print "Failed to start session."
+        print ("Failed to start session.")
         return
     
     global bEnd
@@ -352,11 +353,11 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print "Bloomberg - EMSX API Example - EMSXRouteAsSpread"
+    print ("Bloomberg - EMSX API Example - EMSXRouteAsSpread")
     try:
         main()
     except KeyboardInterrupt:
-        print "Ctrl+C pressed. Stopping..."
+        print ("Ctrl+C pressed. Stopping...")
 
 
 __copyright__ = """
