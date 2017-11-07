@@ -177,7 +177,7 @@ namespace com.bloomberg.emsx.samples
                     legacy.SetElement("EMSX_FILL_TIME_FORMAT", "SecondsFromMidnight");
 
                     // If performing the fill on an order owned by another team member, provide owner's UUID
-                    //request.Set("EMSX_TRADER_UUID", 12109783);
+                    //request.Set("EMSX_TRADER_UUID", 1234567);
 
                     System.Console.WriteLine("Request: " + request.ToString());
 
