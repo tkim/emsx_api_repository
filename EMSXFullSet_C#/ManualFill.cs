@@ -41,7 +41,7 @@ namespace com.bloomberg.emsx.samples
         private static readonly Name SERVICE_OPEN_FAILURE = new Name("ServiceOpenFailure");
 
         private static readonly Name ERROR_INFO = new Name("ErrorInfo");
-        private static readonly Name MANUAL_FILL = new Name("ManulFill");
+        private static readonly Name MANUAL_FILL = new Name("ManualFill");
 
         private string d_service;
         private string d_host;
@@ -154,15 +154,15 @@ namespace com.bloomberg.emsx.samples
 
                     Element routeToFill = request.GetElement("ROUTE_TO_FILL");
 
-                    routeToFill.SetElement("EMSX_SEQUENCE", 4117796);
+                    routeToFill.SetElement("EMSX_SEQUENCE", 4118424);
                     routeToFill.SetElement("EMSX_ROUTE_ID", 1);
 
                     Element fills = request.GetElement("FILLS");
 
                     Element fill = fills.AppendElement();
 
-                    fill.SetElement("EMSX_FILL_AMOUNT", 500);
-                    fill.SetElement("EMSX_FILL_PRICE", 127.5);
+                    fill.SetElement("EMSX_FILL_AMOUNT", 100);
+                    fill.SetElement("EMSX_FILL_PRICE", 174.77);
                     fill.SetElement("EMSX_LAST_MARKET", "XLON");
 
                     // Only needed for Indian exchanges
@@ -173,7 +173,7 @@ namespace com.bloomberg.emsx.samples
                     Element legacy = fillDateTime.SetChoice("Legacy");
 
                     legacy.SetElement("EMSX_FILL_DATE", 20171107);
-                    legacy.SetElement("EMSX_FILL_TIME", 114554);
+                    legacy.SetElement("EMSX_FILL_TIME", 114015);
                     legacy.SetElement("EMSX_FILL_TIME_FORMAT", "SecondsFromMidnight");
 
                     // If performing the fill on an order owned by another team member, provide owner's UUID
@@ -222,9 +222,9 @@ namespace com.bloomberg.emsx.samples
                     }
                     else if (msg.MessageType.Equals(MANUAL_FILL))
                     {
-                        int status = msg.GetElementAsInt32("STATUS");
+                        int fillID = msg.GetElementAsInt32("EMSX_FILL_ID");
                         String message = msg.GetElementAsString("MESSAGE");
-                        System.Console.WriteLine("STATUS: " + status + "\tMESSAGE: " + message);
+                        System.Console.WriteLine("fillID: " + fillID + "\tMESSAGE: " + message);
                     }
 
                     quit = true;
