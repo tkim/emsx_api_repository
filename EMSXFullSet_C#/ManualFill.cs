@@ -1,4 +1,4 @@
-﻿/* Copyright 2017. Bloomberg Finance L.P.
+/* Copyright 2017. Bloomberg Finance L.P.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -59,6 +59,9 @@ namespace com.bloomberg.emsx.samples
             example.run(args);
 
             while (!quit) { };
+
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
 
         }
 
@@ -151,25 +154,27 @@ namespace com.bloomberg.emsx.samples
 
                     Element routeToFill = request.GetElement("ROUTE_TO_FILL");
 
-                    routeToFill.SetElement("EMSX_SEQUENCE", 3852518);
+                    routeToFill.SetElement("EMSX_SEQUENCE", 4117796);
                     routeToFill.SetElement("EMSX_ROUTE_ID", 1);
 
                     Element fills = request.GetElement("FILLS");
 
-                    fills.SetElement("EMSX_FILL_AMOUNT", 500);
-                    fills.SetElement("EMSX_FILL_PRICE", 127.5);
-                    fills.SetElement("EMSX_LAST_MARKET", "XLON");
+                    Element fill = fills.AppendElement();
+
+                    fill.SetElement("EMSX_FILL_AMOUNT", 500);
+                    fill.SetElement("EMSX_FILL_PRICE", 127.5);
+                    fill.SetElement("EMSX_LAST_MARKET", "XLON");
 
                     // Only needed for Indian exchanges
-                    //fills.SetElement("EMSX_INDIA_EXCHANGE","BGL");
+                    //fill.SetElement("EMSX_INDIA_EXCHANGE","BGL");
 
-                    Element fillDateTime = fills.GetElement("EMSX_FILL_DATE_TIME");
+                    Element fillDateTime = fill.GetElement("EMSX_FILL_DATE_TIME");
 
-                    fillDateTime.SetChoice("Legacy");
+                    Element legacy = fillDateTime.SetChoice("Legacy");
 
-                    fillDateTime.SetElement("EMSX_FILL_DATE", 20171004);
-                    fillDateTime.SetElement("EMSX_FILL_TIME", 17054);
-                    fillDateTime.SetElement("EMSX_FILL_TIME_FORMAT", "SecondsFromMidnight");
+                    legacy.SetElement("EMSX_FILL_DATE", 20171107);
+                    legacy.SetElement("EMSX_FILL_TIME", 114554);
+                    legacy.SetElement("EMSX_FILL_TIME_FORMAT", "SecondsFromMidnight");
 
                     // If performing the fill on an order owned by another team member, provide owner's UUID
                     //request.Set("EMSX_TRADER_UUID", 12109783);
@@ -215,7 +220,7 @@ namespace com.bloomberg.emsx.samples
                         String errorMessage = msg.GetElementAsString("ERROR_MESSAGE");
                         System.Console.WriteLine("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                     }
-                    else if (msg.MessageType.Equals(SELL_SIDE_ACK))
+                    else if (msg.MessageType.Equals(MANUAL_FILL))
                     {
                         int status = msg.GetElementAsInt32("STATUS");
                         String message = msg.GetElementAsString("MESSAGE");
