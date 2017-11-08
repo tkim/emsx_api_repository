@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
+
         }
 
         public CancelRoute()
@@ -154,7 +157,7 @@ namespace com.bloomberg.emsx.samples
                     Element route = routes.AppendElement(); // Multiple routes can be cancelled in a single request
                     route.GetElement("EMSX_SEQUENCE").SetValue(3657996);
                     route.GetElement("EMSX_ROUTE_ID").SetValue(1);
-                    
+
 
                     System.Console.WriteLine("Request: " + request.ToString());
 

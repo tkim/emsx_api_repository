@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
+
         }
 
         public DeleteOrder()
@@ -149,8 +152,8 @@ namespace com.bloomberg.emsx.samples
 
                     //request.set("EMSX_REQUEST_SEQ", 1);
 
-                    request.GetElement("EMSX_SEQUENCE").AppendValue(3657983);
-                    request.GetElement("EMSX_SEQUENCE").AppendValue(3657996);
+                    request.GetElement("EMSX_SEQUENCE").AppendValue(4116556);
+                    request.GetElement("EMSX_SEQUENCE").AppendValue(4116561);
 
                     System.Console.WriteLine("Request: " + request.ToString());
 

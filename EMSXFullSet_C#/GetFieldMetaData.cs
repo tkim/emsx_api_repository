@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
+
         }
 
         public GetFieldMetaData()
@@ -151,7 +154,7 @@ namespace com.bloomberg.emsx.samples
 
                     request.GetElement("EMSX_FIELD_NAMES").AppendValue("EMSX_TICKER");
                     request.GetElement("EMSX_FIELD_NAMES").AppendValue("EMSX_P_A");
-                    
+
                     System.Console.WriteLine("Request: " + request.ToString());
 
                     requestID = new CorrelationID();

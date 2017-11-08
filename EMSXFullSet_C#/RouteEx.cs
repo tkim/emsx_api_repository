@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
+
         }
 
         public RouteWithStrat()
@@ -191,7 +194,7 @@ namespace com.bloomberg.emsx.samples
                     // of GetBrokerStrategyInfo request for the order. The indicator value is 0 for 
                     // a field that carries a value, and 1 where the field should be ignored
 
-                    
+
                     data.AppendElement().SetElement("EMSX_FIELD_DATA", "09:30:00"); // StartTime
                     indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 0);
 
@@ -227,7 +230,7 @@ namespace com.bloomberg.emsx.samples
 
                     data.AppendElement().SetElement("EMSX_FIELD_DATA", ""); 		// Discretion
                     indicator.AppendElement().SetElement("EMSX_FIELD_INDICATOR", 1);
-                    
+
 
                     System.Console.WriteLine("Request: " + request.ToString());
 

@@ -37,27 +37,27 @@ namespace com.bloomberg.emsx.samples
     public class EMSXSubscriptions
     {
 
-        private static readonly Name   ORDER_ROUTE_FIELDS = new Name("OrderRouteFields");
+        private static readonly Name ORDER_ROUTE_FIELDS = new Name("OrderRouteFields");
 
         // ADMIN
-        private static readonly Name   SLOW_CONSUMER_WARNING	= new Name("SlowConsumerWarning");
-        private static readonly Name   SLOW_CONSUMER_WARNING_CLEARED	= new Name("SlowConsumerWarningCleared");
+        private static readonly Name SLOW_CONSUMER_WARNING = new Name("SlowConsumerWarning");
+        private static readonly Name SLOW_CONSUMER_WARNING_CLEARED = new Name("SlowConsumerWarningCleared");
 
         // SESSION_STATUS
-        private static readonly Name   SESSION_STARTED 		= new Name("SessionStarted");
-        private static readonly Name   SESSION_TERMINATED 		= new Name("SessionTerminated");
-        private static readonly Name   SESSION_STARTUP_FAILURE = new Name("SessionStartupFailure");
-        private static readonly Name   SESSION_CONNECTION_UP 	= new Name("SessionConnectionUp");
-        private static readonly Name   SESSION_CONNECTION_DOWN	= new Name("SessionConnectionDown");
+        private static readonly Name SESSION_STARTED = new Name("SessionStarted");
+        private static readonly Name SESSION_TERMINATED = new Name("SessionTerminated");
+        private static readonly Name SESSION_STARTUP_FAILURE = new Name("SessionStartupFailure");
+        private static readonly Name SESSION_CONNECTION_UP = new Name("SessionConnectionUp");
+        private static readonly Name SESSION_CONNECTION_DOWN = new Name("SessionConnectionDown");
 
         // SERVICE_STATUS
-        private static readonly Name   SERVICE_OPENED 			= new Name("ServiceOpened");
-        private static readonly Name   SERVICE_OPEN_FAILURE 	= new Name("ServiceOpenFailure");
+        private static readonly Name SERVICE_OPENED = new Name("ServiceOpened");
+        private static readonly Name SERVICE_OPEN_FAILURE = new Name("ServiceOpenFailure");
 
         // SUBSCRIPTION_STATUS + SUBSCRIPTION_DATA
-        private static readonly Name   SUBSCRIPTION_FAILURE 	= new Name("SubscriptionFailure");
-        private static readonly Name   SUBSCRIPTION_STARTED	= new Name("SubscriptionStarted");
-        private static readonly Name   SUBSCRIPTION_TERMINATED	= new Name("SubscriptionTerminated");
+        private static readonly Name SUBSCRIPTION_FAILURE = new Name("SubscriptionFailure");
+        private static readonly Name SUBSCRIPTION_STARTED = new Name("SubscriptionStarted");
+        private static readonly Name SUBSCRIPTION_TERMINATED = new Name("SubscriptionTerminated");
 
         private Subscription orderSubscription;
         private Subscription routeSubscription;
@@ -92,7 +92,7 @@ namespace com.bloomberg.emsx.samples
             d_port = 8194;
 
         }
-        
+
 
         private void run(String[] args)
         {

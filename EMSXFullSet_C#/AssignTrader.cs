@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            example.run(args);
+
         }
 
         public AssignTrader()

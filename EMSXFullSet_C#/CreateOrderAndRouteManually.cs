@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
+
         }
 
         public CreateOrderAndRouteManually()

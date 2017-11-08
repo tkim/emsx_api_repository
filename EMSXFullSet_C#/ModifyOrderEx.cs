@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
+
         }
 
         public ModifyOrderEx()
@@ -165,7 +168,7 @@ namespace com.bloomberg.emsx.samples
                     //request.Set("EMSX_NOTES", "Some notes");
                     //request.Set("EMSX_REQUEST_SEQ", 1001);
                     //request.Set("EMSX_STOP_PRICE", 123.5);
-                    
+
                     // Note: When changing order type to a LMT order, you will need to provide the EMSX_LIMIT_PRICE value.
                     //       When changing order type away from LMT order, you will need to reset the EMSX_LIMIT_PRICE value
                     //       by setting the content to -99999

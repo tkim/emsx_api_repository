@@ -60,6 +60,9 @@ namespace com.bloomberg.emsx.samples
 
             while (!quit) { };
 
+            System.Console.WriteLine("Press ENTER to terminate...");
+            System.Console.ReadKey();
+
         }
 
         public CreateOrderAndRouteWithStrat()
@@ -148,12 +151,12 @@ namespace com.bloomberg.emsx.samples
                     Request request = service.CreateRequest("CreateOrderAndRouteEx");
 
                     // The fields below are mandatory
-                    request.Set("EMSX_TICKER", "IBM US Equity");
+                    request.Set("EMSX_TICKER", "SNAP US Equity");
                     request.Set("EMSX_AMOUNT", 1000);
                     request.Set("EMSX_ORDER_TYPE", "MKT");
                     request.Set("EMSX_TIF", "DAY");
                     request.Set("EMSX_HAND_INSTRUCTION", "ANY");
-                    request.Set("EMSX_SIDE", "BUY");
+                    request.Set("EMSX_SIDE", "SELL");
                     request.Set("EMSX_BROKER", "BMTB");
 
                     // The fields below are optional

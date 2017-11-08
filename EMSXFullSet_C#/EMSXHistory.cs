@@ -152,8 +152,8 @@ namespace com.bloomberg.samples
                     Request request = service.CreateRequest("GetFills");
 
                     // The Date/Time values from and to may contain a timezone element
-                    request.Set("FromDateTime", "2017-02-08T00:00:00.000+00:00");
-                    request.Set("ToDateTime", "2017-02-11T23:59:00.000+00:00");
+                    request.Set("FromDateTime", "2017-11-06T00:00:00.000+00:00");
+                    request.Set("ToDateTime", "2017-11-06T23:59:00.000+00:00");
 
                     Element scope = request.GetElement("Scope");
 
@@ -168,7 +168,7 @@ namespace com.bloomberg.samples
 
                     // One or more specified UUIDs
                     scope.SetChoice("Uuids");
-                    scope.GetElement("Uuids").AppendValue(8049857);
+                    scope.GetElement("Uuids").AppendValue(1234567);
 
                     //filterBy = request.GetElement("FilterBy");
 
