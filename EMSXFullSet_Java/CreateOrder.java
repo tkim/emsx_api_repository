@@ -173,7 +173,7 @@ public class CreateOrder {
             	    //request.set("EMSX_CUSTOM_NOTE4", "Note4");
             	    //request.set("EMSX_CUSTOM_NOTE5", "Note5");
             	    //request.set("EMSX_EXCHANGE_DESTINATION", "ExchDest");
-            	    //request.set("EMSX_EXEC_INSTRUCTIONS", "AnyInst");
+            	    //request.set("EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket");
             	    //request.set("EMSX_GET_WARNINGS", "0");
             	    //request.set("EMSX_GTD_DATE", "20170105");
             	    //request.set("EMSX_INVESTOR_ID", "InvID");
