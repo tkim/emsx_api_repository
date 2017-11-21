@@ -168,7 +168,7 @@ public class RouteWithStrat {
             	    //request.set("EMSX_CFD_FLAG", "1");
             	    //request.set("EMSX_CLEARING_ACCOUNT", "ClrAccName");
             	    //request.set("EMSX_CLEARING_FIRM", "FirmName");
-            	    //request.set("EMSX_EXEC_INSTRUCTIONS", "AnyInst");
+            	    //request.set("EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket");
             	    //request.set("EMSX_GET_WARNINGS", "0");
             	    //request.set("EMSX_GTD_DATE", "20170105");
             	    //request.set("EMSX_LIMIT_PRICE", 123.45);
