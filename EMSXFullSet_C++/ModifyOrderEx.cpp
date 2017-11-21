@@ -156,7 +156,7 @@ class EMSXEventHandler : public EventHandler
 				//request.set("EMSX_HAND_INSTRUCTION", "ANY");
 				//request.set("EMSX_ACCOUNT","TestAccount");
 				//request.set("EMSX_CFD_FLAG", "1");
-				//request.set("EMSX_EXEC_INSTRUCTIONS", "AnyInst");
+				//request.set("EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket");
 				//request.set("EMSX_GET_WARNINGS", "0");
 				//request.set("EMSX_GTD_DATE", "20170105");
 				//request.set("EMSX_INVESTOR_ID", "InvID");
