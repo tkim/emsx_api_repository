@@ -160,7 +160,7 @@ namespace com.bloomberg.emsx.samples
                     //request.Set("EMSX_HAND_INSTRUCTION", "ANY");
                     //request.Set("EMSX_ACCOUNT","TestAccount");
                     //request.Set("EMSX_CFD_FLAG", "1");
-                    //request.Set("EMSX_EXEC_INSTRUCTIONS", "AnyInst");
+                    //request.Set("EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket");
                     //request.Set("EMSX_GET_WARNINGS", "0");
                     //request.Set("EMSX_GTD_DATE", "20170105");
                     //request.Set("EMSX_INVESTOR_ID", "InvID");
