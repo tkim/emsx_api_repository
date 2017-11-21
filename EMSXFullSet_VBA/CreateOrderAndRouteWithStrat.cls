@@ -177,7 +177,7 @@ Private Sub processServiceEvent(evt As blpapicomLib2.Event)
             'req.Set "EMSX_CUSTOM_NOTE4", "Note4"
             'req.Set "EMSX_CUSTOM_NOTE5", "Note5"
             'req.Set "EMSX_EXCHANGE_DESTINATION", "ExchDest"
-            'req.Set "EMSX_EXEC_INSTRUCTIONS", "AnyInst"
+            'req.Set "EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket"
             'req.Set "EMSX_GET_WARNINGS", "0"
             'req.Set "EMSX_GTD_DATE", "20170105"
             'req.Set "EMSX_INVESTOR_ID", "InvID"
