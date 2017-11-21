@@ -170,7 +170,7 @@ Private Sub processServiceEvent(evt As blpapicomLib2.Event)
             'req.Set "EMSX_CFD_FLAG", "1"
             'req.Set "EMSX_CLEARING_ACCOUNT", "ClrAccName"
             'req.Set "EMSX_CLEARING_FIRM", "FirmName"
-            'req.Set "EMSX_EXEC_INSTRUCTIONS", "AnyInst"
+            'req.Set "EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket"
             'req.Set "EMSX_GET_WARNINGS", "0"
             'req.Set "EMSX_GTD_DATE", "20170105"
             'req.Set "EMSX_INVESTOR_ID", "InvID"
