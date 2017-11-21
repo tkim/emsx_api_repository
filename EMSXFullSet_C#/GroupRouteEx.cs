@@ -172,7 +172,7 @@ namespace com.bloomberg.emsx.samples
                     //request.Set("EMSX_CFD_FLAG", "1");
                     //request.Set("EMSX_CLEARING_ACCOUNT", "ClrAccName");
                     //request.Set("EMSX_CLEARING_FIRM", "FirmName");
-                    //request.Set("EMSX_EXEC_INSTRUCTIONS", "AnyInst");
+                    //request.Set("EMSX_EXEC_INSTRUCTION", "Drop down values from EMSX Ticket");
                     //request.Set("EMSX_GET_WARNINGS", "0");
                     //request.Set("EMSX_GTD_DATE", "20170105");
                     //request.Set("EMSX_LIMIT_PRICE", 123.45);
