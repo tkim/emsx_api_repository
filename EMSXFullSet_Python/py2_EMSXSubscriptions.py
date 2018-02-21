@@ -85,16 +85,16 @@ class SessionEventHandler(object):
                 session.openServiceAsync(d_service)
                 
             elif msg.messageType() == SESSION_STARTUP_FAILURE:
-                print ("Error: Session startup failed", file=sys.stderr)
+                print >> sys.stderr, ("Error: Session startup failed")
                 
             elif msg.messageType() == SESSION_TERMINATED:
-                print ("Error: Session has been terminated")
+                print >> sys.stderr, ("Error: Session has been terminated")
                 
             elif msg.messageType() == SESSION_CONNECTION_UP:
                 print ("Session connection is up")
                 
             elif msg.messageType() == SESSION_CONNECTION_DOWN:
-                print ("Error: Session connection is down")
+                print >> sys.stderr, ("Error: Session connection is down")
                 
                 
 
@@ -108,7 +108,7 @@ class SessionEventHandler(object):
                 self.createOrderSubscription(session)
                 
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
-                print ("Error: Service failed to open", file=sys.stderr)        
+                print >> sys.stderr, ("Error: Service failed to open")        
                 
                 
     def processSubscriptionStatusEvent(self, event, session):
@@ -118,6 +118,8 @@ class SessionEventHandler(object):
             
             if msg.messageType() == SUBSCRIPTION_STARTED:
                 
+                print ("OrderSubID: %s\tRouteSubID: %s" % (orderSubscriptionID.value(), routeSubscriptionID.value()))
+
                 if msg.correlationIds()[0].value() == orderSubscriptionID.value():
                     print ("Order subscription started successfully")
                     self.createRouteSubscription(session)
@@ -126,18 +128,18 @@ class SessionEventHandler(object):
                     print ("Route subscription started successfully")
                     
             elif msg.messageType() == SUBSCRIPTION_FAILURE:
-                print ("Error: Subscription failed", file=sys.stderr)
-                print ("MESSAGE: %s" % (msg), file=sys.stderr)
+                print >> sys.stderr, ("Error: Subscription failed")
+                print >> sys.stderr, ("MESSAGE: %s" % (msg))
                     
                 reason = msg.getElement("reason");
                 errorcode = reason.getElementAsInteger("errorCode")
                 description = reason.getElementAsString("description")
             
-                print ("Error: (%d) %s" % (errorcode, description), file=sys.stderr)                
+                print >> sys.stdout, ("Error: (%d) %s" % (errorcode, description))                
                 
             elif msg.messageType() == SUBSCRIPTION_TERMINATED:
-                print ("Error: Subscription terminated", file=sys.stderr)
-                print ("MESSAGE: %s" % (msg), file=sys.stderr)
+                print >> sys.stderr, ("Error: Subscription terminated")
+                print >> sys.stderr, ("MESSAGE: %s" % (msg))
 
 
     def processSubscriptionDataEvent(self, event):
@@ -152,13 +154,9 @@ class SessionEventHandler(object):
                 if event_status == 1:
                 
                     if msg.correlationIds()[0].value() == orderSubscriptionID.value():
-                        #print ("O", end=".",)
                         print ("O."),
-                        pass
                     elif msg.correlationIds()[0].value() == routeSubscriptionID.value():
-                        #print ("R", end=".",)
                         print ("R."),
-                        pass
                     
                 elif event_status == 11:
                 
@@ -260,7 +258,6 @@ class SessionEventHandler(object):
                         emsx_yellow_key = msg.getElementAsString("EMSX_YELLOW_KEY") if msg.hasElement("EMSX_YELLOW_KEY") else ""
                         
                         print ("ORDER MESSAGE: CorrelationID(%d)   Status(%d)" % (msg.correlationIds()[0].value(),event_status))
-                        print ("MESSAGE: %s" % (msg))
                         
                         print ("API_SEQ_NUM: %d" % (api_seq_num))
                         print ("EMSX_ACCOUNT: %s" % (emsx_account))
@@ -272,91 +269,90 @@ class SessionEventHandler(object):
                         print ("EMSX_BASKET_NAME: %s" % (emsx_basket_name))
                         print ("EMSX_BASKET_NUM: %d" % (emsx_basket_num))
                         print ("EMSX_BROKER: %s" % (emsx_broker))
-                        print ("EMSX_BROKER_COMM: %d" % (emsx_broker_comm))
-                        print ("EMSX_BSE_AVG_PRICE: %d" % (emsx_bse_avg_price))
-                        print ("EMSX_BSE_FILLED: %d" % (emsx_bse_filled))
-                        print ("EMSX_CFD_FLAG: %s" % (emsx_cfd_flag))
-                        print ("EMSX_COMM_DIFF_FLAG: %s" % (emsx_comm_diff_flag))
-                        print ("EMSX_COMM_RATE: %d" % (emsx_comm_rate))
-                        print ("EMSX_CURRENCY_PAIR: %s" % (emsx_currency_pair))
-                        print ("EMSX_DATE: %d" % (emsx_date))
-                        print ("EMSX_DAY_AVG_PRICE: %d" % (emsx_day_avg_price))
-                        print ("EMSX_DAY_FILL: %d" % (emsx_day_fill))
-                        print ("EMSX_DIR_BROKER_FLAG: %s" % (emsx_dir_broker_flag))
-                        print ("EMSX_EXCHANGE: %s" % (emsx_exchange))
-                        print ("EMSX_EXCHANGE_DESTINATION: %s" % (emsx_exchange_destination))
+                        #print ("EMSX_BROKER_COMM: %d" % (emsx_broker_comm))
+                        #print ("EMSX_BSE_AVG_PRICE: %d" % (emsx_bse_avg_price))
+                        #print ("EMSX_BSE_FILLED: %d" % (emsx_bse_filled))
+                        #print ("EMSX_CFD_FLAG: %s" % (emsx_cfd_flag))
+                        #print ("EMSX_COMM_DIFF_FLAG: %s" % (emsx_comm_diff_flag))
+                        #print ("EMSX_COMM_RATE: %d" % (emsx_comm_rate))
+                        #print ("EMSX_CURRENCY_PAIR: %s" % (emsx_currency_pair))
+                        #print ("EMSX_DATE: %d" % (emsx_date))
+                        #print ("EMSX_DAY_AVG_PRICE: %d" % (emsx_day_avg_price))
+                        #print ("EMSX_DAY_FILL: %d" % (emsx_day_fill))
+                        #print ("EMSX_DIR_BROKER_FLAG: %s" % (emsx_dir_broker_flag))
+                        #print ("EMSX_EXCHANGE: %s" % (emsx_exchange))
+                        #print ("EMSX_EXCHANGE_DESTINATION: %s" % (emsx_exchange_destination))
                         print ("EMSX_EXEC_INSTRUCTION: %s" % (emsx_exec_instruction))
-                        print ("EMSX_FILL_ID: %d" % (emsx_fill_id))
-                        print ("EMSX_FILLED: %d" % (emsx_filled))
-                        print ("EMSX_GTD_DATE: %d" % (emsx_gtd_date))
-                        print ("EMSX_HAND_INSTRUCTION: %s" % (emsx_hand_instruction))
-                        print ("EMSX_IDLE_AMOUNT: %d" % (emsx_idle_amount))
-                        print ("EMSX_INVESTOR_ID: %s" % (emsx_investor_id))
-                        print ("EMSX_ISIN: %s" % (emsx_isin))
+                        #print ("EMSX_FILL_ID: %d" % (emsx_fill_id))
+                        #print ("EMSX_FILLED: %d" % (emsx_filled))
+                        #print ("EMSX_GTD_DATE: %d" % (emsx_gtd_date))
+                        #print ("EMSX_HAND_INSTRUCTION: %s" % (emsx_hand_instruction))
+                        #print ("EMSX_IDLE_AMOUNT: %d" % (emsx_idle_amount))
+                        #print ("EMSX_INVESTOR_ID: %s" % (emsx_investor_id))
+                        #print ("EMSX_ISIN: %s" % (emsx_isin))
                         print ("EMSX_LIMIT_PRICE: %0.8f" % (emsx_limit_price))
                         print ("EMSX_NOTES: %s" % (emsx_notes))
-                        print ("EMSX_NSE_AVG_PRICE: %d" % (emsx_nse_avg_price))
-                        print ("EMSX_NSE_FILLED: %d" % (emsx_nse_filled))
-                        print ("EMSX_ORD_REF_ID: %s" % (emsx_ord_ref_id))
+                        #print ("EMSX_NSE_AVG_PRICE: %d" % (emsx_nse_avg_price))
+                        #print ("EMSX_NSE_FILLED: %d" % (emsx_nse_filled))
+                        #print ("EMSX_ORD_REF_ID: %s" % (emsx_ord_ref_id))
                         print ("EMSX_ORDER_TYPE: %s" % (emsx_order_type))
-                        print ("EMSX_ORIGINATE_TRADER: %s" % (emsx_originate_trader))
-                        print ("EMSX_ORIGINATE_TRADER_FIRM: %s" % (emsx_originate_trader_firm))
+                        #print ("EMSX_ORIGINATE_TRADER: %s" % (emsx_originate_trader))
+                        #print ("EMSX_ORIGINATE_TRADER_FIRM: %s" % (emsx_originate_trader_firm))
                         print ("EMSX_PERCENT_REMAIN: %d" % (emsx_percent_remain))
-                        print ("EMSX_PM_UUID: %d" % (emsx_pm_uuid))
-                        print ("EMSX_PORT_MGR: %s" % (emsx_port_mgr))
-                        print ("EMSX_PORT_NAME: %s" % (emsx_port_name))
-                        print ("EMSX_PORT_NUM: %d" % (emsx_port_num))
-                        print ("EMSX_POSITION: %s" % (emsx_position))
-                        print ("EMSX_PRINCIPAL: %d" % (emsx_principle))
-                        print ("EMSX_PRODUCT: %s" % (emsx_product))
-                        print ("EMSX_QUEUED_DATE: %d" % (emsx_queued_date))
-                        print ("EMSX_QUEUED_TIME: %d" % (emsx_queued_time))
-                        print ("EMSX_REASON_CODE: %s" % (emsx_reason_code))
-                        print ("EMSX_REASON_DESC: %s" % (emsx_reason_desc))
-                        print ("EMSX_REMAIN_BALANCE: %d" % (emsx_remain_balance))
-                        print ("EMSX_ROUTE_ID: %d" % (emsx_route_id))
-                        print ("EMSX_ROUTE_PRICE: %d" % (emsx_route_price))
-                        print ("EMSX_SEC_NAME: %s" % (emsx_sec_name))
-                        print ("EMSX_SEDOL: %s" % (emsx_sedol))
+                        #print ("EMSX_PM_UUID: %d" % (emsx_pm_uuid))
+                        #print ("EMSX_PORT_MGR: %s" % (emsx_port_mgr))
+                        #print ("EMSX_PORT_NAME: %s" % (emsx_port_name))
+                        #print ("EMSX_PORT_NUM: %d" % (emsx_port_num))
+                        #print ("EMSX_POSITION: %s" % (emsx_position))
+                        #print ("EMSX_PRINCIPAL: %d" % (emsx_principle))
+                        #print ("EMSX_PRODUCT: %s" % (emsx_product))
+                        #print ("EMSX_QUEUED_DATE: %d" % (emsx_queued_date))
+                        #print ("EMSX_QUEUED_TIME: %d" % (emsx_queued_time))
+                        #print ("EMSX_REASON_CODE: %s" % (emsx_reason_code))
+                        #print ("EMSX_REASON_DESC: %s" % (emsx_reason_desc))
+                        #print ("EMSX_REMAIN_BALANCE: %d" % (emsx_remain_balance))
+                        #print ("EMSX_ROUTE_ID: %d" % (emsx_route_id))
+                        #print ("EMSX_ROUTE_PRICE: %d" % (emsx_route_price))
+                        #print ("EMSX_SEC_NAME: %s" % (emsx_sec_name))
+                        #print ("EMSX_SEDOL: %s" % (emsx_sedol))
                         print ("EMSX_SEQUENCE: %d" % (emsx_sequence))
-                        print ("EMSX_SETTLE_AMOUNT: %d" % (emsx_settle_amount))
-                        print ("EMSX_SETTLE_DATE: %d" % (emsx_settle_date))
+                        #print ("EMSX_SETTLE_AMOUNT: %d" % (emsx_settle_amount))
+                        #print ("EMSX_SETTLE_DATE: %d" % (emsx_settle_date))
                         print ("EMSX_SIDE: %s" % (emsx_side))
-                        print ("EMSX_START_AMOUNT: %d" % (emsx_start_amount))
-                        print ("EMSX_STATUS: %s" % (emsx_status))
-                        print ("EMSX_STEP_OUT_BROKER: %s" % (emsx_step_out_broker))
-                        print ("EMSX_STOP_PRICE: %d" % (emsx_stop_price))
-                        print ("EMSX_STRATEGY_END_TIME: %d" % (emsx_strategy_end_time))
-                        print ("EMSX_STRATEGY_PART_RATE1: %d" % (emsx_strategy_part_rate1))
-                        print ("EMSX_STRATEGY_PART_RATE2: %d" % (emsx_strategy_part_rate2))
-                        print ("EMSX_STRATEGY_STYLE: %s" % (emsx_strategy_style))
-                        print ("EMSX_STRATEGY_TYPE: %s" % (emsx_strategy_type))
+                        #print ("EMSX_START_AMOUNT: %d" % (emsx_start_amount))
+                        #print ("EMSX_STATUS: %s" % (emsx_status))
+                        #print ("EMSX_STEP_OUT_BROKER: %s" % (emsx_step_out_broker))
+                        #print ("EMSX_STOP_PRICE: %d" % (emsx_stop_price))
+                        #print ("EMSX_STRATEGY_END_TIME: %d" % (emsx_strategy_end_time))
+                        #print ("EMSX_STRATEGY_PART_RATE1: %d" % (emsx_strategy_part_rate1))
+                        #print ("EMSX_STRATEGY_PART_RATE2: %d" % (emsx_strategy_part_rate2))
+                        #print ("EMSX_STRATEGY_STYLE: %s" % (emsx_strategy_style))
+                        #print ("EMSX_STRATEGY_TYPE: %s" % (emsx_strategy_type))
                         print ("EMSX_TICKER: %s" % (emsx_ticker))
-                        print ("EMSX_TIF: %s" % (emsx_tif))
-                        print ("EMSX_TIME_STAMP: %d" % (emsx_time_stamp))
-                        print ("EMSX_TRAD_UUID: %d" % (emsx_trad_uuid))
-                        print ("EMSX_TRADE_DESK: %s" % (emsx_trade_desk))
+                        #print ("EMSX_TIF: %s" % (emsx_tif))
+                        #print ("EMSX_TIME_STAMP: %d" % (emsx_time_stamp))
+                        #print ("EMSX_TRAD_UUID: %d" % (emsx_trad_uuid))
+                        #print ("EMSX_TRADE_DESK: %s" % (emsx_trade_desk))
                         print ("EMSX_TRADER: %s" % (emsx_trader))
-                        print ("EMSX_TRADER_NOTES: %s" % (emsx_trader_notes))
-                        print ("EMSX_TS_ORDNUM: %d" % (emsx_ts_ordnum))
-                        print ("EMSX_TYPE: %s" % (emsx_type))
-                        print ("EMSX_UNDERLYING_TICKER: %s" % (emsx_underlying_ticker))
-                        print ("EMSX_USER_COMM_AMOUNT: %d" % (emsx_user_comm_amount))
-                        print ("EMSX_USER_COMM_RATE: %d" % (emsx_user_comm_rate))
-                        print ("EMSX_USER_FEES: %d" % (emsx_user_fees))
-                        print ("EMSX_USER_NET_MONEY: %d" % (emsx_user_net_money))
-                        print ("EMSX_WORK_PRICE: %d" % (emsx_user_work_price))
-                        print ("EMSX_WORKING: %d" % (emsx_working))
-                        print ("EMSX_YELLOW_KEY: %s" % (emsx_yellow_key))
+                        #print ("EMSX_TRADER_NOTES: %s" % (emsx_trader_notes))
+                        #print ("EMSX_TS_ORDNUM: %d" % (emsx_ts_ordnum))
+                        #print ("EMSX_TYPE: %s" % (emsx_type))
+                        #print ("EMSX_UNDERLYING_TICKER: %s" % (emsx_underlying_ticker))
+                        #print ("EMSX_USER_COMM_AMOUNT: %d" % (emsx_user_comm_amount))
+                        #print ("EMSX_USER_COMM_RATE: %d" % (emsx_user_comm_rate))
+                        #print ("EMSX_USER_FEES: %d" % (emsx_user_fees))
+                        #print ("EMSX_USER_NET_MONEY: %d" % (emsx_user_net_money))
+                        #print ("EMSX_WORK_PRICE: %d" % (emsx_user_work_price))
+                        #print ("EMSX_WORKING: %d" % (emsx_working))
+                        #print ("EMSX_YELLOW_KEY: %s" % (emsx_yellow_key))
             
                     elif msg.correlationIds()[0].value() == routeSubscriptionID.value():
-                            
+
                         api_seq_num = msg.getElementAsInteger("API_SEQ_NUM") if msg.hasElement("API_SEQ_NUM") else 0
                         emsx_amount = msg.getElementAsInteger("EMSX_AMOUNT") if msg.hasElement("EMSX_AMOUNT") else 0
                         emsx_avg_price = msg.getElementAsFloat("EMSX_AVG_PRICE") if msg.hasElement("EMSX_AVG_PRICE") else 0
                         emsx_broker = msg.getElementAsString("EMSX_BROKER") if msg.hasElement("EMSX_BROKER") else ""
                         emsx_broker_comm = msg.getElementAsFloat("EMSX_BROKER_COMM") if msg.hasElement("EMSX_BROKER_COMM") else 0
-                        emsx_broker_status = msg.getElementAsString("EMSX_BROKER_STATUS") if msg.hasElement("EMSX_BROKER_STATUS") else ""
                         emsx_bse_avg_price = msg.getElementAsFloat("EMSX_BSE_AVG_PRICE") if msg.hasElement("EMSX_BSE_AVG_PRICE") else 0
                         emsx_bse_filled = msg.getElementAsInteger("EMSX_BSE_FILLED") if msg.hasElement("EMSX_BSE_FILLED") else 0
                         emsx_clearing_account = msg.getElementAsString("EMSX_CLEARING_ACCOUNT") if msg.hasElement("EMSX_CLEARING_ACCOUNT") else ""
@@ -426,33 +422,30 @@ class SessionEventHandler(object):
                         emsx_user_fees = msg.getElementAsFloat("EMSX_USER_FEES") if msg.hasElement("EMSX_USER_FEES") else 0
                         emsx_user_net_money = msg.getElementAsFloat("EMSX_USER_NET_MONEY") if msg.hasElement("EMSX_USER_NET_MONEY") else 0
                         emsx_working = msg.getElementAsInteger("EMSX_WORKING") if msg.hasElement("EMSX_WORKING") else 0
-                        emsx_route_as_of_date = msg.getElementAsInteger("EMSX_ROUTE_AS_OF_DATE") if msg.hasElement("EMSX_ROUTE_AS_OF_DATE") else 0
                         
                         print ("ROUTE MESSAGE: CorrelationID(%d)   Status(%d)" % (msg.correlationIds()[0].value(),event_status))
-                        print ("MESSAGE: %s" % (msg))
                         
                         print ("API_SEQ_NUM: %d" % (api_seq_num))
                         print ("EMSX_AMOUNT: %d" % (emsx_amount))
                         print ("EMSX_AVG_PRICE: %d" % (emsx_avg_price))
                         print ("EMSX_BROKER: %s" % (emsx_broker))
                         print ("EMSX_BROKER_COMM: %d" % (emsx_broker_comm))
-                        print ("EMSX_BROKER_STATUS: %s" % (emsx_broker_status))
-                        print ("EMSX_BSE_AVG_PRICE: %d" % (emsx_bse_avg_price))
-                        print ("EMSX_BSE_FILLED: %d" % (emsx_bse_filled))
+                        #print ("EMSX_BSE_AVG_PRICE: %d" % (emsx_bse_avg_price))
+                        #print ("EMSX_BSE_FILLED: %d" % (emsx_bse_filled))
                         print ("EMSX_CLEARING_ACCOUNT: %s" % (emsx_clearing_account))
-                        print ("EMSX_CLEARING_FIRM: %s" % (emsx_clearing_firm))
-                        print ("EMSX_COMM_DIFF_FLAG: %s" % (emsx_comm_diff_flag))
-                        print ("EMSX_COMM_RATE: %d" % (emsx_comm_rate))
+                        #print ("EMSX_CLEARING_FIRM: %s" % (emsx_clearing_firm))
+                        #print ("EMSX_COMM_DIFF_FLAG: %s" % (emsx_comm_diff_flag))
+                        #print ("EMSX_COMM_RATE: %d" % (emsx_comm_rate))
                         print ("EMSX_CURRENCY_PAIR: %s" % (emsx_currency_pair))
                         print ("EMSX_CUSTOM_ACCOUNT: %s" % (emsx_custom_account))
                         print ("EMSX_DAY_AVG_PRICE: %d" % (emsx_day_avg_price))
                         print ("EMSX_DAY_FILL: %d" % (emsx_day_fill))
-                        print ("EMSX_EXCHANGE_DESTINATION: %s" % (emsx_exchange_destination))
-                        print ("EMSX_EXEC_INSTRUCTION: %s" % (emsx_exec_instruction))
+                        #print ("EMSX_EXCHANGE_DESTINATION: %s" % (emsx_exchange_destination))
+                        #print ("EMSX_EXEC_INSTRUCTION: %s" % (emsx_exec_instruction))
                         print ("EMSX_EXECUTE_BROKER: %s" % (emsx_execute_broker))
                         print ("EMSX_FILL_ID: %d" % (emsx_fill_id))
                         print ("EMSX_FILLED: %d" % (emsx_filled))
-                        print ("EMSX_GTD_DATE: %d" % (emsx_gtd_date))
+                        #print ("EMSX_GTD_DATE: %d" % (emsx_gtd_date))
                         print ("EMSX_HAND_INSTRUCTION: %s" % (emsx_hand_instruction))
                         print ("EMSX_IS_MANUAL_ROUTE: %d" % (emsx_is_manual_route))
                         print ("EMSX_LAST_FILL_DATE: %d" % (emsx_last_fill_date))
@@ -460,56 +453,55 @@ class SessionEventHandler(object):
                         print ("EMSX_LAST_MARKET: %s" % (emsx_last_market))
                         print ("EMSX_LAST_PRICE: %d" % (emsx_last_price))
                         print ("EMSX_LAST_SHARES: %d" % (emsx_last_shares))
-                        print ("EMSX_LIMIT_PRICE: %0.8f" % (emsx_limit_price))
-                        print ("EMSX_MISC_FEES: %d" % (emsx_misc_fees))
-                        print ("EMSX_ML_LEG_QUANTITY: %d" % (emsx_ml_leg_quantity))
-                        print ("EMSX_ML_NUM_LEGS: %d" % (emsx_ml_num_legs))
-                        print ("EMSX_ML_PERCENT_FILLED: %d" % (emsx_ml_percent_filled))
-                        print ("EMSX_ML_RATIO: %d" % (emsx_ml_ratio))
-                        print ("EMSX_ML_REMAIN_BALANCE: %d" % (emsx_ml_remain_balance))
-                        print ("EMSX_ML_STRATEGY: %s" % (emsx_ml_strategy))
-                        print ("EMSX_ML_TOTAL_QUANTITY: %d" % (emsx_ml_total_quantity))
+                        print ("EMSX_LIMIT_PRICE: %d" % (emsx_limit_price))
+                        #print ("EMSX_MISC_FEES: %d" % (emsx_misc_fees))
+                        #print ("EMSX_ML_LEG_QUANTITY: %d" % (emsx_ml_leg_quantity))
+                        #print ("EMSX_ML_NUM_LEGS: %d" % (emsx_ml_num_legs))
+                        #print ("EMSX_ML_PERCENT_FILLED: %d" % (emsx_ml_percent_filled))
+                        #print ("EMSX_ML_RATIO: %d" % (emsx_ml_ratio))
+                        #print ("EMSX_ML_REMAIN_BALANCE: %d" % (emsx_ml_remain_balance))
+                        #print ("EMSX_ML_STRATEGY: %s" % (emsx_ml_strategy))
+                        #print ("EMSX_ML_TOTAL_QUANTITY: %d" % (emsx_ml_total_quantity))
                         print ("EMSX_NOTES: %s" % (emsx_notes))
-                        print ("EMSX_NSE_AVG_PRICE: %d" % (emsx_nse_avg_price))
-                        print ("EMSX_NSE_FILLED: %d" % (emsx_nse_filled))
+                        #print ("EMSX_NSE_AVG_PRICE: %d" % (emsx_nse_avg_price))
+                        #print ("EMSX_NSE_FILLED: %d" % (emsx_nse_filled))
                         print ("EMSX_ORDER_TYPE: %s" % (emsx_order_type))
-                        print ("EMSX_P_A: %s" % (emsx_p_a))
+                        #print ("EMSX_P_A: %s" % (emsx_p_a))
                         print ("EMSX_PERCENT_REMAIN: %d" % (emsx_percent_remain))
-                        print ("EMSX_PRINCIPAL: %d" % (emsx_principle))
-                        print ("EMSX_QUEUED_DATE: %d" % (emsx_queued_date))
-                        print ("EMSX_QUEUED_TIME: %d" % (emsx_queued_time))
-                        print ("EMSX_REASON_CODE: %s" % (emsx_reason_code))
-                        print ("EMSX_REASON_DESC: %s" % (emsx_reason_desc))
-                        print ("EMSX_REMAIN_BALANCE: %d" % (emsx_remain_balance))
-                        print ("EMSX_ROUTE_CREATE_DATE: %d" % (emsx_route_create_date))
-                        print ("EMSX_ROUTE_CREATE_TIME: %d" % (emsx_route_create_time))
+                        #print ("EMSX_PRINCIPAL: %d" % (emsx_principle))
+                        #print ("EMSX_QUEUED_DATE: %d" % (emsx_queued_date))
+                        #print ("EMSX_QUEUED_TIME: %d" % (emsx_queued_time))
+                        #print ("EMSX_REASON_CODE: %s" % (emsx_reason_code))
+                        #print ("EMSX_REASON_DESC: %s" % (emsx_reason_desc))
+                        #print ("EMSX_REMAIN_BALANCE: %d" % (emsx_remain_balance))
+                        #print ("EMSX_ROUTE_CREATE_DATE: %d" % (emsx_route_create_date))
+                        #print ("EMSX_ROUTE_CREATE_TIME: %d" % (emsx_route_create_time))
                         print ("EMSX_ROUTE_ID: %d" % (emsx_route_id))
-                        print ("EMSX_ROUTE_LAST_UPDATE_TIME: %d" % (emsx_route_last_update_time))
-                        print ("EMSX_ROUTE_PRICE: %d" % (emsx_route_price))
-                        print ("EMSX_SEQUENCE: %d" % (emsx_sequence))
-                        print ("EMSX_SETTLE_AMOUNT: %d" % (emsx_settle_amount))
-                        print ("EMSX_SETTLE_DATE: %d" % (emsx_settle_date))
+                        #print ("EMSX_ROUTE_LAST_UPDATE_TIME: %d" % (emsx_route_last_update_time))
+                        #print ("EMSX_ROUTE_PRICE: %d" % (emsx_route_price))
+                        #print ("EMSX_SEQUENCE: %d" % (emsx_sequence))
+                        #print ("EMSX_SETTLE_AMOUNT: %d" % (emsx_settle_amount))
+                        #print ("EMSX_SETTLE_DATE: %d" % (emsx_settle_date))
                         print ("EMSX_STATUS: %s" % (emsx_status))
-                        print ("EMSX_STOP_PRICE: %d" % (emsx_stop_price))
-                        print ("EMSX_STRATEGY_END_TIME: %d" % (emsx_strategy_end_time))
-                        print ("EMSX_STRATEGY_PART_RATE1: %d" % (emsx_strategy_part_rate1))
-                        print ("EMSX_STRATEGY_PART_RATE2: %d" % (emsx_strategy_part_rate2))
-                        print ("EMSX_STRATEGY_START_TIME: %s" % (emsx_strategy_start_time))
-                        print ("EMSX_STRATEGY_STYLE: %s" % (emsx_strategy_style))
-                        print ("EMSX_STRATEGY_TYPE: %s" % (emsx_strategy_type))
-                        print ("EMSX_TIF: %s" % (emsx_tif))
-                        print ("EMSX_TIME_STAMP: %d" % (emsx_time_stamp))
-                        print ("EMSX_TYPE: %s" % (emsx_type))
-                        print ("EMSX_URGENCY_LEVEL: %d" % (emsx_urgency_level))
-                        print ("EMSX_USER_COMM_AMOUNT: %d" % (emsx_user_comm_amount))
-                        print ("EMSX_USER_COMM_RATE: %d" % (emsx_user_comm_rate))
-                        print ("EMSX_USER_FEES: %d" % (emsx_user_fees))
-                        print ("EMSX_USER_NET_MONEY: %d" % (emsx_user_net_money))
-                        print ("EMSX_WORKING: %d" % (emsx_working))
-                        print ("EMSX_ROUTE_AS_OF_DATE: %d" % (emsx_route_as_of_date))
+                        #print ("EMSX_STOP_PRICE: %d" % (emsx_stop_price))
+                        #print ("EMSX_STRATEGY_END_TIME: %d" % (emsx_strategy_end_time))
+                        #print ("EMSX_STRATEGY_PART_RATE1: %d" % (emsx_strategy_part_rate1))
+                        #print ("EMSX_STRATEGY_PART_RATE2: %d" % (emsx_strategy_part_rate2))
+                        #print ("EMSX_STRATEGY_START_TIME: %s" % (emsx_strategy_start_time))
+                        #print ("EMSX_STRATEGY_STYLE: %s" % (emsx_strategy_style))
+                        #print ("EMSX_STRATEGY_TYPE: %s" % (emsx_strategy_type))
+                        #print ("EMSX_TIF: %s" % (emsx_tif))
+                        #print ("EMSX_TIME_STAMP: %d" % (emsx_time_stamp))
+                        #print ("EMSX_TYPE: %s" % (emsx_type))
+                        #print ("EMSX_URGENCY_LEVEL: %d" % (emsx_urgency_level))
+                        #print ("EMSX_USER_COMM_AMOUNT: %d" % (emsx_user_comm_amount))
+                        #print ("EMSX_USER_COMM_RATE: %d" % (emsx_user_comm_rate))
+                        #print ("EMSX_USER_FEES: %d" % (emsx_user_fees))
+                        #print ("EMSX_USER_NET_MONEY: %d" % (emsx_user_net_money))
+                        #print ("EMSX_WORKING: %d" % (emsx_working))
 
             else:
-                print ("Error: Unexpected message", file=sys.stderr)
+                print >> sys.stderr, ("Error: Unexpected message")
 
 
     def processMiscEvents(self, event):
@@ -525,7 +517,6 @@ class SessionEventHandler(object):
         
         print ("Create Order subscription")
         
-        #orderTopic = d_service + "/order;team=EMSX_API?fields="
         orderTopic = d_service + "/order?fields="
         orderTopic = orderTopic + "API_SEQ_NUM,"
         orderTopic = orderTopic + "EMSX_ACCOUNT,"
@@ -626,7 +617,6 @@ class SessionEventHandler(object):
         
         print ("Create Route subscription")
         
-        #routeTopic = d_service + "/route;team=EMSX_API?fields="
         routeTopic = d_service + "/route?fields="
         routeTopic = routeTopic + "API_SEQ_NUM,"
         routeTopic = routeTopic + "EMSX_AMOUNT,"
@@ -635,7 +625,6 @@ class SessionEventHandler(object):
         routeTopic = routeTopic + "EMSX_BROKER_COMM,"
         routeTopic = routeTopic + "EMSX_BSE_AVG_PRICE,"
         routeTopic = routeTopic + "EMSX_BSE_FILLED,"
-        routeTopic = routeTopic + "EMSX_BROKER_STATUS,"
         routeTopic = routeTopic + "EMSX_CLEARING_ACCOUNT,"
         routeTopic = routeTopic + "EMSX_CLEARING_FIRM,"
         routeTopic = routeTopic + "EMSX_COMM_DIFF_FLAG,"
@@ -702,7 +691,6 @@ class SessionEventHandler(object):
         routeTopic = routeTopic + "EMSX_USER_COMM_RATE,"
         routeTopic = routeTopic + "EMSX_USER_FEES,"
         routeTopic = routeTopic + "EMSX_USER_NET_MONEY,"
-        routeTopic = routeTopic + "EMSX_ROUTE_AS_OF_DATE,"
         routeTopic = routeTopic + "EMSX_WORKING"
 
         subscriptions = blpapi.SubscriptionList()
@@ -730,7 +718,7 @@ def main():
     try:
         # Wait for enter key to exit application
         print ("Press ENTER to quit")
-        input()
+        raw_input()
     finally:
         session.stop()
 
@@ -744,7 +732,6 @@ if __name__ == "__main__":
 
 __copyright__ = """
 Copyright 2013. Bloomberg Finance L.P.
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to
 deal in the Software without restriction, including without limitation the
@@ -753,7 +740,6 @@ sell copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:  The above
 copyright notice and this permission notice shall be included in all copies
 or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
