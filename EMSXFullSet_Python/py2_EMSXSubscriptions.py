@@ -1,4 +1,4 @@
-# EMSXSubscriptions.py
+# Python 2.7 EMSXSubscriptions.py
 
 import blpapi
 import sys
