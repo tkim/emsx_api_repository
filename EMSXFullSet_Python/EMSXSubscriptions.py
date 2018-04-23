@@ -28,6 +28,7 @@ REASON = blpapi.Name("reason")
 CATEGORY = blpapi.Name("category")
 DESCRIPTION = blpapi.Name("description")
 
+#d_service="//blp/emapisvc"
 d_service="//blp/emapisvc_beta"
 d_host="localhost"
 d_port=8194
@@ -188,6 +189,11 @@ class SessionEventHandler(object):
                         emsx_cfd_flag = msg.getElementAsString("EMSX_CFD_FLAG") if msg.hasElement("EMSX_CFD_FLAG") else ""
                         emsx_comm_diff_flag = msg.getElementAsString("EMSX_COMM_DIFF_FLAG") if msg.hasElement("EMSX_COMM_DIFF_FLAG") else ""
                         emsx_comm_rate = msg.getElementAsFloat("EMSX_COMM_RATE") if msg.hasElement("EMSX_COMM_RATE") else 0
+                        emsx_custom_note1 = msg.getElementAsString("EMSX_CUSTOM_NOTE1") if msg.hasElement("EMSX_CUSTOM_NOTE1") else ""
+                        emsx_custom_note2 = msg.getElementAsString("EMSX_CUSTOM_NOTE2") if msg.hasElement("EMSX_CUSTOM_NOTE2") else ""
+                        emsx_custom_note3 = msg.getElementAsString("EMSX_CUSTOM_NOTE3") if msg.hasElement("EMSX_CUSTOM_NOTE3") else ""
+                        emsx_custom_note4 = msg.getElementAsString("EMSX_CUSTOM_NOTE4") if msg.hasElement("EMSX_CUSTOM_NOTE4") else ""
+                        emsx_custom_note5 = msg.getElementAsString("EMSX_CUSTOM_NOTE5") if msg.hasElement("EMSX_CUSTOM_NOTE5") else ""                        
                         emsx_currency_pair = msg.getElementAsString("EMSX_CURRENCY_PAIR") if msg.hasElement("EMSX_CURRENCY_PAIR") else ""
                         emsx_date = msg.getElementAsInteger("EMSX_DATE") if msg.hasElement("EMSX_DATE") else 0
                         emsx_day_avg_price = msg.getElementAsFloat("EMSX_DAY_AVG_PRICE") if msg.hasElement("EMSX_DAY_AVG_PRICE") else 0
@@ -278,6 +284,11 @@ class SessionEventHandler(object):
                         print ("EMSX_CFD_FLAG: %s" % (emsx_cfd_flag))
                         print ("EMSX_COMM_DIFF_FLAG: %s" % (emsx_comm_diff_flag))
                         print ("EMSX_COMM_RATE: %d" % (emsx_comm_rate))
+                        print ("EMSX_CUSTOM_NOTE1: %s" % (emsx_custom_note1))
+                        print ("EMSX_CUSTOM_NOTE2: %s" % (emsx_custom_note2))
+                        print ("EMSX_CUSTOM_NOTE3: %s" % (emsx_custom_note3))
+                        print ("EMSX_CUSTOM_NOTE4: %s" % (emsx_custom_note4))
+                        print ("EMSX_CUSTOM_NOTE5: %s" % (emsx_custom_note5))    
                         print ("EMSX_CURRENCY_PAIR: %s" % (emsx_currency_pair))
                         print ("EMSX_DATE: %d" % (emsx_date))
                         print ("EMSX_DAY_AVG_PRICE: %d" % (emsx_day_avg_price))
@@ -525,8 +536,8 @@ class SessionEventHandler(object):
         
         print ("Create Order subscription")
         
-        #orderTopic = d_service + "/order;team=EMSX_API?fields="
-        orderTopic = d_service + "/order?fields="
+        orderTopic = d_service + "/order;team=TKTEAM?fields="
+        #orderTopic = d_service + "/order?fields="
         orderTopic = orderTopic + "API_SEQ_NUM,"
         orderTopic = orderTopic + "EMSX_ACCOUNT,"
         orderTopic = orderTopic + "EMSX_AMOUNT,"
@@ -543,6 +554,11 @@ class SessionEventHandler(object):
         orderTopic = orderTopic + "EMSX_CFD_FLAG,"
         orderTopic = orderTopic + "EMSX_COMM_DIFF_FLAG,"
         orderTopic = orderTopic + "EMSX_COMM_RATE,"
+        orderTopic = orderTopic + "EMSX_CUSTOM_NOTE1,"
+        orderTopic = orderTopic + "EMSX_CUSTOM_NOTE2,"
+        orderTopic = orderTopic + "EMSX_CUSTOM_NOTE3,"
+        orderTopic = orderTopic + "EMSX_CUSTOM_NOTE4,"
+        orderTopic = orderTopic + "EMSX_CUSTOM_NOTE5,"
         orderTopic = orderTopic + "EMSX_CURRENCY_PAIR,"
         orderTopic = orderTopic + "EMSX_DATE,"
         orderTopic = orderTopic + "EMSX_DAY_AVG_PRICE,"
