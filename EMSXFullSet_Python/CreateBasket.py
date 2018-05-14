@@ -1,7 +1,7 @@
 # CreateBasket.py
 
-import blpapi
 import sys
+import blpapi
 
 
 SESSION_STARTED         = blpapi.Name("SessionStarted")
@@ -9,7 +9,7 @@ SESSION_STARTUP_FAILURE = blpapi.Name("SessionStartupFailure")
 SERVICE_OPENED          = blpapi.Name("ServiceOpened")
 SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
-CREATE_ORDER            = blpapi.Name("CreateOrder")
+CREATE_BASKET           = blpapi.Name("CreateBasket")
 
 d_service="//blp/emapisvc_beta"
 d_host="localhost"
@@ -33,87 +33,87 @@ class SessionEventHandler():
                 self.processMiscEvents(event)
                 
         except:
-            print ("Exception:  %s" % sys.exc_info()[0])
+            print("Exception:  %s" % sys.exc_info()[0])
             
         return False
 
 
     def processSessionStatusEvent(self,event,session):  
-        print ("Processing SESSION_STATUS event")
+        print("Processing SESSION_STATUS event")
 
         for msg in event:
             if msg.messageType() == SESSION_STARTED:
-                print ("Session started...")
+                print("Session started...")
                 session.openServiceAsync(d_service)
                 
             elif msg.messageType() == SESSION_STARTUP_FAILURE:
-                print >> sys.stderr, ("Error: Session startup failed")
+                print("Error: Session startup failed")
                 
             else:
-                print (msg)
+                print(msg)
                 
 
     def processServiceStatusEvent(self,event,session):
-        print ("Processing SERVICE_STATUS event")
+        print("Processing SERVICE_STATUS event")
         
         for msg in event:
             
             if msg.messageType() == SERVICE_OPENED:
-                print ("Service opened...")
+                print("Service opened...")
 
                 service = session.getService(d_service)
     
                 request = service.createRequest("CreateBasket")
 
-                # The fields below are mandatory
-                # Specify the basket name
-                request.set("EMSX_BASKET_NAME", "TEST")
+                # define the basket name
+                request.set("EMSX_BASKET_NAME", "TestBasket")
 
-                # Multiple order numbers can be added.
-                # EMSX Order# or OrderID before the date on the new EMSX blotter
-                request.append("EMSX_SEQUENCE", 4313227) 
+                # add any number of orders
+                request.append("EMSX_SEQUENCE", 4313227)
                 request.append("EMSX_SEQUENCE", 4313228)
-                            
-                print ("Request: %s" % request.toString())
+                #request.append("EMSX_SEQUENCE", 4313184)
+
+                print("Request: %s" % request.toString())
                     
                 self.requestID = blpapi.CorrelationId()
                 
                 session.sendRequest(request, correlationId=self.requestID )
-                            
+                    
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
-                print >> sys.stderr, ("Error: Service failed to open")        
+                print("Error: Service failed to open")
+                     
                 
     def processResponseEvent(self, event):
-        print ("Processing RESPONSE event")
+        print("Processing RESPONSE event")
         
         for msg in event:
             
-            print ("MESSAGE: %s" % msg.toString())
-            print ("CORRELATION ID: %d" % msg.correlationIds()[0].value())
+            print("MESSAGE: %s" % msg.toString())
+            print("CORRELATION ID: %d" % msg.correlationIds()[0].value())
 
 
             if msg.correlationIds()[0].value() == self.requestID.value():
-                print ("MESSAGE TYPE: %s" % msg.messageType())
+                print("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
-                    print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
-                elif msg.messageType() == CREATE_ORDER:
+                    print("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
+                elif msg.messageType() == CREATE_BASKET:
                     emsx_sequence = msg.getElementAsInteger("EMSX_SEQUENCE")
                     message = msg.getElementAsString("MESSAGE")
-                    print ("EMSX_SEQUENCE: %d\tMESSAGE: %s" % (emsx_sequence,message))
+                    print("EMSX_SEQUENCE: %d\tMESSAGE: %s" % (emsx_sequence,message))
 
                 global bEnd
                 bEnd = True
                 
     def processMiscEvents(self, event):
         
-        print ("Processing " + event.eventType() + " event")
+        print("Processing " + event.eventType() + " event")
         
         for msg in event:
 
-            print ("MESSAGE: %s" % (msg.tostring()))
+            print("MESSAGE: %s" % (msg.tostring()))
 
 
 def main():
@@ -122,14 +122,14 @@ def main():
     sessionOptions.setServerHost(d_host)
     sessionOptions.setServerPort(d_port)
 
-    print ("Connecting to %s:%d" % (d_host,d_port))
+    print("Connecting to %s:%d" % (d_host,d_port))
 
     eventHandler = SessionEventHandler()
 
     session = blpapi.Session(sessionOptions, eventHandler.processEvent)
 
     if not session.startAsync():
-        print ("Failed to start session.")
+        print("Failed to start session.")
         return
     
     global bEnd
@@ -139,15 +139,16 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print ("Bloomberg - EMSX API Example - CreateOrder")
+    print("Bloomberg - EMSX API Example - CreateBasket")
     try:
         main()
     except KeyboardInterrupt:
-        print ("Ctrl+C pressed. Stopping...")
+        print("Ctrl+C pressed. Stopping...")
 
 
 __copyright__ = """
-Copyright 2017. Bloomberg Finance L.P.
+Copyright 2018. Bloomberg Finance L.P.
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to
 deal in the Software without restriction, including without limitation the
@@ -156,6 +157,7 @@ sell copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:  The above
 copyright notice and this permission notice shall be included in all copies
 or substantial portions of the Software.
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
