@@ -536,8 +536,8 @@ class SessionEventHandler(object):
         
         print ("Create Order subscription")
         
-        orderTopic = d_service + "/order;team=TKTEAM?fields="
-        #orderTopic = d_service + "/order?fields="
+        #orderTopic = d_service + "/order;team=TKTEAM?fields="
+        orderTopic = d_service + "/order?fields="
         orderTopic = orderTopic + "API_SEQ_NUM,"
         orderTopic = orderTopic + "EMSX_ACCOUNT,"
         orderTopic = orderTopic + "EMSX_AMOUNT,"
