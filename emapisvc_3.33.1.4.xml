@@ -1,0 +1,2148 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Created with Liquid XML 2016 Designer Edition 14.1.2.6578 (https://www.liquid-technologies.com) -->
+<ServiceDefinition name="emapisvc" version="3.33.1.4">
+    <schema name="emapisvc" version="3.33.1.4">
+
+        <!-- *********************** Enumenators ************************************* -->
+
+        <enumerationType name="FieldTypeEnum" type="String">
+            <enumerator name="Bool">
+                <value>
+                    <String>Bool</String>
+                </value>
+            </enumerator>
+            <enumerator name="Double">
+                <value>
+                    <String>Double</String>
+                </value>
+            </enumerator>
+            <enumerator name="Int32">
+                <value>
+                    <String>Int32</String>
+                </value>
+            </enumerator>
+            <enumerator name="Int64">
+                <value>
+                    <String>Int64</String>
+                </value>
+            </enumerator>
+            <enumerator name="String">
+                <value>
+                    <String>String</String>
+                </value>
+            </enumerator>
+            <enumerator name="Date">
+                <value>
+                    <String>Date</String>
+                </value>
+            </enumerator>
+            <enumerator name="Time">
+                <value>
+                    <String>Time</String>
+                </value>
+            </enumerator>
+            <enumerator name="Unknown">
+                <value>
+                    <String>Unknown</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="SideEnum" type="String">
+            <enumerator name="BUY">
+                <value>
+                    <String>BUY</String>
+                </value>
+            </enumerator>
+            <enumerator name="BUYM">
+                <value>
+                    <String>BUYM</String>
+                </value>
+            </enumerator>
+            <enumerator name="COVR">
+                <value>
+                    <String>COVR</String>
+                </value>
+            </enumerator>
+            <enumerator name="SELL">
+                <value>
+                    <String>SELL</String>
+                </value>
+            </enumerator>
+            <enumerator name="SHRT">
+                <value>
+                    <String>SHRT</String>
+                </value>
+            </enumerator>
+            <enumerator name="SHRX">
+                <value>
+                    <String>SHRX</String>
+                </value>
+            </enumerator>
+            <enumerator name="SLPL">
+                <value>
+                    <String>SLPL</String>
+                </value>
+            </enumerator>
+            <enumerator name="B/O">
+                <value>
+                    <String>B/O</String>
+                </value>
+            </enumerator>
+            <enumerator name="B/C">
+                <value>
+                    <String>B/C</String>
+                </value>
+            </enumerator>
+            <enumerator name="S/C">
+                <value>
+                    <String>S/C</String>
+                </value>
+            </enumerator>
+            <enumerator name="S/O">
+                <value>
+                    <String>S/O</String>
+                </value>
+            </enumerator>
+            <enumerator name="UNDI">
+                <value>
+                    <String>UNDI</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="SettleTypeEnum" type="String">
+            <enumerator name="Regular">
+                <value>
+                    <String>Regular</String>
+                </value>
+            </enumerator>
+            <enumerator name="Cash">
+                <value>
+                    <String>Cash</String>
+                </value>
+            </enumerator>
+            <enumerator name="Next Day">
+                <value>
+                    <String>Next Day</String>
+                </value>
+            </enumerator>
+            <enumerator name="T+2">
+                <value>
+                    <String>T+2</String>
+                </value>
+            </enumerator>
+            <enumerator name="T+3">
+                <value>
+                    <String>T+3</String>
+                </value>
+            </enumerator>
+            <enumerator name="T+4">
+                <value>
+                    <String>T+4</String>
+                </value>
+            </enumerator>
+            <enumerator name="Future">
+                <value>
+                    <String>Future</String>
+                </value>
+            </enumerator>
+            <enumerator name="When Issued">
+                <value>
+                    <String>When Issued</String>
+                </value>
+            </enumerator>
+            <enumerator name="T+5">
+                <value>
+                    <String>T+5</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="OrderTypeEnum" type="String">
+            <enumerator name="CD">
+                <value>
+                    <String>CD</String>
+                </value>
+            </enumerator>
+            <enumerator name="FUN">
+                <value>
+                    <String>FUN</String>
+                </value>
+            </enumerator>
+            <enumerator name="LMT">
+                <value>
+                    <String>LMT</String>
+                </value>
+            </enumerator>
+            <enumerator name="LOC">
+                <value>
+                    <String>LOC</String>
+                </value>
+            </enumerator>
+            <enumerator name="MKT">
+                <value>
+                    <String>MKT</String>
+                </value>
+            </enumerator>
+            <enumerator name="MOC">
+                <value>
+                    <String>MOC</String>
+                </value>
+            </enumerator>
+            <enumerator name="OC">
+                <value>
+                    <String>OC</String>
+                </value>
+            </enumerator>
+            <enumerator name="SL">
+                <value>
+                    <String>SL</String>
+                </value>
+            </enumerator>
+            <enumerator name="ST">
+                <value>
+                    <String>ST</String>
+                </value>
+            </enumerator>
+            <enumerator name="PEG">
+                <value>
+                    <String>PEG</String>
+                </value>
+            </enumerator>
+            <enumerator name="MKTL">
+                <value>
+                    <String>MKTL</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="TifEnum" type="String">
+            <enumerator name="DAY">
+                <value>
+                    <String>DAY</String>
+                </value>
+            </enumerator>
+            <enumerator name="FOK">
+                <value>
+                    <String>FOK</String>
+                </value>
+            </enumerator>
+            <enumerator name="GTC">
+                <value>
+                    <String>GTC</String>
+                </value>
+            </enumerator>
+            <enumerator name="GTD">
+                <value>
+                    <String>GTD</String>
+                </value>
+            </enumerator>
+            <enumerator name="GTX">
+                <value>
+                    <String>GTX</String>
+                </value>
+            </enumerator>
+            <enumerator name="IOC">
+                <value>
+                    <String>IOC</String>
+                </value>
+            </enumerator>
+            <enumerator name="OPG">
+                <value>
+                    <String>OPG</String>
+                </value>
+            </enumerator>
+            <enumerator name="CLO">
+                <value>
+                    <String>CLO</String>
+                </value>
+            </enumerator>
+            <enumerator name="AUC">
+                <value>
+                    <String>AUC</String>
+                </value>
+            </enumerator>
+            <enumerator name="DAY+">
+                <value>
+                    <String>DAY+</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="AssetClassEnum" type="String">
+            <enumerator name="EQTY">
+                <value>
+                    <String>EQTY</String>
+                </value>
+            </enumerator>
+            <enumerator name="OPT">
+                <value>
+                    <String>OPT</String>
+                </value>
+            </enumerator>
+            <enumerator name="FUT">
+                <value>
+                    <String>FUT</String>
+                </value>
+            </enumerator>
+            <enumerator name="MULTILEG_OPT">
+                <value>
+                    <String>MULTILEG_OPT</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="MifidTradeReportingIndicatorEnum" type="String">
+            <enumerator name="NOT_REPORTED">
+                <value>
+                    <String>N</String>
+                </value>
+            </enumerator>
+            <enumerator name="VENUE_ONBOOK">
+                <value>
+                    <String>O</String>
+                </value>
+            </enumerator>
+            <enumerator name="SI_SELLER">
+                <value>
+                    <String>S</String>
+                </value>
+            </enumerator>
+            <enumerator name="SI_BUYER">
+                <value>
+                    <String>B</String>
+                </value>
+            </enumerator>
+            <enumerator name="NONSI_SELLER">
+                <value>
+                    <String>X</String>
+                </value>
+            </enumerator>
+            <enumerator name="DELEGATED_REPORTING">
+                <value>
+                    <String>D</String>
+                </value>
+            </enumerator>
+            <enumerator name="WILL_BE_REPORTED">
+                <value>
+                    <String>W</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="MifidTradingInsructionEnum" type="String">
+            <enumerator name="NO_RESTRICTION">
+                <value>
+                    <String>No restriction</String>
+                </value>
+            </enumerator>
+            <enumerator name="VENUE">
+                <value>
+                    <String>Venue</String>
+                </value>
+            </enumerator>
+            <enumerator name="SI">
+                <value>
+                    <String>SI</String>
+                </value>
+            </enumerator>
+            <enumerator name="SI_OR_VENUE">
+                <value>
+                    <String>SI or venue</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="MifidClientIdentification" type="String">
+            <enumerator name="AGGR">
+                <value>
+                    <String>AGGR</String>
+                </value>
+            </enumerator>
+            <enumerator name="PNAL">
+                <value>
+                    <String>PNAL</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="MifidIsSi" type="String">
+            <enumerator name="Y">
+                <value>
+                    <String>Y</String>
+                </value>
+            </enumerator>
+            <enumerator name="N">
+                <value>
+                    <String>N</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="MifidOtcFlag" type="Int32">
+            <enumerator name="BENC">
+                <value>
+                    <Int32>64</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="SDIV">
+                <value>
+                    <Int32>13</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="TNCP">
+                <value>
+                    <Int32>16</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="ACTX">
+                <value>
+                    <Int32>37</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="RPRI">
+                <value>
+                    <Int32>14</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="ILQD">
+                <value>
+                    <Int32>7</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="SIZE">
+                <value>
+                    <Int32>8</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="TPAC">
+                <value>
+                    <Int32>65</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="XFPH">
+                <value>
+                    <Int32>2</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="LRGS">
+                <value>
+                    <Int32>6</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="NPFT">
+                <value>
+                    <Int32>15</Int32>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <enumerationType name="MifidWaiverFlag" type="Int32">
+            <enumerator name="RFPT">
+                <value>
+                    <Int32>3</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="NLIQ">
+                <value>
+                    <Int32>0</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="OILQ">
+                <value>
+                    <Int32>1</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="PRIC">
+                <value>
+                    <Int32>2</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="LRGS">
+                <value>
+                    <Int32>9</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="OM">
+                <value>
+                    <Int32>10</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="ILQD">
+                <value>
+                    <Int32>4</Int32>
+                </value>
+            </enumerator>
+            <enumerator name="SIZE">
+                <value>
+                    <Int32>5</Int32>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <sequenceType name="FieldData">
+            <element name="EMSX_FIELD_DATA" type="String" minOccurs="1" maxOccurs="1" default=""/>
+        </sequenceType>
+
+        <sequenceType name="FieldIndicator">
+            <element name="EMSX_FIELD_INDICATOR" type="Int32" minOccurs="1" maxOccurs="1" default="1"/>
+        </sequenceType>
+
+        <sequenceType name="Strategy">
+            <element name="EMSX_STRATEGY_NAME"   type="String" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_STRATEGY_FIELDS" type="FieldData" minOccurs="1" maxOccurs="20"/>
+            <element name="EMSX_STRATEGY_FIELD_INDICATORS" type="FieldIndicator" minOccurs="1" maxOccurs="20"/>
+        </sequenceType>
+
+        <sequenceType name="StrategyInfoDetails">
+            <element name="FieldName" type="String"/>
+            <element name="Disable" type="Int32"/>
+            <element name="StringValue" type="String"/>
+        </sequenceType>
+
+        <choiceType name="RouteRequestType">
+            <element name="Multileg" type="MultilegFields" />
+            <element name="Spread"   type="SpreadFields" />
+        </choiceType>
+
+        <sequenceType name="SpreadFields">
+        </sequenceType>
+
+        <sequenceType name="MultilegFields">
+            <element name="EMSX_ML_RATIO" type="Int32" minOccurs="1" maxOccurs="5"/>
+            <element name="EMSX_AMOUNT"   type="Int32" />
+        </sequenceType>
+
+        <choiceType name="ModifyRequestType">
+            <element name="Multileg" type="MultilegID" />
+        </choiceType>
+
+        <choiceType name="IdType">
+            <element name="OrderRoute" type="TranInfo"  minOccurs="1" maxOccurs="unbounded" />
+            <element name="Multileg" type="MultilegID"  minOccurs="1" maxOccurs="unbounded" />
+        </choiceType>
+
+        <sequenceType name="MultilegID">
+            <element name="EMSX_ML_ID" type="String" minOccurs="1"/>
+        </sequenceType>
+
+        <sequenceType name="FieldMetaData">
+            <element name="EMSX_FIELD_NAME" type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_DISP_NAME"  type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TYPE"       type="FieldTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LEVEL"      type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LEN"        type="Int32"         minOccurs="1" maxOccurs="1"/>
+        </sequenceType>
+
+        <sequenceType name="RouteRefIDs">
+            <element name="EMSX_SEQUENCE" type="Int32" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ROUTE_REF_ID" type="String" minOccurs="1" maxOccurs="1"/>
+        </sequenceType>
+
+        <sequenceType name="GetTradersRequest">
+        </sequenceType>
+
+        <choiceType name="IdentityType">
+            <element name="EMSX_TRADER_UUID" type="Int32"/>
+        </choiceType>
+
+        <sequenceType name="GetTradeDesksRequest">
+            <element name="Scope" type="IdentityType" minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <sequenceType name="GetTradersResponse">
+            <element name="EMSX_TRADER_UUID"    type="Int32"    minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <sequenceType name="GetTradeDesksResponse">
+            <element name="EMSX_TRADE_DESK"     type="String"   minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* CreateOrderRequest **(mode 1,2,3)******* -->
+        <sequenceType name="CreateOrderRequest">
+            <element name="EMSX_SIDE"                     type="SideEnum"      minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"                   type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"                   type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"               type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                      type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"         type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"              type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_BROKER"                   type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ACCOUNT"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                    type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_GTD_DATE"                 type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_EXEC_INSTRUCTION"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_SETTLE_DATE"              type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"               type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_P_A"                      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXCHANGE_DESTINATION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"                  type="Int32"         minOccurs="0" maxOccurs="1" default="1"/>
+            <element name="EMSX_CFD_FLAG"                 type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_RELEASE_TIME"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ORDER_ORIGIN"             type="String"        minOccurs="0" maxOccurs="1" default="A"/>
+            <!-- default value A - means API -->
+            <element name="EMSX_CLEARING_ACCOUNT"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="REQUEST_EXT"                   type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_RESERVED_FIELD1"          type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_BASKET_NAME"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ORDER_REF_ID"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_INVESTOR_ID"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_REQUEST_SEQ"              type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_CUSTOM_NOTE1"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE2"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE3"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE4"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE5"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_SETTLE_TYPE"              type="SettleTypeEnum" minOccurs="0" maxOccurs="1" default="Regular"/>
+            <element name="EMSX_SETTLE_CURRENCY"          type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_BUYSIDE_LEI"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLIENT_IDENTIFICATION"    type="MifidClientIdentification"        minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_SI"                       type="MifidIsSi"     minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_MIFID_II_INSTRUCTION"     type="MifidTradingInsructionEnum" minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_GPI"                      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_AS_OF_DATE"               type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_AS_OF_TIME_MICROSEC"      type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+
+        </sequenceType>
+
+        <!-- ********************* CreateOrderAndRouteRequest **(mode 1,2,3)******* -->
+        <sequenceType name="CreateOrderAndRouteRequest">
+            <element name="EMSX_SIDE"                 type="SideEnum"      minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_SETTLE_DATE"          type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXCHANGE_DESTINATION" type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ORDER_ORIGIN"         type="String"        minOccurs="0" maxOccurs="1" default="A"/>
+            <!-- default value A - means API -->
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_RESERVED_FIELD1"      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_RESERVED_FIELD2"      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ORDER_REF_ID"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_INVESTOR_ID"          type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* CreateOrderAndRouteRequestEx **(mode 1,2,3)******* -->
+        <sequenceType name="CreateOrderAndRouteRequestEx">
+            <element name="EMSX_SIDE"                 type="SideEnum"      minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_SETTLE_DATE"          type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXCHANGE_DESTINATION" type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ORDER_ORIGIN"         type="String"        minOccurs="0" maxOccurs="1" default="A"/>
+            <!-- default value A - means API -->
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_ORDER_REF_ID"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_INVESTOR_ID"          type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_CUSTOM_NOTE1"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE2"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE3"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE4"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE5"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_SETTLE_TYPE"          type="SettleTypeEnum" minOccurs="0" maxOccurs="1" default="Regular"/>
+            <element name="EMSX_SETTLE_CURRENCY"      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ROUTE_REF_ID"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_BOOKNAME"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_BUYSIDE_LEI"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLIENT_IDENTIFICATION"    type="MifidClientIdentification"   minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_SI"                       type="MifidIsSi"     minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_MIFID_II_INSTRUCTION"     type="MifidTradingInsructionEnum"  minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_GPI"                      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_AS_OF_DATE"               type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_AS_OF_TIME_MICROSEC"      type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_TOMS_PXNUM"           type="Int32"        minOccurs="0" maxOccurs="1" default="0"/>
+        </sequenceType>
+
+        <!-- ********************* CreateOrderWithStratRequest **(mode 1,2,3)******* -->
+        <sequenceType name="CreateOrderWithStratRequest">
+            <element name="EMSX_SIDE"                 type="SideEnum"      minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_SETTLE_DATE"          type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXCHANGE_DESTINATION" type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ORDER_ORIGIN"         type="String"        minOccurs="0" maxOccurs="1" default="A"/>
+            <!-- default value A - means API -->
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_ORDER_REF_ID"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_INVESTOR_ID"          type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE1"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE2"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE3"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE4"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CUSTOM_NOTE5"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_SETTLE_TYPE"          type="SettleTypeEnum" minOccurs="0" maxOccurs="1" default="Regular"/>
+            <element name="EMSX_SETTLE_CURRENCY"      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+        </sequenceType>
+
+        <!-- ********************* RouteOrderRequest (mode 4)************** -->
+        <sequenceType name="RouteOrderRequest">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* RouteOrderWithStratRequest (mode 4)************** -->
+        <sequenceType name="RouteOrderWithStratRequest">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* RouteOrderRequestEx ************** -->
+        <sequenceType name="RouteOrderRequestEx">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_TRADER_UUID"          type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_ROUTE_REF_ID"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_BOOKNAME"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_MIFID_II_INSTRUCTION"     type="MifidTradingInsructionEnum" minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_GPI"                      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_AS_OF_DATE"               type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_AS_OF_TIME_MICROSEC"      type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_TOMS_PXNUM"           type="Int32"        minOccurs="0" maxOccurs="1" default="0"/>
+        </sequenceType>
+
+        <!-- ********************* GroupRouteWithStratRequest ************************ -->
+        <sequenceType name="GroupRouteWithStratRequest">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="3000"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT_PERCENT"       type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GroupRouteRequestEx ************************ -->
+        <sequenceType name="GroupRouteRequestEx">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="3000"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_AMOUNT_PERCENT"       type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_RELEASE_TIME"         type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_LOCATE_REQ"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_BROKER"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOCATE_ID"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_TRADER_UUID"          type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_REQUEST_TYPE"         type="RouteRequestType"   minOccurs="0" maxOccurs="1" />
+            <element name="EMSX_ROUTE_REF_ID_PAIRS"   type="RouteRefIDs"        minOccurs="0" maxOccurs="3000"/>
+            <element name="EMSX_BOOKNAME"             type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_MIFID_II_INSTRUCTION"     type="MifidTradingInsructionEnum" minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_GPI"                      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_AS_OF_DATE"               type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_AS_OF_TIME_MICROSEC"      type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_TOMS_PXNUM"           type="Int32"        minOccurs="0" maxOccurs="1" default="0"/>
+        </sequenceType>
+
+        <!-- ********************* ModifyOrderRequest (mode 8)************* -->
+        <sequenceType name="ModifyOrderRequest">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_INVESTOR_ID"          type="String"        minOccurs="0" maxOccurs="1" default=""/>
+        </sequenceType>
+
+        <!-- ********************* ModifyOrderRequestEx ************* -->
+        <sequenceType name="ModifyOrderRequestEx">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_HAND_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXEC_INSTRUCTION"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CFD_FLAG"             type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_TRADER_UUID"          type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_INVESTOR_ID"          type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_BUYSIDE_LEI"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_CLIENT_IDENTIFICATION"    type="MifidClientIdentification"        minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_SI"                       type="MifidIsSi"     minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_MIFID_II_INSTRUCTION"     type="MifidTradingInsructionEnum" minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_GPI"                      type="String"        minOccurs="0" maxOccurs="1" default=""/>
+        </sequenceType>
+
+        <!-- ********************* ModifyRouteRequest (mode 9)************* -->
+        <sequenceType name="ModifyRouteRequest">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ROUTE_ID"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_COMM_TYPE"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_USER_COMM_RATE"       type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_USER_FEES"            type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXCHANGE_DESTINATION" type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_TRADER_NOTES"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_BROKER"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_ID"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_REQ"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* ModifyRouteWithStratRequest (mode 9)************* -->
+        <sequenceType name="ModifyRouteWithStratRequest">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ROUTE_ID"             type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_COMM_TYPE"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_USER_COMM_RATE"       type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_USER_FEES"            type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXCHANGE_DESTINATION" type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_TRADER_NOTES"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_BROKER"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_ID"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_REQ"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* ModifyRouteRequestEx ************* -->
+        <sequenceType name="ModifyRouteRequestEx">
+            <element name="EMSX_SEQUENCE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ROUTE_ID"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_TICKER"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_AMOUNT"               type="Int32"         minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_ORDER_TYPE"           type="OrderTypeEnum" minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_TIF"                  type="TifEnum"       minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_LIMIT_PRICE"          type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_GTD_DATE"             type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_STOP_PRICE"           type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ACCOUNT"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_NOTES"                type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_P_A"                  type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_COMM_TYPE"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_USER_COMM_RATE"       type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_USER_FEES"            type="Float64"       minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_ODD_LOT"              type="Int32"         minOccurs="0" maxOccurs="1" default="-1"/>
+            <element name="EMSX_CLEARING_ACCOUNT"     type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_EXCHANGE_DESTINATION" type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_TRADER_NOTES"         type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_BROKER"           type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_ID"               type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_LOC_REQ"              type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_GET_WARNINGS"         type="Int32"         minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_CLEARING_FIRM"        type="String"        minOccurs="0" maxOccurs="1" default=""/>
+            <element name="EMSX_STRATEGY_PARAMS"      type="Strategy"      minOccurs="0" maxOccurs="1"/>
+            <element name="REQUEST_EXT"               type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_TRADER_UUID"          type="Int32"         minOccurs="0" maxOccurs="1" default="0" />
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_REQUEST_TYPE"         type="ModifyRequestType"  minOccurs="0" maxOccurs="1" />
+        </sequenceType>
+
+        <!-- ********************* DeleteOrderRequest ********************* -->
+        <sequenceType name="DeleteOrderRequest">
+            <element name="EMSX_SEQUENCE"     type="Int32"  minOccurs="1" maxOccurs="unbounded"/>
+            <element name="REQUEST_EXT"       type="String" minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* DeleteOrderResponse ********************* -->
+        <sequenceType name="DeleteOrderResponse">
+            <element name="STATUS"  type="Int32"/>
+            <element name="MESSAGE" type="String"/>
+        </sequenceType>
+
+        <!-- ********************* CancelOrderRequestEx ********************* -->
+        <sequenceType name="CancelOrderRequestEx">
+            <element name="EMSX_SEQUENCE"     type="Int32"  minOccurs="1" maxOccurs="unbounded"/>
+            <element name="REQUEST_EXT"       type="String" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_TRADER_UUID"  type="Int32"  minOccurs="0" maxOccurs="1" default="0" />
+            <element name="EMSX_REQUEST_SEQ"  type="Int64"  minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* CancelOrderResponse ********************* -->
+        <sequenceType name="CancelOrderResponse">
+            <element name="STATUS"  type="Int32"/>
+            <element name="MESSAGE" type="String"/>
+        </sequenceType>
+
+        <!-- ********************* CancelRouteRequest ********************* -->
+        <sequenceType name="CancelRouteRequest">
+            <element name="ROUTES"            type="TranInfo"      minOccurs="1" maxOccurs="unbounded"/>
+            <element name="REQUEST_EXT"       type="String"        minOccurs="0" maxOccurs="unbounded" />
+            <element name="EMSX_TRADER_UUID"  type="Int32"         minOccurs="0" maxOccurs="1" default="0" />
+            <element name="EMSX_REQUEST_SEQ"  type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* CancelRouteRequestEx ******************* -->
+        <sequenceType name="CancelRouteRequestEx">
+            <element name="ID_TYPE"           type="IdType"        />
+            <element name="REQUEST_EXT"       type="String"        minOccurs="0" maxOccurs="unbounded" />
+            <element name="EMSX_TRADER_UUID"  type="Int32"         minOccurs="0" maxOccurs="1" default="0" />
+            <element name="EMSX_REQUEST_SEQ"  type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* AssignTraderRequest ******************* -->
+        <sequenceType name="AssignTraderRequest">
+            <element name="EMSX_SEQUENCE"              type="Int32"         minOccurs="1" maxOccurs="unbounded"/>
+            <element name="EMSX_ASSIGNEE_TRADER_UUID"  type="Int32"         minOccurs="1" maxOccurs="1" default="0"/>
+            <element name="REQUEST_EXT"                type="String"        minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_REQUEST_SEQ"           type="Int64"         minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_TRADE_DESK"            type="String"        minOccurs="0" maxOccurs="1" default=""/>
+        </sequenceType>
+
+        <!-- ********************* SellSideAckRequest ********************* -->
+        <sequenceType name="SellSideAckRequest">
+            <element name="EMSX_SEQUENCE"     type="Int32"  minOccurs="1" maxOccurs="unbounded"/>
+            <element name="REQUEST_EXT"       type="String" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_TRADER_UUID"  type="Int32"  minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_REQUEST_SEQ"  type="Int64"  minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* SellSideRejectRequest ********************* -->
+        <sequenceType name="SellSideRejectRequest">
+            <element name="EMSX_SEQUENCE"     type="Int32"  minOccurs="1" maxOccurs="unbounded"/>
+            <element name="REQUEST_EXT"       type="String" minOccurs="0" maxOccurs="unbounded"/>
+            <element name="EMSX_TRADER_UUID"  type="Int32"  minOccurs="0" maxOccurs="1" default="0"/>
+            <element name="EMSX_REQUEST_SEQ"  type="Int64"  minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ************************** CreateBasketRequest  *************************** -->
+        <sequenceType name="CreateBasketRequest">
+            <element name="EMSX_SEQUENCE"     type="Int32"  minOccurs="1" maxOccurs="unbounded" />
+            <element name="EMSX_BASKET_NAME"  type="String" minOccurs="1" maxOccurs="1" default=""/>
+            <element name="REQUEST_EXT"       type="String" minOccurs="0" maxOccurs="unbounded" />
+        </sequenceType>
+
+        <sequenceType name="ManualFillRequest">
+            <description>seqManualFillRequest</description>
+            <element name="ROUTE_TO_FILL" type="TranInfo">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="FILLS" type="ManualFillDetails" minOccurs="0" maxOccurs="unbounded">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_TRADER_UUID" type="Int32">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_REQUEST_SEQ" type="Int64" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="REQUEST_EXT" type="String" minOccurs="0" maxOccurs="unbounded">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+
+        <sequenceType name="ManualFillResponse">
+            <description>seqManualFillResponse</description>
+            <element name="MESSAGE" id="0" type="String">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_FILL_ID" id="1" type="Int32" maxOccurs="unbounded">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+
+        <sequenceType name="ManualFillDetails">
+            <description>seqManualFillDetails</description>
+            <element name="EMSX_FILL_PRICE" type="Float64">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_FILL_AMOUNT" type="Int32">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_FILL_DATE_TIME" type="DateTimeFormat">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_LAST_MARKET" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_INDIA_EXCHANGE" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_EXECUTE_BROKER" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_BROKER_LEI" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_LAST_CAPACITY" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_TRANSACTION_REPORTING_MIC" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_BROKER_SI" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_APA_MIC" type="String" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_OTC_FLAG" type="MifidOtcFlag" minOccurs="0" maxOccurs="unbounded">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_WAIVER_FLAG" type="MifidWaiverFlag" minOccurs="0" maxOccurs="unbounded">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_TRADE_REPORTING_INDICATOR" type="MifidTradeReportingIndicatorEnum" minOccurs="0" maxOccurs="1">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+
+        <sequenceType name="LegacyDateTime">
+            <description>seqLegacyDateTime</description>
+            <element name="EMSX_FILL_DATE" id="0" type="Int32">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_FILL_TIME" id="1" type="Int32">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_FILL_TIME_FORMAT" id="2" type="TimeFormatEnum">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="EMSX_FILL_TIME_MICROSEC" id="3" type="Int32">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+
+        <choiceType name="DateTimeFormat">
+            <description>choiceDateTimeFormat</description>
+            <element name="Legacy" id="0" type="LegacyDateTime">
+                <description/>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </choiceType>
+
+        <enumerationType name="TimeFormatEnum" type="String">
+            <description/>
+            <enumerator name="Hhmmss">
+                <description/>
+                <value>
+                    <String>Hhmmss</String>
+                </value>
+            </enumerator>
+            <enumerator name="SecondsFromMidnight">
+                <description/>
+                <value>
+                    <String>SecondsFromMidnight</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+
+        <!-- ********************* CancelRouteResponse ********************* -->
+        <sequenceType name="CancelRouteResponse">
+            <element name="STATUS"  type="Int32"/>
+            <element name="MESSAGE" type="String"/>
+        </sequenceType>
+
+        <!-- ********************* OrderInfoRequest *********************** -->
+        <sequenceType name="OrderInfoRequest">
+            <element name="EMSX_SEQUENCE"      type="Int32"/>
+            <element name="EMSX_IS_AGGREGATED" type="Int32"/>
+            <element name="REQUEST_EXT"        type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* OrderInfoResponse ********************* -->
+        <sequenceType name="OrderInfoResponse">
+            <element name="EMSX_TICKER"            type="String"/>
+            <element name="EMSX_EXCHANGE"          type="String"/>
+            <element name="EMSX_SIDE"              type="String"/>
+            <element name="EMSX_POSITION"          type="String"/>
+            <element name="EMSX_PORT_MGR"          type="String"/>
+            <element name="EMSX_TRADER"            type="String"/>
+            <element name="EMSX_NOTES"             type="String"/>
+            <element name="EMSX_AMOUNT"            type="Int32"/>
+            <element name="EMSX_IDLE_AMOUNT"       type="Int32"/>
+            <element name="EMSX_WORKING"           type="Int32"/>
+            <element name="EMSX_FILLED"            type="Int32"/>
+            <element name="EMSX_TS_ORDNUM"         type="Int64"/>
+            <element name="EMSX_LIMIT_PRICE"       type="Float64"/>
+            <element name="EMSX_AVG_PRICE"         type="Float64"/>
+            <element name="EMSX_FLAG"              type="Int32"/>
+            <element name="EMSX_SUB_FLAG"          type="Int32"/>
+            <element name="EMSX_YELLOW_KEY"        type="String"/>
+            <element name="EMSX_BASKET_NAME"       type="String"/>
+            <element name="EMSX_ORDER_CREATE_DATE" type="String"/>
+            <element name="EMSX_ORDER_CREATE_TIME" type="String"/>
+            <element name="EMSX_ORDER_TYPE"        type="String"/>
+            <element name="EMSX_TIF"               type="String"/>
+            <element name="EMSX_BROKER"            type="String"/>
+            <element name="EMSX_TRADER_UUID"       type="Int64"/>
+            <element name="EMSX_STEP_OUT_BROKER"   type="String"/>
+        </sequenceType>
+
+        <!-- ********************* RouteInfoRequest *********************** -->
+        <sequenceType name="RouteInfoRequest">
+            <element name="EMSX_SEQUENCE"      type="Int32"/>
+            <element name="EMSX_ROUTE_ID"      type="Int32"/>
+            <element name="REQUEST_EXT"        type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* RouteInfoResponse *********************** -->
+        <sequenceType name="RouteInfoResponse">
+            <element name="EMSX_LIMIT_PRICE"            type="Float64"/>
+            <element name="EMSX_YIELD"                  type="Float64"/>
+            <element name="EMSX_AVG_PRICE"              type="Float64"/>
+            <element name="EMSX_ROUTE_CREATE_DATE"      type="Int32"/>
+            <element name="EMSX_ROUTE_CREATE_TIME"      type="Int32"/>
+            <element name="EMSX_ROUTE_LAST_UPDATE_DATE" type="Int32"/>
+            <element name="EMSX_ROUTE_LAST_UPDATE_TIME" type="Int32"/>
+            <element name="EMSX_SETTLE_DATE"            type="Int32"/>
+            <element name="EMSX_AMOUNT"                 type="Int32"/>
+            <element name="EMSX_FILLED"                 type="Int32"/>
+            <element name="EMSX_IS_MANUAL_ROUTE"        type="Int32"/>
+            <element name="EMSX_BROKER"                 type="String"/>
+            <element name="EMSX_ACCOUNT"                type="String"/>
+            <element name="EMSX_STATUS_ID"              type="Int32"/>
+            <element name="EMSX_STATUS"                 type="String"/>
+            <element name="EMSX_HAND_INSTRUCTION"       type="String"/>
+            <element name="EMSX_ORDER_TYPE"             type="String"/>
+            <element name="EMSX_TIF"                    type="String"/>
+            <element name="EMSX_LOC_ID"                 type="String"/>
+            <element name="EMSX_LOC_BROKER"             type="String"/>
+            <element name="EMSX_STOP_PRICE"             type="Float64"/>
+            <element name="EMSX_BLOT_SEQ_NUM"           type="Int64"/>
+            <element name="EMSX_BLOT_DATE"              type="Int64"/>
+            <element name="EMSX_COMM_TYPE"              type="String"/>
+            <element name="EMSX_COMM_RATE"              type="Float64"/>
+            <element name="EMSX_USER_COMM_AMOUNT"       type="Float64"/>
+            <element name="EMSX_LSTTR2ID0"              type="Int64"/>
+            <element name="EMSX_LSTTR2ID1"              type="Int64"/>
+            <element name="EMSX_STRATEGY_PARAMS"        type="Strategy" minOccurs="0" maxOccurs="1"/>
+            <element name="EMSX_STRATEGY_FIELD_NAMES"   type="String" minOccurs="0" maxOccurs="20"/>
+        </sequenceType>
+
+        <!-- ********************* GetTeamsRequest **************************** -->
+        <sequenceType name="GetTeamsRequest">
+            <!-- Empty request -->
+            <element name="REQUEST_EXT"    type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetTeamsResponse **************************** -->
+        <sequenceType name="GetTeamsResponse">
+            <element name="TEAMS"  type="String" minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* GetAllFieldMetaDataRequest ******************** -->
+        <sequenceType name="GetAllFieldMetaDataRequest">
+            <element name="REQUEST_EXT"     type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetAllFieldMetaDataResponse ******************** -->
+        <sequenceType name="GetAllFieldMetaDataResponse">
+            <element name="MetaData" type="FieldMetaData" minOccurs="1" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* GetFieldMetaDataRequest ******************** -->
+        <sequenceType name="GetFieldMetaDataRequest">
+            <element name="EMSX_FIELD_NAMES" type="String"  minOccurs="1" maxOccurs="unbounded"/>
+            <element name="REQUEST_EXT"     type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"          type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetFieldMetaDataResponse ******************** -->
+        <sequenceType name="GetFieldMetaDataResponse">
+            <element name="MetaData" type="FieldMetaData" minOccurs="1" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* GetAssetClassRequest ******************** -->
+        <sequenceType name="GetAssetClassRequest">
+            <element name="EMSX_TICKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="REQUEST_EXT"           type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"      type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetAssetClassResponse ******************** -->
+        <sequenceType name="GetAssetClassResponse">
+            <element name="EMSX_ASSET_CLASS"      type="AssetClassEnum" minOccurs="1" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokersWithAssetClassRequest ******************** -->
+        <sequenceType name='GetBrokersWithAssetClassRequest'>
+            <element name='EMSX_ASSET_CLASS'     type="AssetClassEnum" minOccurs='1' maxOccurs='1' />
+            <element name='REQUEST_EXT'          type="String" minOccurs='0' maxOccurs='unbounded' />
+            <element name="EMSX_REQUEST_SEQ"     type="Int64"  minOccurs="0" maxOccurs="1" />
+        </sequenceType>
+
+        <!-- ********************* GetBrokersWithAssetClassResponse ******************** -->
+        <sequenceType name='GetBrokersWithAssetClassResponse'>
+            <element name='EMSX_BROKERS' type='String' minOccurs='0' maxOccurs='unbounded' />
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategiesWithAssetClassRequest ******************** -->
+        <sequenceType name="GetBrokerStrategiesWithAssetClassRequest">
+            <element name="EMSX_ASSET_CLASS"      type="AssetClassEnum"  minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="REQUEST_EXT"           type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"      type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategiesWithAssetClassResponse ******************** -->
+        <sequenceType name="GetBrokerStrategiesWithAssetClassResponse">
+            <element name="EMSX_STRATEGIES"       type="String" minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategyInfoWithAssetClassRequest ******************** -->
+        <sequenceType name="GetBrokerStrategyInfoWithAssetClassRequest">
+            <element name="EMSX_ASSET_CLASS"      type="AssetClassEnum"  minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_STRATEGY"         type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="REQUEST_EXT"           type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"      type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategyInfoWithAssetClassResponse ******************** -->
+        <sequenceType name="GetBrokerStrategyInfoWithAssetClassResponse">
+            <element name="EMSX_STRATEGY_INFO"    type="StrategyInfoDetails" minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokersRequest ******************** -->
+        <sequenceType name="GetBrokersRequest">
+            <element name="EMSX_TICKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="REQUEST_EXT"           type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"      type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokersResponse ******************** -->
+        <sequenceType name="GetBrokersResponse">
+            <element name="EMSX_BROKERS" type="String" minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategiesRequest ******************** -->
+        <sequenceType name="GetBrokerStrategiesRequest">
+            <element name="EMSX_TICKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="REQUEST_EXT"           type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"      type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategiesResponse ******************** -->
+        <sequenceType name="GetBrokerStrategiesResponse">
+            <element name="EMSX_STRATEGIES"       type="String" minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategyInfoRequest ******************** -->
+        <sequenceType name="GetBrokerStrategyInfoRequest">
+            <element name="EMSX_TICKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_BROKER"           type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="EMSX_STRATEGY"         type="String"  minOccurs="1" maxOccurs="1"/>
+            <element name="REQUEST_EXT"           type="String"  minOccurs="0" maxOccurs="unbounded">
+            </element>
+            <element name="EMSX_REQUEST_SEQ"      type="Int64"         minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <!-- ********************* GetBrokerStrategyInfoResponse ******************** -->
+        <sequenceType name="GetBrokerStrategyInfoResponse">
+            <element name="EMSX_STRATEGY_INFO"    type="StrategyInfoDetails" minOccurs="0" maxOccurs="unbounded"/>
+        </sequenceType>
+
+
+        <!-- ********************* Misc *********************************** -->
+        <sequenceType name="OrderStaticData">
+            <element name="EMSX_SEQUENCE" type="Int32"/>
+            <element name="MESSAGE"       type="String"   default=""/>
+        </sequenceType>
+
+        <sequenceType name="OrderStaticDataList">
+            <element name="EMSX_SEQUENCE" type="Int32"    minOccurs="0" maxOccurs="unbounded"/>
+            <element name="MESSAGE"       type="String"   default=""/>
+        </sequenceType>
+
+        <sequenceType name="RouteStaticData">
+            <element name="EMSX_SEQUENCE" type="Int32"/>
+            <element name="EMSX_ROUTE_ID" type="Int32"/>
+            <element name="MESSAGE"       type="String"   default=""/>
+        </sequenceType>
+
+        <sequenceType name="TranInfo">
+            <element name="EMSX_SEQUENCE" type="Int32"/>
+            <element name="EMSX_ROUTE_ID" type="Int32"/>
+        </sequenceType>
+
+        <sequenceType name="ErrorInfoResponse">
+            <element name="ERROR_CODE"    type="Int32"/>
+            <element name="ERROR_MESSAGE" type="String"/>
+        </sequenceType>
+
+        <sequenceType name="TranErrorInfoResponse">
+            <element name="EMSX_SEQUENCE" type="Int32"/>
+            <element name="ERROR_CODE"    type="Int32"/>
+            <element name="ERROR_MESSAGE" type="String"   default=""/>
+        </sequenceType>
+
+        <sequenceType name="GroupRouteResponse">
+            <element name="EMSX_SUCCESS_ROUTES" type="TranInfo"  minOccurs="0" maxOccurs="3000"/>
+            <element name="EMSX_FAILED_ROUTES"  type="TranErrorInfoResponse"  minOccurs="0" maxOccurs="3000"/>
+            <element name="MESSAGE"             type="String"   default=""/>
+            <element name="EMSX_ML_ID"          type="String" minOccurs="0" maxOccurs="1"/>
+        </sequenceType>
+
+        <sequenceType name="AssignTraderResponse">
+            <element name="EMSX_ASSIGN_TRADER_SUCCESSFUL_ORDERS" type="TranInfo"  minOccurs="0" maxOccurs="3000"/>
+            <element name="EMSX_ASSIGN_TRADER_FAILED_ORDERS"  type="TranErrorInfoResponse"  minOccurs="0" maxOccurs="3000"/>
+            <element name="EMSX_ALL_SUCCESS"           type="Boolean" />
+        </sequenceType>
+
+        <sequenceType name="StatusResponse">
+            <element name="STATUS"  type="Int32"/>
+            <element name="MESSAGE" type="String"   default=""/>
+        </sequenceType>
+
+        <!--********************************** request/Response ********************-->
+        <choiceType name="Request">
+            <element name="OrderInfo"                                 type="OrderInfoRequest"/>
+            <element name="RouteInfo"                                 type="RouteInfoRequest"/>
+            <element name="CreateOrder"                               type="CreateOrderRequest"/>
+            <element name="CreateOrderAndRoute"                       type="CreateOrderAndRouteRequest"/>
+            <element name="CreateOrderAndRouteManually"               type="CreateOrderAndRouteRequest"/>
+            <element name="ModifyOrder"                               type="ModifyOrderRequest"/>
+            <element name="DeleteOrder"                               type="DeleteOrderRequest"/>
+            <element name="Route"                                     type="RouteOrderRequest"/>
+            <element name="RouteManually"                             type="RouteOrderRequest"/>
+            <element name="ModifyRoute"                               type="ModifyRouteRequest"/>
+            <element name="CancelRoute"                               type="CancelRouteRequest"/>
+            <element name="GetTeams"                                  type="GetTeamsRequest"/>
+            <element name="GetFieldMetaData"                          type="GetFieldMetaDataRequest"/>
+            <element name="GetAllFieldMetaData"                       type="GetAllFieldMetaDataRequest"/>
+            <element name="GetBrokers"                                type="GetBrokersRequest"/>
+            <element name="GetBrokerStrategies"                       type="GetBrokerStrategiesRequest"/>
+            <element name="GetBrokerStrategyInfo"                     type="GetBrokerStrategyInfoRequest"/>
+            <element name="CreateOrderAndRouteWithStrat"              type="CreateOrderWithStratRequest"/>
+            <element name="RouteWithStrat"                            type="RouteOrderWithStratRequest"/>
+            <element name="ModifyRouteWithStrat"                      type="ModifyRouteWithStratRequest"/>
+            <element name="GroupRouteWithStrat"                       type="GroupRouteWithStratRequest"/>
+            <element name="CreateOrderAndRouteEx"                     type="CreateOrderAndRouteRequestEx"/>
+            <element name="RouteEx"                                   type="RouteOrderRequestEx"/>
+            <element name="ModifyRouteEx"                             type="ModifyRouteRequestEx"/>
+            <element name="GroupRouteEx"                              type="GroupRouteRequestEx" />
+            <element name="RouteManuallyEx"                           type="RouteOrderRequestEx" />
+            <element name="GetAssetClass"                             type="GetAssetClassRequest"/>
+            <element name="GetBrokerStrategiesWithAssetClass"         type="GetBrokerStrategiesWithAssetClassRequest"/>
+            <element name="GetBrokerStrategyInfoWithAssetClass"       type="GetBrokerStrategyInfoWithAssetClassRequest"/>
+            <element name="GetBrokersWithAssetClass"                  type="GetBrokersWithAssetClassRequest" />
+            <element name="CancelRouteEx"                             type="CancelRouteRequestEx"/>
+            <element name="AssignTrader"                              type="AssignTraderRequest"/>
+            <element name="SellSideAck"                               type="SellSideAckRequest"/>
+            <element name="SellSideReject"                            type="SellSideRejectRequest"/>
+            <element name="CancelOrderEx"                             type="CancelOrderRequestEx"/>
+            <element name="ModifyOrderEx"                             type="ModifyOrderRequestEx"/>
+            <element name="ManualFill"                                type="ManualFillRequest"/>
+            <element name="GetTraders"                                type="GetTradersRequest"/>
+            <element name="GetTradeDesks"                             type="GetTradeDesksRequest"/>
+            <element name="CreateBasket"                              type="CreateBasketRequest" />
+        </choiceType>
+
+        <choiceType name="Response">
+            <element name="ErrorInfo"                                 type="ErrorInfoResponse"/>
+            <element name="OrderInfo"                                 type="OrderInfoResponse"/>
+            <element name="RouteInfo"                                 type="RouteInfoResponse"/>
+            <element name="CreateOrder"                               type="OrderStaticData"/>
+            <element name="CreateOrderAndRoute"                       type="RouteStaticData"/>
+            <element name="CreateOrderAndRouteManually"               type="RouteStaticData"/>
+            <element name="ModifyOrder"                               type="OrderStaticData"/>
+            <element name="DeleteOrder"                               type="DeleteOrderResponse"/>
+            <element name="Route"                                     type="RouteStaticData"/>
+            <element name="RouteManually"                             type="RouteStaticData"/>
+            <element name="ModifyRoute"                               type="RouteStaticData"/>
+            <element name="CancelRoute"                               type="CancelRouteResponse"/>
+            <element name="GetTeams"                                  type="GetTeamsResponse"/>
+            <element name="GetFieldMetaData"                          type="GetFieldMetaDataResponse"/>
+            <element name="GetAllFieldMetaData"                       type="GetAllFieldMetaDataResponse"/>
+            <element name="GetBrokers"                                type="GetBrokersResponse"/>
+            <element name="GetBrokerStrategies"                       type="GetBrokerStrategiesResponse"/>
+            <element name="GetBrokerStrategyInfo"                     type="GetBrokerStrategyInfoResponse"/>
+            <element name="CreateOrderAndRouteWithStrat"              type="RouteStaticData"/>
+            <element name="RouteWithStrat"                            type="RouteStaticData"/>
+            <element name="ModifyRouteWithStrat"                      type="RouteStaticData"/>
+            <element name="GroupRouteWithStrat"                       type="GroupRouteResponse"/>
+            <element name="CreateOrderAndRouteEx"                     type="RouteStaticData" />
+            <element name="RouteEx"                                   type="RouteStaticData" />
+            <element name="ModifyRouteEx"                             type="RouteStaticData" />
+            <element name="GroupRouteEx"                              type="GroupRouteResponse" />
+            <element name="RouteManuallyEx"                           type="RouteStaticData" />
+            <element name="GetAssetClass"                             type="GetAssetClassResponse"/>
+            <element name="GetBrokerStrategiesWithAssetClass"         type="GetBrokerStrategiesWithAssetClassResponse"/>
+            <element name="GetBrokerStrategyInfoWithAssetClass"       type="GetBrokerStrategyInfoWithAssetClassResponse"/>
+            <element name="GetBrokersWithAssetClass"                  type="GetBrokersWithAssetClassResponse" />
+            <element name="CancelRouteEx"                             type="CancelRouteResponse"/>
+            <element name="AssignTrader"                              type="AssignTraderResponse"/>
+            <element name="SellSideAck"                               type="StatusResponse"/>
+            <element name="SellSideReject"                            type="StatusResponse"/>
+            <element name="CancelOrderEx"                             type="CancelOrderResponse"/>
+            <element name="ModifyOrderEx"                             type="OrderStaticData"/>
+            <element name="ManualFill"                                type="ManualFillResponse"/>
+            <element name="GetTraders"                                type="GetTradersResponse"/>
+            <element name="GetTradeDesks"                             type="GetTradeDesksResponse"/>
+            <element name="CreateBasket"                              type="OrderStaticDataList" />
+        </choiceType>
+
+        <!--********************* Real time fields *********************************-->
+        <sequenceType name="OrderRouteFields">
+            <element name="MSG_SUB_TYPE"                              type="String" minOccurs="1" maxOccurs="1" description="O,R" id="1"/>
+            <element name="EVENT_STATUS"                              type="Int32"  minOccurs="1" maxOccurs="1" description="Special field" id="2"/>
+            <element name="API_SEQ_NUM"                               type="Int64"  minOccurs="1" maxOccurs="1" description="Special field" id="3"/>
+            <element name="EMSX_SEQUENCE"                             type="Int32"  minOccurs="1" maxOccurs="1" description="Static:O,R" id="4"/>
+            <element name="EMSX_ROUTE_ID"                             type="Int32"  minOccurs="0" maxOccurs="1" description="Static:O,R" id="5"/>
+            <element name="EMSX_FILL_ID"                              type="Int32"  minOccurs="0" maxOccurs="1" description="Static:O,R" id="6"/>
+            <element name="EMSX_SIDE"                                 type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="7"/>
+            <element name="EMSX_AMOUNT"                               type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="8"/>
+            <element name="EMSX_FILLED"                               type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="9"/>
+            <element name="EMSX_AVG_PRICE"                            type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="10"/>
+            <element name="EMSX_BROKER"                               type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="11"/>
+            <element name="EMSX_WORKING"                              type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="12"/>
+            <element name="EMSX_TICKER"                               type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="13"/>
+            <element name="EMSX_EXCHANGE"                             type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="14"/>
+            <element name="EMSX_ROUTE_CREATE_TIME"                    type="Int32"   minOccurs="0" maxOccurs="1" description="Static:Route" id="15"/>
+            <element name="EMSX_TIF"                                  type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="16"/>
+            <element name="EMSX_ROUTE_LAST_UPDATE_TIME"               type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="17"/>
+            <element name="EMSX_TIME_STAMP"                           type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="18"/>
+            <element name="EMSX_STRATEGY_TYPE"                        type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="19"/>
+            <element name="EMSX_STATUS"                               type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="20"/>
+            <element name="EMSX_IDLE_AMOUNT"                          type="Int32"   minOccurs="0" maxOccurs="1" description="Order" id="21"/>
+            <element name="EMSX_STRATEGY_STYLE"                       type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="22"/>
+            <element name="EMSX_ROUTE_PRICE"                          type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="23"/>
+            <element name="EMSX_LIMIT_PRICE"                          type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="24"/>
+            <element name="EMSX_REMAIN_BALANCE"                       type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="25"/>
+            <element name="EMSX_TRADER"                               type="String"  minOccurs="1" maxOccurs="1" description="Order" id="26"/>
+            <element name="EMSX_DAY_FILL"                             type="Int32"   minOccurs="0" maxOccurs="1" description="O,R" id="27"/>
+            <element name="EMSX_DAY_AVG_PRICE"                        type="Float64" minOccurs="0" maxOccurs="1" description="O,R" id="28"/>
+            <element name="EMSX_DATE"                                 type="Int32"   minOccurs="1" maxOccurs="1" description="Order" id="29"/>
+            <element name="EMSX_NOTES"                                type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="30"/>
+            <element name="EMSX_ACCOUNT"                              type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="31"/>
+            <element name="EMSX_TYPE"                                 type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="32"/>
+            <element name="EMSX_PRINCIPAL"                            type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="33"/>
+            <element name="EMSX_SETTLE_AMOUNT"                        type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="34"/>
+            <element name="EMSX_SEC_NAME"                             type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="35"/>
+            <element name="EMSX_PORT_MGR"                             type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="36"/>
+            <element name="EMSX_GTD_DATE"                             type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="37"/>
+            <element name="EMSX_PORT_NAME"                            type="String"  minOccurs="1" maxOccurs="1" description="Order" id="38"/>
+            <element name="EMSX_STRATEGY_END_TIME"                    type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="39"/>
+            <element name="EMSX_ML_PERCENT_FILLED"                    type="Float64" minOccurs="0" maxOccurs="1" description="Route" id="40"/>
+            <element name="EMSX_ML_STRATEGY"                          type="String"  minOccurs="0" maxOccurs="1" description="Route" id="41"/>
+            <element name="EMSX_ML_LEG_QUANTITY"                      type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="42"/>
+            <element name="EMSX_ML_TOTAL_QUANTITY"                    type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="43"/>
+            <element name="EMSX_ML_REMAIN_BALANCE"                    type="Float64" minOccurs="0" maxOccurs="1" description="Route" id="44"/>
+            <element name="EMSX_STRATEGY_START_TIME"                  type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="45"/>
+            <element name="EMSX_BASKET_NAME"                          type="String"  minOccurs="1" maxOccurs="1" description="Order" id="46"/>
+            <element name="EMSX_PERCENT_REMAIN"                       type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="47"/>
+            <element name="EMSX_ROUTE_CREATE_DATE"                    type="Int32"   minOccurs="0" maxOccurs="1" description="Static:Route" id="48"/>
+            <element name="EMSX_P_A"                                  type="String"  minOccurs="0" maxOccurs="1" description="Route" id="49"/>
+            <element name="EMSX_CLEARING_ACCOUNT"                     type="String"  minOccurs="0" maxOccurs="1" description="Route" id="50"/>
+            <element name="EMSX_CLEARING_FIRM"                        type="String"  minOccurs="0" maxOccurs="1" description="Route" id="51"/>
+            <element name="EMSX_STOP_PRICE"                           type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="52"/>
+            <element name="EMSX_SETTLE_DATE"                          type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="53"/>
+            <element name="EMSX_ISIN"                                 type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="54"/>
+            <element name="EMSX_BROKER_COMM"                          type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="55"/>
+            <element name="EMSX_WORK_PRICE"                           type="Float64" minOccurs="0" maxOccurs="1" description="Order" id="56"/>
+            <element name="EMSX_SEDOL"                                type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="57"/>
+            <element name="EMSX_HAND_INSTRUCTION"                     type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="58"/>
+            <element name="EMSX_TS_ORDNUM"                            type="Int32"   minOccurs="1" maxOccurs="1" description="Static:Order" id="59"/>
+            <element name="EMSX_COMM_RATE"                            type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="60"/>
+            <element name="EMSX_EXEC_INSTRUCTION"                     type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="61"/>
+            <element name="EMSX_ORD_REF_ID"                           type="String"  minOccurs="0" maxOccurs="1" description="Order" id="62"/>
+            <element name="EMSX_STRATEGY_PART_RATE2"                  type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="63"/>
+            <element name="EMSX_USER_COMM_RATE"                       type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="64"/>
+            <element name="EMSX_USER_COMM_AMOUNT"                     type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="65"/>
+            <element name="EMSX_ORDER_TYPE"                           type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="66"/>
+            <element name="EMSX_REASON_CODE"                          type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="67"/>
+            <element name="EMSX_REASON_DESC"                          type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="68"/>
+            <element name="EMSX_STRATEGY_PART_RATE1"                  type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="69"/>
+            <element name="EMSX_BSE_FILLED"                           type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="70"/>
+            <element name="EMSX_QUEUED_TIME"                          type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="71"/>
+            <element name="EMSX_NSE_FILLED"                           type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="72"/>
+            <element name="EMSX_BASKET_NUM"                           type="Int32"   minOccurs="1" maxOccurs="1" description="Order" id="73"/>
+            <element name="EMSX_LAST_FILL_TIME"                       type="Int32"   minOccurs="1" maxOccurs="1" description="Route" id="74"/>
+            <element name="EMSX_NSE_AVG_PRICE"                        type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="75"/>
+            <element name="EMSX_CFD_FLAG"                             type="String"  minOccurs="1" maxOccurs="1" description="Order" id="76"/>
+            <element name="EMSX_BSE_AVG_PRICE"                        type="Float64" minOccurs="1" maxOccurs="1" description="Static:O,R" id="77"/>
+            <element name="EMSX_USER_NET_MONEY"                       type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="78"/>
+            <element name="EMSX_ASSIGNED_TRADER"                      type="String"  minOccurs="0" maxOccurs="1" description="Order" id="79"/>
+            <element name="EMSX_ORIGINATE_TRADER"                     type="String"  minOccurs="1" maxOccurs="1" description="Order" id="80"/>
+            <element name="EMSX_USER_FEES"                            type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="81"/>
+            <element name="EMSX_LAST_FILL_DATE"                       type="Int32"   minOccurs="1" maxOccurs="1" description="Route" id="82"/>
+            <element name="EMSX_INVESTOR_ID"                          type="String"  minOccurs="1" maxOccurs="1" description="Order" id="83"/>
+            <element name="EMSX_POSITION"                             type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="84"/>
+            <element name="EMSX_PORT_NUM"                             type="Int32"   minOccurs="1" maxOccurs="1" description="Order" id="85"/>
+            <element name="EMSX_ASSET_CLASS"                          type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="86"/>
+            <element name="EMSX_ORIGINATE_TRADER_FIRM"                type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="87"/>
+            <element name="EMSX_YELLOW_KEY"                           type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="88"/>
+            <element name="EMSX_QUEUED_DATE"                          type="Int32"   minOccurs="1" maxOccurs="1" description="O,R" id="89"/>
+            <element name="EMSX_TRADE_DESK"                           type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="90"/>
+            <element name="EMSX_EXECUTE_BROKER"                       type="String"  minOccurs="0" maxOccurs="1" description="Route" id="91"/>
+            <element name="EMSX_COMM_DIFF_FLAG"                       type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="92"/>
+            <element name="EMSX_EXCHANGE_DESTINATION"                 type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="93"/>
+            <element name="EMSX_CURRENCY_PAIR"                        type="String"  minOccurs="1" maxOccurs="1" description="Static:O,R" id="94"/>
+            <element name="EMSX_MISC_FEES"                            type="Float64" minOccurs="0" maxOccurs="1" description="Route" id="95"/>
+            <element name="EMSX_STEP_OUT_BROKER"                      type="String"  minOccurs="1" maxOccurs="1" description="Order" id="96"/>
+            <element name="EMSX_URGENCY_LEVEL"                        type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="97"/>
+            <element name="EMSX_ML_RATIO"                             type="Float64" minOccurs="0" maxOccurs="1" description="Route" id="98"/>
+            <element name="EMSX_DIR_BROKER_FLAG"                      type="String"  minOccurs="0" maxOccurs="1" description="Order" id="99"/>
+            <element name="EMSX_START_AMOUNT"                         type="Int32"   minOccurs="0" maxOccurs="1" description="Static:Order" id="100"/>
+            <element name="EMSX_ARRIVAL_PRICE"                        type="Float64" minOccurs="1" maxOccurs="1" description="Order" id="101"/>
+            <element name="EMSX_PRODUCT"                              type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="102"/>
+            <element name="EMSX_IS_MANUAL_ROUTE"                      type="Int32"   minOccurs="1" maxOccurs="1" description="Static:Route" id="103"/>
+            <element name="EMSX_UNDERLYING_TICKER"                    type="String"  minOccurs="1" maxOccurs="1" description="Static:Order" id="104"/>
+            <element name="EMSX_ML_NUM_LEGS"                          type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="105"/>
+            <element name="EMSX_TRADER_NOTES"                         type="String"  minOccurs="1" maxOccurs="1" description="Order" id="106"/>
+            <element name="EMSX_CUSTOM_ACCOUNT"                       type="String"  minOccurs="1" maxOccurs="1" description="Route" id="107"/>
+            <element name="EMSX_LAST_SHARES"                          type="Int32"   minOccurs="1" maxOccurs="1" description="Route" id="108"/>
+            <element name="EMSX_LAST_PRICE"                           type="Float64" minOccurs="1" maxOccurs="1" description="Route" id="109"/>
+            <element name="EMSX_LAST_MARKET"                          type="String"  minOccurs="1" maxOccurs="1" description="Route" id="110"/>
+            <element name="EMSX_TRAD_UUID"                            type="Int32"   minOccurs="1" maxOccurs="1" description="Order" id="111"/>
+            <element name="EMSX_PM_UUID"                              type="Int32"   minOccurs="1" maxOccurs="1" description="Static:Order" id="112"/>
+            <element name="EMSX_ML_ID"                                type="String"  minOccurs="1" maxOccurs="1" description="Route" id="113"/>
+            <element name="EMSX_BLOCK_ID"                             type="String"  minOccurs="1" maxOccurs="1" description="Order" id="114"/>
+            <element name="EMSX_ROUTE_REF_ID"                         type="String"  minOccurs="1" maxOccurs="1" description="Route" id="115"/>
+            <element name="MSG_TYPE"                                  type="String"  minOccurs="1" maxOccurs="1" description="O,R" id="116"/>
+            <element name="EMSX_BROKER_STATUS"                        type="String"  minOccurs="1" maxOccurs="1" description="Route" id="117"/>
+            <element name="EMSX_BUYSIDE_LEI"                          type="String"  minOccurs="0" maxOccurs="1" description="O,R" id="118"/>
+            <element name="EMSX_BROKER_LEI"                           type="String"  minOccurs="0" maxOccurs="1" description="Route" id="119"/>
+            <element name="EMSX_TRADE_REPORTING_INDICATOR"            type="String"  minOccurs="0" maxOccurs="1" description="Route" id="120"/>
+            <element name="EMSX_TRANSACTION_REPORTING_MIC"            type="String"  minOccurs="0" maxOccurs="1" description="Route" id="121"/>
+            <element name="EMSX_APA_MIC"                              type="String"  minOccurs="0" maxOccurs="1" description="Route" id="122"/>
+            <element name="EMSX_OTC_FLAG"                             type="String"  minOccurs="0" maxOccurs="1" description="Route" id="123"/>
+            <element name="EMSX_WAIVER_FLAG"                          type="String"  minOccurs="0" maxOccurs="1" description="Route" id="124"/>
+            <element name="EMSX_LAST_CAPACITY"                        type="String"  minOccurs="1" maxOccurs="1" description="Route" id="125"/>
+            <element name="EMSX_CLIENT_IDENTIFICATION"                type="String"  minOccurs="0" maxOccurs="1" description="O,R" id="126"/>
+            <element name="EMSX_SI"                                   type="String"  minOccurs="0" maxOccurs="1" description="Order" id="127"/>
+            <element name="EMSX_MIFID_II_INSTRUCTION"                 type="String"  minOccurs="0" maxOccurs="1" description="O,R" id="128"/>
+            <element name="EMSX_BROKER_SI"                            type="String"  minOccurs="0" maxOccurs="1" description="R" id="129"/>
+            <element name="EMSX_ROUTE_CREATE_TIME_MICROSEC"           type="Float64" minOccurs="0" maxOccurs="1" description="Static:Route" id="130"/>
+            <element name="EMSX_ROUTE_LAST_UPDATE_TIME_MICROSEC"      type="Float64" minOccurs="0" maxOccurs="1" description="Route" id="131"/>
+            <element name="EMSX_TIME_STAMP_MICROSEC"                  type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="132"/>
+            <element name="EMSX_QUEUED_TIME_MICROSEC"                 type="Float64" minOccurs="1" maxOccurs="1" description="O,R" id="133"/>
+            <element name="EMSX_LAST_FILL_TIME_MICROSEC"              type="Float64" minOccurs="1" maxOccurs="1" description="Route" id="134"/>
+            <element name="EMSX_GPI"                                  type="String"  minOccurs="0" maxOccurs="1" description="O,R" id="135"/>
+            <element name="EMSX_ORDER_AS_OF_DATE"                     type="Int32"   minOccurs="1" maxOccurs="1" description="Order" id="136"/>
+            <element name="EMSX_ORDER_AS_OF_TIME_MICROSEC"            type="Float64" minOccurs="1" maxOccurs="1" description="Order" id="137"/>
+            <element name="EMSX_ROUTE_AS_OF_DATE"                     type="Int32"   minOccurs="1" maxOccurs="1" description="Route" id="138"/>
+            <element name="EMSX_ROUTE_AS_OF_TIME_MICROSEC"            type="Float64" minOccurs="1" maxOccurs="1" description="Route" id="139"/>
+            <element name="EMSX_LEG_FILL_SIDE"                        type="String"  minOccurs="0" maxOccurs="1" description="Route" id="140"/>
+            <element name="EMSX_LEG_FILL_DATE_ADDED"                  type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="141"/>
+            <element name="EMSX_LEG_FILL_TIME_ADDED"                  type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="142"/>
+            <element name="EMSX_LEG_FILL_SHARES"                      type="Float64" minOccurs="0" maxOccurs="1" description="Route" id="143"/>
+            <element name="EMSX_LEG_FILL_PRICE"                       type="Float64" minOccurs="0" maxOccurs="1" description="Route" id="144"/>
+            <element name="EMSX_LEG_FILL_SEQ_NO"                      type="Int32"   minOccurs="0" maxOccurs="1" description="Route" id="145"/>
+            <element name="EMSX_LEG_FILL_TICKER"                      type="String"  minOccurs="0" maxOccurs="1" description="Route" id="146"/>
+            <element name="EMSX_CUSTOM_NOTE1"                         type="String"  minOccurs="0" maxOccurs="1" description="Order" id="147"/>
+            <element name="EMSX_CUSTOM_NOTE2"                         type="String"  minOccurs="0" maxOccurs="1" description="Order" id="148"/>
+            <element name="EMSX_CUSTOM_NOTE3"                         type="String"  minOccurs="0" maxOccurs="1" description="Order" id="149"/>
+            <element name="EMSX_CUSTOM_NOTE4"                         type="String"  minOccurs="0" maxOccurs="1" description="Order" id="150"/>
+            <element name="EMSX_CUSTOM_NOTE5"                         type="String"  minOccurs="0" maxOccurs="1" description="Order" id="151"/>
+            <element name="EMSX_MOD_PEND_STATUS"                      type="String"  minOccurs="0" maxOccurs="1" description="Order" id="152"/>
+        </sequenceType>
+    </schema>
+
+    <service name="//blp/emapisvc" version="3.33.1.4">
+
+        <event name="OrderRouteFields"  eventType="OrderRouteFields">
+            <eventId>1</eventId>
+        </event>
+
+        <!--************************ Operations ***********************************-->
+        <operation name="CreateOrder" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CreateOrder</requestSelection>
+            <response>Response</response>
+            <responseSelection>CreateOrder</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CreateOrderAndRoute" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CreateOrderAndRoute</requestSelection>
+            <response>Response</response>
+            <responseSelection>CreateOrderAndRoute</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CreateOrderAndRouteManually" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CreateOrderAndRouteManually</requestSelection>
+            <response>Response</response>
+            <responseSelection>CreateOrderAndRouteManually</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="ModifyOrder" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>ModifyOrder</requestSelection>
+            <response>Response</response>
+            <responseSelection>ModifyOrder</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="DeleteOrder" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>DeleteOrder</requestSelection>
+            <response>Response</response>
+            <responseSelection>DeleteOrder</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="OrderInfo" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>OrderInfo</requestSelection>
+            <response>Response</response>
+            <responseSelection>OrderInfo</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="RouteInfo" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>RouteInfo</requestSelection>
+            <response>Response</response>
+            <responseSelection>RouteInfo</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="Route" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>Route</requestSelection>
+            <response>Response</response>
+            <responseSelection>Route</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="RouteManually" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>RouteManually</requestSelection>
+            <response>Response</response>
+            <responseSelection>RouteManually</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="ModifyRoute" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>ModifyRoute</requestSelection>
+            <response>Response</response>
+            <responseSelection>ModifyRoute</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CancelRoute" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CancelRoute</requestSelection>
+            <response>Response</response>
+            <responseSelection>CancelRoute</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CancelRouteEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CancelRouteEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>CancelRouteEx</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetTeams" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetTeams</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetTeams</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetFieldMetaData" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetFieldMetaData</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetFieldMetaData</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetAllFieldMetaData" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetAllFieldMetaData</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetAllFieldMetaData</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetAssetClass" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetAssetClass</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetAssetClass</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetBrokersWithAssetClass" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetBrokersWithAssetClass</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetBrokersWithAssetClass</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetBrokerStrategiesWithAssetClass" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetBrokerStrategiesWithAssetClass</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetBrokerStrategiesWithAssetClass</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetBrokerStrategyInfoWithAssetClass" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetBrokerStrategyInfoWithAssetClass</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetBrokerStrategyInfoWithAssetClass</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetBrokers" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetBrokers</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetBrokers</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetBrokerStrategies" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetBrokerStrategies</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetBrokerStrategies</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetBrokerStrategyInfo" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetBrokerStrategyInfo</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetBrokerStrategyInfo</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CreateOrderAndRouteWithStrat" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CreateOrderAndRouteWithStrat</requestSelection>
+            <response>Response</response>
+            <responseSelection>CreateOrderAndRouteWithStrat</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="RouteWithStrat" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>RouteWithStrat</requestSelection>
+            <response>Response</response>
+            <responseSelection>RouteWithStrat</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="ModifyRouteWithStrat" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>ModifyRouteWithStrat</requestSelection>
+            <response>Response</response>
+            <responseSelection>ModifyRouteWithStrat</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GroupRouteWithStrat" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GroupRouteWithStrat</requestSelection>
+            <response>Response</response>
+            <responseSelection>GroupRouteWithStrat</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="RouteEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>RouteEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>Route</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="ModifyRouteEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>ModifyRouteEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>ModifyRouteEx</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GroupRouteEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GroupRouteEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>GroupRouteEx</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CreateOrderAndRouteEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CreateOrderAndRouteEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>CreateOrderAndRouteEx</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="RouteManuallyEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>RouteManuallyEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>RouteManually</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="AssignTrader" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>AssignTrader</requestSelection>
+            <response>Response</response>
+            <responseSelection>AssignTrader</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="SellSideAck" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>SellSideAck</requestSelection>
+            <response>Response</response>
+            <responseSelection>SellSideAck</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="SellSideReject" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>SellSideReject</requestSelection>
+            <response>Response</response>
+            <responseSelection>SellSideReject</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CancelOrderEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CancelOrderEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>CancelOrderEx</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="ModifyOrderEx" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>ModifyOrderEx</requestSelection>
+            <response>Response</response>
+            <responseSelection>ModifyOrderEx</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="ManualFill" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>ManualFill</requestSelection>
+            <response>Response</response>
+            <responseSelection>ManualFill</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetTraders" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetTraders</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetTraders</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="GetTradeDesks" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>GetTradeDesks</requestSelection>
+            <response>Response</response>
+            <responseSelection>GetTradeDesks</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <operation name="CreateBasket" serviceId="14861">
+            <request>Request</request>
+            <requestSelection>CreateBasket</requestSelection>
+            <response>Response</response>
+            <responseSelection>CreateBasket</responseSelection>
+            <responseSelection>ErrorInfo</responseSelection>
+        </operation>
+
+        <SubscriberResolutionServiceId>15373</SubscriberResolutionServiceId>
+        <defaultServiceId>15885</defaultServiceId>
+        <publisherSupportsRecap>false</publisherSupportsRecap>
+        <authoritativeSourceSupportsRecap>false</authoritativeSourceSupportsRecap>
+    </service>
+</ServiceDefinition>

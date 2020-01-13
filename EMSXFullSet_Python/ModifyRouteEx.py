@@ -40,7 +40,7 @@ class SessionEventHandler():
 
 
     def processSessionStatusEvent(self,event,session):
-        print "Processing SESSION_STATUS event"
+        print ("Processing SESSION_STATUS event")
 
         for msg in event:
             if msg.messageType() == SESSION_STARTED:

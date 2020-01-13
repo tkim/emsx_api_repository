@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Created with Liquid XML 2016 Designer Edition 14.1.2.6578 (https://www.liquid-technologies.com) -->
+<ServiceDefinition xmlns="http://bloomberg.com/schemas/apidd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://bloomberg.com/schemas/apidd apidd.xsd"
+    name="blp.emsx.history" version="1.4.0.0">
+    <service name="//blp/emsx.history" version="1.4.0.0">
+        <operation name="GetFills" serviceId="1073939197">
+            <request>request</request>
+            <requestSelection>GetFills</requestSelection>
+            <response>response</response>
+            <responseSelection>GetFillsResponse</responseSelection>
+            <responseSelection>ErrorResponse</responseSelection>
+            <timeout>15</timeout>
+        </operation>
+        <publisherSupportsRecap>false</publisherSupportsRecap>
+        <authoritativeSourceSupportsRecap>true</authoritativeSourceSupportsRecap>
+    </service>
+    <schema>
+        <sequenceType name="GetFillsRequest">
+            <description>seqGetFillsRequest</description>
+            <element name="FromDateTime" id="0" type="Datetime">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ToDateTime" id="1" type="Datetime">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Scope" id="2" type="Scope">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="FilterBy" id="3" type="FilterBy" minOccurs="0"
+                maxOccurs="1">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+        <sequenceType name="OrderRouteId">
+            <description>seqOrderRouteId</description>
+            <element name="OrderId" id="0" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteId" id="1" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+        <sequenceType name="GetFillsResponse">
+            <description>seqGetFillsResponse</description>
+            <element name="Fills" type="FillItem" maxOccurs="unbounded">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+        <sequenceType name="FillItem">
+            <description>seqFillItem</description>
+            <element name="Ticker" id="0" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Exchange" id="1" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Side" id="2" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="TIF" id="3" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Type" id="4" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OrderId" id="5" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteId" id="6" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="FillId" id="7" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="CorrectedFillId" id="8" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MultilegId" id="9" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="IsLeg" id="10" type="Boolean">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="FillPrice" id="11" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="FillShares" id="12" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="TraderUuid" id="13" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ExecutingBroker" id="14" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ReroutedBroker" id="15" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="BasketName" id="16" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="DateTimeOfFill" id="17" type="Datetime">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Account" id="18" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="LastCapacity" id="19" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Liquidity" id="20" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="LastMarket" id="21" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="BasketId" id="22" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="BlockId" id="23" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="IsCfd" id="24" type="Boolean">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ClearingAccount" id="25" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ClearingFirm" id="26" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Currency" id="27" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Cusip" id="28" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Isin" id="29" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="LocalExchangeSymbol" id="30" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="LocateRequired" id="31" type="Boolean">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="LocateBroker" id="32" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="LocateId" id="33" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OrderReferenceId" id="34" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteNotes" id="35" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="SecurityName" id="36" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Sedol" id="37" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Broker" id="38" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteCommissionAmount" id="39" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteCommissionRate" id="40" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="LimitPrice" id="41" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteNetMoney" id="42" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteShares" id="43" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="SettlementDate" id="44" type="Date" minOccurs="0"
+                maxOccurs="1">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="UserCommissionAmount" id="45" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="UserCommissionRate" id="46" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="UserFees" id="47" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="UserNetMoney" id="48" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OriginatingTraderUuid" id="49" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteExecutionInstruction" id="50" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="RouteHandlingInstruction" id="51" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OrderExecutionInstruction" id="52" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OrderHandlingInstruction" id="53" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OrderInstruction" id="54" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="YellowKey" id="55" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="InvestorID" id="56" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Amount" id="57" type="Float64">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="StopPrice" id="58" type="Float32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="StrategyType" id="59" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ContractExpDate" id="60" type="Date">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="AssetClass" id="61" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="BBGID" id="62" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="TraderName" id="63" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OrderOrigin" id="64" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="OCCSymbol" id="65" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ExecType" id="66" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ExecPrevSeqNo" id="67" type="Int32">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidBuysideLei" id="68" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidAggrFlag" id="69" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidIsSi" id="70" type="Boolean">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidTradeInstr" id="71" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidGpi" id="72" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidSellsideLei" id="73" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidSellsideTri" id="74" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidSellsideTrMic" id="75" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidSellsideSiMic" id="76" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidSellsideApaMic" id="77" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidSellsideOtcFlag" id="78" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="MifidSellsideWaiverFlag" id="79" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="BrokerExecId" id="80" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="BrokerOrderId" id="81" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="NyOrderCreateAsOfDateTime" id="82" type="Datetime">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Mpid" id="83" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="NyTranCreateAsOfDateTime" id="84" type="Datetime">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+        <sequenceType name="ErrorResponse">
+            <description>seqErrorResponse</description>
+            <element name="ErrorCode" type="ErrorCode">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ErrorMsg" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </sequenceType>
+        <choiceType name="request">
+            <description>choicerequest</description>
+            <element name="GetFills" id="0" type="GetFillsRequest">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </choiceType>
+        <choiceType name="Scope">
+            <description>choiceScope</description>
+            <element name="Uuids" id="0" type="Int32" maxOccurs="unbounded">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="TradingSystem" id="1" type="Boolean">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Team" id="2" type="String">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </choiceType>
+        <choiceType name="FilterBy">
+            <description>choiceFilterBy</description>
+            <element name="OrdersAndRoutes" id="0" type="OrderRouteId"
+                maxOccurs="unbounded">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Basket" id="1" type="String" maxOccurs="unbounded">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="Multileg" id="2" type="String"
+                maxOccurs="unbounded">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </choiceType>
+        <choiceType name="response">
+            <description>choiceresponse</description>
+            <element name="GetFillsResponse" id="0" type="GetFillsResponse">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+            <element name="ErrorResponse" id="1" type="ErrorResponse">
+                <description></description>
+                <cacheable>true</cacheable>
+                <cachedOnlyOnInitialPaint>false</cachedOnlyOnInitialPaint>
+            </element>
+        </choiceType>
+        <enumerationType name="ErrorCode" type="String">
+            <description></description>
+            <enumerator name="ERROR_INVALID_INPUT">
+                <description></description>
+                <value>
+                    <String>ERROR_INVALID_INPUT</String>
+                </value>
+            </enumerator>
+            <enumerator name="ERROR_INTERNAL">
+                <description></description>
+                <value>
+                    <String>ERROR_INTERNAL</String>
+                </value>
+            </enumerator>
+            <enumerator name="ERROR_PERMISSION">
+                <description></description>
+                <value>
+                    <String>ERROR_PERMISSION</String>
+                </value>
+            </enumerator>
+            <enumerator name="ERROR_INVALID_AUTHENTICATION_MODE">
+                <description></description>
+                <value>
+                    <String>ERROR_INVALID_AUTHENTICATION_MODE</String>
+                </value>
+            </enumerator>
+        </enumerationType>
+    </schema>
+</ServiceDefinition>
