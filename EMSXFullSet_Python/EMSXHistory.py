@@ -70,21 +70,19 @@ class SessionEventHandler():
 
                 scope = request.getElement("Scope")
                 
-                #scope.setChoice("Team") #Team Name
-                #scope.setChoice("TradingSystem")
-                scope.setChoice("Uuids")
+                #scope.setChoice("Team") # Team Name
+                #scope.setChoice("TradingSystem") # AIM Px#
+                scope.setChoice("Uuids") # UUID 
                 
-                #scope.setElement("Team", "SEXEGROUP")
-                #scope.setElement("TradingSystem",false)
+                #scope.setElement("Team", "MyTeamName")
+                #scope.setElement("TradingSystem", True) # no need to specify px# this will be picked up based on the login.
                 
                 scope.getElement("Uuids").appendValue(1234) # User's UUID
 
-                '''
-                scope.getElement("Uuids").appendValue(12345);
-                scope.getElement("Uuids").appendValue(123456);
-                scope.getElement("Uuids").appendValue(1234567);
-                '''
-                
+                #scope.getElement("Uuids").appendValue(12345);
+                #scope.getElement("Uuids").appendValue(123456);
+                #scope.getElement("Uuids").appendValue(1234567);
+                                
                 #filter = request.getElement("FilterBy")
                 
                 #filter.setChoice("Basket")
