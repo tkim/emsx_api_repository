@@ -1,4 +1,4 @@
-# SellSideAck.py
+# GetTraders.py
 
 import blpapi
 import sys
@@ -9,13 +9,13 @@ SESSION_STARTUP_FAILURE = blpapi.Name("SessionStartupFailure")
 SERVICE_OPENED          = blpapi.Name("ServiceOpened")
 SERVICE_OPEN_FAILURE    = blpapi.Name("ServiceOpenFailure")
 ERROR_INFO              = blpapi.Name("ErrorInfo")
-SELL_SIDE_ACK           = blpapi.Name("SellSideAck")
+GET_TRADERS             = blpapi.Name("GetTraders")
 
-d_service="//blp/emapisvc_beta"
+# This is an AIM only function and thus there are no valid //blp/emapisvc_beta access.
+d_service="//blp/emapisvc"
 d_host="localhost"
 d_port=8194
 bEnd=False
-
 
 class SessionEventHandler():
 
@@ -39,7 +39,7 @@ class SessionEventHandler():
         return False
 
 
-    def processSessionStatusEvent(self,event,session):  
+    def processSessionStatusEvent(self,event,session):
         print ("Processing SESSION_STATUS event")
 
         for msg in event:
@@ -64,15 +64,10 @@ class SessionEventHandler():
 
                 service = session.getService(d_service)
     
-                request = service.createRequest("SellSideAck");
+                request = service.createRequest("GetTraders")
 
                 #request.set("EMSX_REQUEST_SEQ", 1)
-
-                request.append("EMSX_SEQUENCE", 1234567)
-                    
-                # The following Element is currently not being used in this request.
-                #request.set("EMSX_TRADER_UUID", 7654321)
-
+                
                 print ("Request: %s" % request.toString())
                     
                 self.requestID = blpapi.CorrelationId()
@@ -80,7 +75,7 @@ class SessionEventHandler():
                 session.sendRequest(request, correlationId=self.requestID )
                             
             elif msg.messageType() == SERVICE_OPEN_FAILURE:
-                print >> sys.stderr, ("Error: Service failed to open")
+                print >> sys.stderr, ("Error: Service failed to open")        
                 
     def processResponseEvent(self, event):
         print ("Processing RESPONSE event")
@@ -98,10 +93,13 @@ class SessionEventHandler():
                     errorCode = msg.getElementAsInteger("ERROR_CODE")
                     errorMessage = msg.getElementAsString("ERROR_MESSAGE")
                     print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
-                elif msg.messageType() == SELL_SIDE_ACK:
-                    status = msg.getElementAsInteger("STATUS")
-                    message = msg.getElementAsString("MESSAGE")
-                    print ("STATUS: %d\tMESSAGE: %s" % (status,message))
+                elif msg.messageType() == GET_TRADERS:
+
+                    traders = msg.getElement("EMSX_TRADER_UUID")
+                    #print(msg)
+
+                    for t in traders.values():
+                        print("TRADERS: %s" %(t)) 
 
                 global bEnd
                 bEnd = True
@@ -138,7 +136,7 @@ def main():
     session.stop()
     
 if __name__ == "__main__":
-    print ("Bloomberg - EMSX API Sell-Side Example - SellSideAck")
+    print ("Bloomberg - EMSX API Example - GetTraders")
     try:
         main()
     except KeyboardInterrupt:
@@ -147,7 +145,6 @@ if __name__ == "__main__":
 
 __copyright__ = """
 Copyright 2017. Bloomberg Finance L.P.
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to
 deal in the Software without restriction, including without limitation the
@@ -156,7 +153,6 @@ sell copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:  The above
 copyright notice and this permission notice shall be included in all copies
 or substantial portions of the Software.
-
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
