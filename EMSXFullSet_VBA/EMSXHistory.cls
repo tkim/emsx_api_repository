@@ -237,8 +237,8 @@ Private Sub processResponseEvent(evt As blpapicomLib2.Event)
         
             If msg.MessageTypeAsString = "ErrorInfo" Then
             
-                errorCode = msg.GetElement("ERROR_CODE")
-                errorMessage = msg.GetElement("ERROR_MESSAGE")
+                errorCode = msg.GetElement("ErrorCode")
+                errorMessage = msg.GetElement("ErrorMsg")
                 
                 log "ERROR CODE: " & errorCode & "    ERROR DESCRIPTION: " & errorMessage
             

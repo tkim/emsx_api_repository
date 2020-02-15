@@ -222,8 +222,8 @@ namespace com.bloomberg.samples
                     System.Console.WriteLine("Message Type: " + msg.MessageType);
                     if (msg.MessageType.Equals(ERROR_INFO))
                     {
-                        int errorCode = msg.GetElementAsInt32("ERROR_CODE");
-                        String errorMessage = msg.GetElementAsString("ERROR_MESSAGE");
+                        int errorCode = msg.GetElementAsInt32("ErrrorCode");
+                        String errorMessage = msg.GetElementAsString("ErrrorMsg");
                         System.Console.WriteLine("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                     }
                     else if (msg.MessageType.Equals(GET_FILLS_RESPONSE))

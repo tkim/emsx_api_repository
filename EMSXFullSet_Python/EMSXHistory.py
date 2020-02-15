@@ -116,8 +116,8 @@ class SessionEventHandler():
                 print ("MESSAGE TYPE: %s" % msg.messageType())
                 
                 if msg.messageType() == ERROR_INFO:
-                    errorCode = msg.getElementAsInteger("ERROR_CODE")
-                    errorMessage = msg.getElementAsString("ERROR_MESSAGE")
+                    errorCode = msg.getElementAsInteger("ErrorCode")
+                    errorMessage = msg.getElementAsString("ErrorMsg")
                     print ("ERROR CODE: %d\tERROR MESSAGE: %s" % (errorCode,errorMessage))
                 elif msg.messageType() == GET_FILLS_RESPONSE:
 

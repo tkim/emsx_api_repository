@@ -219,8 +219,8 @@ public class EMSXHistory {
                 	
                 	System.out.println("Message Type: " + msg.messageType());
                 	if(msg.messageType().equals(ERROR_INFO)) {
-                		Integer errorCode = msg.getElementAsInt32("ERROR_CODE");
-                		String errorMessage = msg.getElementAsString("ERROR_MESSAGE");
+                		Integer errorCode = msg.getElementAsInt32("ErrorCode");
+                		String errorMessage = msg.getElementAsString("ErrorMsg");
                 		System.out.println("ERROR CODE: " + errorCode + "\tERROR MESSAGE: " + errorMessage);
                 	} else if(msg.messageType().equals(GET_FILLS_RESPONSE)) {
                 		

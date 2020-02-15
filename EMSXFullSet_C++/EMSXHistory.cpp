@@ -205,8 +205,8 @@ class EMSXEventHandler : public EventHandler
 
 			if (msg.messageType() == ERROR_INFO) {
 
-				int errorCode = msg.getElementAsInt32("ERROR_CODE");
-				std::string errorMessage = msg.getElementAsString("ERROR_MESSAGE");
+				int errorCode = msg.getElementAsInt32("ErrorCode");
+				std::string errorMessage = msg.getElementAsString("ErrorMsg");
 
 				ConsoleOut(d_consoleLock_p) << "ERROR CODE: " << errorCode << "\tERROR MESSAGE: " << errorMessage << std::endl;
 			}
