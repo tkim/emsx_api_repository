@@ -106,6 +106,9 @@ public class EMSXHistory {
                 case Event.EventType.Constants.RESPONSE:
                     processResponseEvent(event, session);
                     break;
+                case Event.EventType.Constants.PARTIAL_RESPONSE:
+                    processResponseEvent(event, session);
+                    break;
                 default:
                     processMiscEvents(event, session);
                     break;
@@ -324,4 +327,3 @@ public class EMSXHistory {
     }	
 	
 }
-
