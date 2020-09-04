@@ -791,7 +791,7 @@ public class EMSXSubscriptions {
     		orderTopic = orderTopic + "EMSX_TICKER,";
     		orderTopic = orderTopic + "EMSX_TIF,";
     		orderTopic = orderTopic + "EMSX_TIME_STAMP,";
-            orderTopic = orderTopic + "EMSX_TIME_STAMPE_MICROSEC,";
+            orderTopic = orderTopic + "EMSX_TIME_STAMP_MICROSEC,";
     		orderTopic = orderTopic + "EMSX_TRAD_UUID,";
     		orderTopic = orderTopic + "EMSX_TRADE_DESK,";
     		orderTopic = orderTopic + "EMSX_TRADER,";
