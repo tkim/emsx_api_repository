@@ -26,7 +26,7 @@ class SessionEventHandler():
             elif event.eventType() == blpapi.Event.SERVICE_STATUS:
                 self.processServiceStatusEvent(event,session)
 
-            elif event.eventType() == blpapi.Event.RESPONSE:
+            elif event.eventType() == blpapi.Event.RESPONSE or event.eventType() == blpapi.Event.PARTIAL_RESPONSE:
                 self.processResponseEvent(event)
             
             else:
@@ -191,8 +191,9 @@ class SessionEventHandler():
                             instFixValue = handInst.getElement("fixValue").getValue()
                             print ("\t\tName: %s\tFix Value: %s" % (instName, instFixValue))
 
-                global bEnd
-                bEnd = True
+                if event.eventType() == blpapi.Event.RESPONSE :
+                    global bEnd
+                    bEnd = True
                 
     def processMiscEvents(self, event):
         
