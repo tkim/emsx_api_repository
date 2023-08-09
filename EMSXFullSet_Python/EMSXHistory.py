@@ -193,8 +193,9 @@ class SessionEventHandler():
                             
                         print ("OrderId: %d\tFill ID: %d\tDate/Time: %s\tShares: %f\tPrice: %f" % (orderId,fillId, dateTimeOfFill, fillShares, fillPrice))
                             
-                global bEnd
-                bEnd = True
+                if event.eventType() == blpapi.Event.RESPONSE:
+                    global bEnd
+                    bEnd = True
                 
     def processMiscEvents(self, event):
         
