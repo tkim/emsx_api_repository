@@ -130,7 +130,7 @@ class SessionEventHandler(object):
                 print ("Error: Subscription failed", file=sys.stderr)
                 print ("MESSAGE: %s" % (msg), file=sys.stderr)
                     
-                reason = msg.getElement("reason");
+                reason = msg.getElement("reason")
                 errorcode = reason.getElementAsInteger("errorCode")
                 description = reason.getElementAsString("description")
             
@@ -776,7 +776,7 @@ class SessionEventHandler(object):
         routeTopic = routeTopic + "EMSX_LEG_FILL_SHARES,"
         routeTopic = routeTopic + "EMSX_LEG_FILL_SIDE,"
         routeTopic = routeTopic + "EMSX_LEG_FILL_TICKER,"
-        rotueTopic = routeTopic + "EMSX_LEG_FILL_TIME_ADDED,"
+        routeTopic = routeTopic + "EMSX_LEG_FILL_TIME_ADDED,"
         routeTopic = routeTopic + "EMSX_LIMIT_PRICE,"
         routeTopic = routeTopic + "EMSX_MIFID_II_INSTRUCTION,"
         routeTopic = routeTopic + "EMSX_MISC_FEES,"
